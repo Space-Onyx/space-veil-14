@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxTushkan
-  mapName: 'ИСН Тушканчик TA'
+  mapName: 'Тушканчик'
   mapPath: /Maps/_Onyx/Stations/Tushkan/onyx_tushkan.yml
   maxRandomOffset: 0
   randomRotation: false
@@ -58,7 +58,7 @@
             HeadOfPersonnel: [ 1, 1 ]
             Bartender: [ 1, 1 ]
             Botanist: [ 1, 1 ]
-            Boxer: [ 1, 1 ]
+            # Boxer: [ 1, 1 ]
             Chaplain: [ 1, 1 ]
             Chef: [ 1, 1 ]
             Clown: [ 1, 1 ]

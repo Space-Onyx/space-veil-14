@@ -1,6 +1,6 @@
 - type: gameMap
   id: OnyxOrigin
-  mapName: 'ИСН Исток S14'
+  mapName: 'Исток'
   mapPath: /Maps/_Onyx/Stations/Origin/onyx_origin.yml
   minPlayers: 50
   maxPlayers: 85
@@ -64,7 +64,7 @@
             Passenger: [ -1, -1 ]
             Mime: [ 1, 1 ]
             Musician: [ 2, 2 ]
-            Boxer: [ 1, 1 ]
+            # Boxer: [ 1, 1 ]
             Reporter: [ 1, 1 ]
             #silicon
             StationAi: [ 1, 1 ]
