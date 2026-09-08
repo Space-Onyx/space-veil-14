@@ -388,6 +388,8 @@ namespace Content.Client.Lobby.UI
                 return;
 
             SpriteView.LoadPreview(Profile, JobOverride, ShowClothes.Pressed);
+            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
+            ApplyHiddenLoadoutPreviews(); // <Onyx-LoadoutPreviewVisibility>
 
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
             SetDirty();
@@ -409,6 +411,7 @@ namespace Content.Client.Lobby.UI
         public void SetProfile(HumanoidCharacterProfile? profile, int? slot)
         {
             _settingProfile = true; // <Onyx-CharacterPersonalizationFix>
+            _hiddenPreviewLoadouts.Clear(); // <Onyx-LoadoutPreviewVisibility>
             Profile = profile?.Clone();
             CharacterSlot = slot;
             IsDirty = false;
@@ -456,6 +459,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             SpriteView.ReloadProfilePreview(Profile);
+            _descriptionEditor?.UpdatePreview(Profile, true); // <Onyx-CharacterDescriptions>
 
             // Check and set the dirty flag to enable the save/reset buttons as appropriate.
             SetDirty();
