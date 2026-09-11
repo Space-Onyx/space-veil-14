@@ -295,7 +295,20 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         else
             _audio.PlayPredicted(new SoundCollectionSpecifier("LewdSquelch"), body, user);
 
-        _popup.PopupEntity(Loc.GetString("genital-equipment-equipped", ("item", equipment.Owner)), body, user);
+        if (user == body)
+        {
+            _popup.PopupEntity(Loc.GetString("genital-equipment-equipped-felt", ("item", equipment.Owner)), body, body);
+        }
+        else
+        {
+            _popup.PopupEntity(Loc.GetString("genital-equipment-equipped", ("item", equipment.Owner)), body, user);
+            _popup.PopupEntity(Loc.GetString("genital-equipment-equipped-felt", ("item", equipment.Owner)), body, body);
+        }
+
+        RaiseLocalEvent(body, new GenitalPopupShownEvent(body, 3f));
+        if (user != body)
+            RaiseLocalEvent(user, new GenitalPopupShownEvent(user, 3f));
+
         _adminLog.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(user):player} equipped {ToPrettyString(equipment)} on {ToPrettyString(body):player}");
         RaiseLocalEvent(new GenitalsChangedEvent(body));
@@ -377,9 +390,28 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         equipment.Comp.NextUse = _timing.CurTime + TimeSpan.FromSeconds(1);
 
         var intense = equipment.Comp.SizeStage >= 3 || equipment.Comp.Vibration >= 3;
-        var message = intense ? "genital-equipment-used-intense" : "genital-equipment-used";
-        _popup.PopupEntity(Loc.GetString(message,
-            ("user", user), ("item", equipment.Owner), ("target", body)), body, PopupType.Small);
+
+        if (user == body)
+        {
+            _popup.PopupEntity(Loc.GetString(
+                intense ? "genital-equipment-used-self-intense" : "genital-equipment-used-self",
+                ("user", user), ("item", equipment.Owner)), body, PopupType.Small);
+        }
+        else
+        {
+            _popup.PopupEntity(
+                Loc.GetString(intense ? "genital-equipment-felt-intense" : "genital-equipment-felt"),
+                Loc.GetString(intense ? "genital-equipment-used-intense" : "genital-equipment-used",
+                    ("user", user), ("item", equipment.Owner), ("target", body)),
+                body,
+                body,
+                PopupType.Small);
+        }
+
+        RaiseLocalEvent(body, new GenitalPopupShownEvent(body, 3f));
+
+        if (user != body)
+            RaiseLocalEvent(user, new GenitalPopupShownEvent(user, 3f));
 
         if (intense)
         {
@@ -387,8 +419,6 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
             if (equipment.Comp.Vibration >= 3)
                 _stun.TryAddStunDuration(body, TimeSpan.FromSeconds(2));
         }
-
-        _popup.PopupEntity(Loc.GetString(intense ? "genital-equipment-felt-intense" : "genital-equipment-felt"), body, body);
 
         _adminLog.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(user):player} used {ToPrettyString(equipment)} on {ToPrettyString(body):player}");

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 reagent-name-semen = semen
-reagent-desc-semen = Sperm from some animal. Useless for anything but insemination, really.
+reagent-desc-semen = Animal sperm. Good for exactly one thing.
 reagent-name-femcum = female ejaculate
-reagent-desc-femcum = Vaginal lubricant found in most mammals and other animals of similar nature. Where you found this is your own business.
+reagent-desc-femcum = Vaginal lubricant. Where you got it is best left unasked.
 reagent-name-synthcum = synthetic cum
-reagent-desc-synthcum = Synthetic lubricant designed for cyborgs.
+reagent-desc-synthcum = Lubricant made specifically for synthetics.

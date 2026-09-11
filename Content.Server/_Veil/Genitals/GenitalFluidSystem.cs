@@ -26,6 +26,8 @@ public sealed partial class GenitalFluidSystem : EntitySystem
     [Dependency] private PuddleSystem _puddle = default!;
     [Dependency] private GenitalEquipmentSystem _equipment = default!;
 
+    private const float CondomCapacity = 30f;
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -55,22 +57,28 @@ public sealed partial class GenitalFluidSystem : EntitySystem
         return true;
     }
 
-    public bool TryExpress(EntityUid user, EntityUid organ, out float amount, out string fluidName)
+    public bool TryExpress(EntityUid user, EntityUid organ, out float amount, out string fluidName, out bool intoCondom)
     {
         amount = 0f;
         fluidName = string.Empty;
+        intoCondom = false;
         if (!TryComp(organ, out GenitalFluidComponent? fluid) ||
             fluid.Amount < 0.1f ||
             _timing.CurTime < fluid.NextExpress)
             return false;
 
         var release = Math.Min(2f, fluid.Amount);
-        if (TryGetPenisCondom(user, out var condom, out var stored) && stored.Amount < 30f)
+        if (TryGetPenisCondom(user, out var condom, out var stored))
         {
+            if (stored.Amount >= CondomCapacity)
+                return false;
+
+            release = Math.Min(release, CondomCapacity - stored.Amount);
             stored.ReagentId = fluid.ReagentId;
             stored.Amount += release;
             fluid.Amount -= release;
             amount = release;
+            intoCondom = true;
             fluid.NextExpress = _timing.CurTime + TimeSpan.FromSeconds(2);
             fluidName = _prototypes.TryIndex<ReagentPrototype>(fluid.ReagentId, out var storedReagent)
                 ? storedReagent.LocalizedName

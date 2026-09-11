@@ -5,7 +5,7 @@
   parent: BaseItem
   id: SexToyVibrator
   name: vibrator
-  description: A compact vibrating toy.
+  description: A compact toy with a couple of vibration modes.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/vibrator.rsi
@@ -22,7 +22,7 @@
   parent: BaseItem
   id: SexToyChastityCage
   name: chastity cage
-  description: A restraint designed to prevent arousal.
+  description: Locks desires away and keeps arousal at bay.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/chastity.rsi
@@ -38,7 +38,7 @@
   parent: BaseItem
   id: SexToyCondom
   name: condom
-  description: A protective sheath.
+  description: Thin protection from unwanted consequences.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/condom.rsi
@@ -58,7 +58,7 @@
   parent: BaseItem
   id: SexToySoundingRod
   name: sounding rod
-  description: A smooth rod intended for careful urethral stimulation.
+  description: A smooth rod for the boldest experiments.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/sounding.rsi
@@ -77,7 +77,7 @@
   parent: BaseItem
   id: SexToyDildo
   name: dildo
-  description: A flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A flexible toy that knows its business.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/dildo.rsi
@@ -93,7 +93,7 @@
   parent: BaseItem
   id: SexToyOnahole
   name: onahole
-  description: A soft sleeve designed to stimulate a penis.
+  description: A soft sleeve that matches the shape from within.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/onahole.rsi
@@ -109,7 +109,7 @@
   parent: BaseItem
   id: SexToyButtplugSmall
   name: small buttplug
-  description: A small plug for the anal ring. Usually used... for gratification.
+  description: A neat metal plug for your first steps.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -125,7 +125,7 @@
   parent: BaseItem
   id: SexToyButtplugMedium
   name: medium buttplug
-  description: A medium plug for the anal ring. Usually used... for gratification.
+  description: A weighty metal plug for the more confident.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -140,7 +140,7 @@
   parent: BaseItem
   id: SexToyButtplugBig
   name: big buttplug
-  description: A big plug for the anal ring. Usually used... for gratification.
+  description: A heavy metal plug for those who like it serious.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -157,7 +157,7 @@
   parent: BaseItem
   id: SexToyDildoHuman
   name: human dildo
-  description: A flexible human-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A toy shaped after the human form.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -177,7 +177,7 @@
   parent: BaseItem
   id: SexToyDildoCanine
   name: canine dildo
-  description: A flexible canine-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A canine-shaped toy with a pronounced knot.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -197,7 +197,7 @@
   parent: BaseItem
   id: SexToyDildoEquine
   name: equine dildo
-  description: A flexible equine-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A large equine-shaped toy.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -217,7 +217,7 @@
   parent: BaseItem
   id: SexToyDildoDragon
   name: dragon dildo
-  description: A flexible dragon-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A dragon-shaped toy with ridges.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -237,7 +237,7 @@
   parent: BaseItem
   id: SexToyDildoTentacle
   name: tentacle dildo
-  description: A flexible tentacle-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A twisting tentacle covered in suction cups.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -257,7 +257,7 @@
   parent: BaseItem
   id: SexToyDildoAvian
   name: avian dildo
-  description: A flexible avian-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: An avian-shaped toy with a gentle curve.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -277,7 +277,7 @@
   parent: BaseItem
   id: SexToyDildoDouble
   name: double dildo
-  description: A flexible double-ended sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A two-ended toy for two at once.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -297,7 +297,7 @@
   parent: BaseItem
   id: SexToyPolydildoSmall
   name: small polydildo
-  description: A small flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A compact toy with several ridges.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -318,7 +318,7 @@
   parent: BaseItem
   id: SexToyPolydildoMedium
   name: medium polydildo
-  description: A medium flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A medium toy with a textured surface.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -338,7 +338,7 @@
   parent: BaseItem
   id: SexToyPolydildoBig
   name: big polydildo
-  description: A big flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  description: A large toy with pronounced ridges.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -359,7 +359,7 @@
   parent: BaseItem
   id: SexToyMagicWand
   name: magic wand
-  description: A vibrating magic wand. It doesn't cast spells tho.
+  description: A powerful vibrating wand that can surprise.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -378,7 +378,7 @@
   parent: BaseItem
   id: SexToyBlackWand
   name: black magic wand
-  description: A vibrating black magic wand. It doesn't cast spells tho.
+  description: A powerful black vibrating wand with attitude.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -394,7 +394,7 @@
   parent: BaseItem
   id: SexToyEggVib
   name: egg vibrator
-  description: A small egg-shaped vibrator.
+  description: A tiny vibrator that's easy to carry around.
   components:
     - type: Sprite
       sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -417,7 +417,7 @@
   parent: BaseItem
   id: SexToySignalVib
   name: signal vibrator
-  description: A signal-controlled vibrator.
+  description: A vibrator controlled remotely by signal.
   components:
     - type: Sprite
       sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -440,7 +440,7 @@
   parent: BaseItem
   id: SexToyVibroRing
   name: vibrating ring
-  description: A small vibrating ring.
+  description: A snug vibrating ring for a tight fit.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -459,7 +459,7 @@
   parent: BaseItem
   id: SexToyFleshlightGreen
   name: green fleshlight
-  description: A soft green sleeve designed to stimulate a penis.
+  description: A velvety sleeve in green.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -475,7 +475,7 @@
   parent: BaseItem
   id: SexToyFleshlightPink
   name: pink fleshlight
-  description: A soft pink sleeve designed to stimulate a penis.
+  description: A tender sleeve in pink.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -491,7 +491,7 @@
   parent: BaseItem
   id: SexToyFleshlightRed
   name: red fleshlight
-  description: A soft red sleeve designed to stimulate a penis.
+  description: A fiery sleeve in scarlet.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -507,7 +507,7 @@
   parent: BaseItem
   id: SexToyFleshlightTeal
   name: teal fleshlight
-  description: A soft teal sleeve designed to stimulate a penis.
+  description: A cool sleeve in teal.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -523,7 +523,7 @@
   parent: BaseItem
   id: SexToyFleshlightYellow
   name: yellow fleshlight
-  description: A soft yellow sleeve designed to stimulate a penis.
+  description: A warm sleeve in yellow.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
@@ -539,7 +539,7 @@
   parent: BaseItem
   id: SexToyChastityBelt
   name: chastity belt
-  description: A belt designed to block arousal of the vagina or anus.
+  description: A belt that locks away the most restless places.
   components:
   - type: Sprite
     sprite: _Veil/Objects/Specific/SexToys/chastity.rsi
@@ -556,7 +556,7 @@
   parent: BaseItem
   id: SexToyStraponHuman
   name: human strapon
-  description: A human-shaped dildo on a harness, for use on a partner.
+  description: A human-shaped toy on a harness вЂ” for a partner.
   components:
   - type: Sprite
     sprite: _Veil/Clothing/Belt/strapon.rsi
@@ -583,7 +583,7 @@
   parent: BaseItem
   id: SexToyStraponCanine
   name: canine strapon
-  description: A canine-shaped dildo on a harness, for use on a partner.
+  description: A canine-shaped toy on a harness вЂ” for a partner.
   components:
   - type: Sprite
     sprite: _Veil/Clothing/Belt/strapon.rsi
@@ -610,7 +610,7 @@
   parent: BaseItem
   id: SexToyStraponEquine
   name: equine strapon
-  description: An equine-shaped dildo on a harness, for use on a partner.
+  description: An equine-shaped toy on a harness вЂ” for a partner.
   components:
   - type: Sprite
     sprite: _Veil/Clothing/Belt/strapon.rsi
@@ -637,7 +637,7 @@
   parent: BaseItem
   id: SexToyStraponDragon
   name: dragon strapon
-  description: A dragon-shaped dildo on a harness, for use on a partner.
+  description: A dragon-shaped toy on a harness вЂ” for a partner.
   components:
   - type: Sprite
     sprite: _Veil/Clothing/Belt/strapon.rsi
@@ -664,7 +664,7 @@
   parent: BaseItem
   id: SexToyStraponAvian
   name: avian strapon
-  description: An avian-shaped dildo on a harness, for use on a partner.
+  description: An avian-shaped toy on a harness вЂ” for a partner.
   components:
   - type: Sprite
     sprite: _Veil/Clothing/Belt/strapon.rsi

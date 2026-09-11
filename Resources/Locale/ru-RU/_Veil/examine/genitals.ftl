@@ -1,24 +1,24 @@
 # SPDX-FileCopyrightText: 2026 Space Veil Contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-genital-examine-penis = Виден пенис.
-genital-examine-testicles = Видны яички.
-genital-examine-vagina = Видна вагина.
-genital-examine-breasts = Видна грудь.
-genital-examine-butt = Видны ягодицы.
-genital-examine-anus = Виден анус.
+genital-examine-penis = Заметен пенис.
+genital-examine-testicles = Заметны яички.
+genital-examine-vagina = Заметна вагина.
+genital-examine-breasts = Заметна грудь.
+genital-examine-butt = Заметны ягодицы.
+genital-examine-anus = Заметен анус.
 
 ent-Genital = орган
     .desc = Часть тела.
 ent-GenitalPenis = пенис
-    .desc = Пенис.
+    .desc = Мужской половой орган.
 ent-GenitalTesticles = яички
-    .desc = Яички.
+    .desc = Пара семенников.
 ent-GenitalVagina = вагина
-    .desc = Вагина.
+    .desc = Женский половой орган.
 ent-GenitalBreasts = грудь
-    .desc = Грудь.
+    .desc = Молочные железы.
 ent-GenitalButt = ягодицы
-    .desc = Ягодицы.
+    .desc = Задняя часть тела.
 ent-GenitalAnus = анус
-    .desc = Анус.
+    .desc = Отверстие прямой кишки.

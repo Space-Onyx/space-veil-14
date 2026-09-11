@@ -68,6 +68,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     private static readonly VerbCategory InsertCategory = new("genital-equipment-insert-category", null);
     private static readonly VerbCategory WearCategory = new("genital-equipment-wear-category", null);
     private static readonly VerbCategory ExpressCategory = new("genital-fluid-express-category", null);
+    private static readonly VerbCategory RemoveCategory = new("genital-equipment-remove-category", null);
 
     private void OnUiOpened(Entity<SexualArousalComponent> ent, ref BoundUIOpenedEvent args)
     {
@@ -83,14 +84,9 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     private void OnGetVerbs(Entity<SexualArousalComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         AddInsertVerbs(ent, ref args);
+        AddRemoveVerbs(ent, ref args);
 
         if (args.User != ent.Owner || !IsAlive(ent))
-            return;
-
-        if (IsCoveredByClothes(ent.Owner, BodyPartType.Chest) ||
-            IsCoveredByClothes(ent.Owner, BodyPartType.Groin) ||
-            IsCoveredByUnderwear(ent.Owner, BodyPartType.Chest) ||
-            IsCoveredByUnderwear(ent.Owner, BodyPartType.Groin))
             return;
 
         var user = args.User;
@@ -99,6 +95,12 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
             Text = Loc.GetString("genital-manager-title"),
             Act = () => OpenFor(user),
         });
+
+        if (IsCoveredByClothes(ent.Owner, BodyPartType.Chest) ||
+            IsCoveredByClothes(ent.Owner, BodyPartType.Groin) ||
+            IsCoveredByUnderwear(ent.Owner, BodyPartType.Chest) ||
+            IsCoveredByUnderwear(ent.Owner, BodyPartType.Groin))
+            return;
 
         if (TryGetOwned(ent.Owner, "Breasts", out var breasts, out _) &&
             TryComp(breasts, out GenitalFluidComponent? milk) && milk.Amount >= 0.1f)
@@ -157,6 +159,55 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
         }
     }
 
+    private void AddRemoveVerbs(Entity<SexualArousalComponent> ent, ref GetVerbsEvent<Verb> args)
+    {
+        if (!args.CanInteract)
+            return;
+
+        var user = args.User;
+        foreach (var (organ, genital) in _genitals.GetGenitals(ent))
+        {
+            if (_equipment.GetEquipment(organ) is not { } item ||
+                !IsGenitalAccessible(ent.Owner, genital.Category.Id, genital.Shape, genital.Size, genital.Visibility))
+                continue;
+
+            var itemName = Name(item);
+            var organName = Loc.GetString($"ent-Genital{genital.Category.Id}");
+            args.Verbs.Add(new Verb
+            {
+                Category = RemoveCategory,
+                Text = Loc.GetString("genital-equipment-remove-verb", ("item", itemName), ("organ", organName)),
+                Act = () => RemoveEquipment(ent, organ, itemName, user),
+            });
+        }
+    }
+
+    private void RemoveEquipment(Entity<SexualArousalComponent> ent, EntityUid organ, string itemName, EntityUid user)
+    {
+        if (!_equipment.TryRemove(organ, user))
+            return;
+
+        if (user == ent.Owner)
+        {
+            _popup.PopupEntity(Loc.GetString("genital-equipment-removed-felt", ("item", itemName)), ent, ent.Owner);
+        }
+        else
+        {
+            _popup.PopupEntity(Loc.GetString("genital-equipment-removed", ("item", itemName)), ent, user);
+            _popup.PopupEntity(Loc.GetString("genital-equipment-removed-felt", ("item", itemName)), ent, ent.Owner);
+        }
+
+        SuppressVibrationPopup(ent.Owner);
+        if (user != ent.Owner)
+            SuppressVibrationPopup(user);
+        UpdateUi(ent);
+    }
+
+    private void SuppressVibrationPopup(EntityUid body)
+    {
+        RaiseLocalEvent(body, new GenitalPopupShownEvent(body, 3f));
+    }
+
     private void OnArousalChanged(Entity<GenitalComponent> ent, ref GenitalArousalChangedEvent args)
     {
         if (ent.Comp.Body.IsValid() && TryComp(ent.Comp.Body, out SexualArousalComponent? state))
@@ -205,9 +256,15 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     {
         if (!ValidateOwner(ent, args.Actor) ||
             !TryGetOwned(ent, args.Category, out var organ, out _) ||
-            !_equipment.TryRemove(organ, ent.Owner))
+            _equipment.GetEquipment(organ) is not { } item)
             return;
 
+        var itemName = Name(item);
+        if (!_equipment.TryRemove(organ, ent.Owner))
+            return;
+
+        _popup.PopupEntity(Loc.GetString("genital-equipment-removed-felt", ("item", itemName)), ent, ent.Owner);
+        SuppressVibrationPopup(ent.Owner);
         UpdateUi(ent);
     }
 
@@ -232,13 +289,16 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     {
         if (actor != ent.Owner || !IsAlive(ent) ||
             !TryGetOwned(ent, "Breasts", out var breasts, out _) ||
-            !_fluids.TryExpress(ent.Owner, breasts, out var amount, out _))
+            !_fluids.TryExpress(ent.Owner, breasts, out var amount, out _, out var intoCondom))
         {
             _popup.PopupEntity(Loc.GetString("genital-lactation-failed"), ent, actor);
+            SuppressVibrationPopup(ent.Owner);
             return;
         }
 
-        _popup.PopupEntity(Loc.GetString("genital-lactation-success", ("amount", amount.ToString("F1"))), ent, actor);
+        if (!intoCondom)
+            _popup.PopupEntity(Loc.GetString("genital-lactation-success", ("amount", amount.ToString("F1"))), ent, actor);
+        SuppressVibrationPopup(ent.Owner);
         _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(ent):player} milked {amount:F1}u from breasts");
         UpdateUi(ent);
     }
@@ -246,14 +306,17 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     private void TryExpress(Entity<SexualArousalComponent> ent, EntityUid actor, string category, EntityUid organ)
     {
         if (actor != ent.Owner || !IsAlive(ent) ||
-            !_fluids.TryExpress(ent.Owner, organ, out var amount, out var fluid))
+            !_fluids.TryExpress(ent.Owner, organ, out var amount, out var fluid, out var intoCondom))
         {
             _popup.PopupEntity(Loc.GetString("genital-fluid-express-failed"), ent, actor);
+            SuppressVibrationPopup(ent.Owner);
             return;
         }
 
-        _popup.PopupEntity(Loc.GetString("genital-fluid-express-success",
-            ("amount", amount.ToString("F1")), ("fluid", fluid)), ent, actor);
+        if (!intoCondom)
+            _popup.PopupEntity(Loc.GetString("genital-fluid-express-success",
+                ("amount", amount.ToString("F1")), ("fluid", fluid)), ent, actor);
+        SuppressVibrationPopup(ent.Owner);
         _adminLog.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(ent):player} expressed {amount:F1}u of {fluid} from {category}");
         UpdateUi(ent);

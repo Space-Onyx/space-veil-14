@@ -4,7 +4,7 @@
   parent: [BaseItem, BaseFoldable]
   id: StripperPole
   name: stripper pole
-  description: A pole fastened to the ceiling and floor, used to show off one's goods to company.
+  description: A pole from floor to ceiling — for those who know how to put on a show.
   components:
   - type: Transform
     noRot: true

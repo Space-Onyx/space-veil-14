@@ -5,7 +5,7 @@
   parent: VendingMachine
   id: KinkMate
   name: KinkMate
-  description: A vending machine for all your unmentionable desires.
+  description: A vending machine for those who know exactly what they want.
   components:
   - type: VendingMachine
     pack: LustVendInventory

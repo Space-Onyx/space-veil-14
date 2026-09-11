@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 reagent-name-semen = семя
-reagent-desc-semen = Сперма какого-то животного. Ни на что не годна, кроме осеменения.
+reagent-desc-semen = Сперма животного. Годится только для одного.
 reagent-name-femcum = женский эякулят
-reagent-desc-femcum = Вагинальная смазка, встречающаяся у большинства млекопитающих и подобных животных. Где вы это нашли — ваше дело.
+reagent-desc-femcum = Вагинальная смазка. Откуда она у вас — лучше не спрашивать.
 reagent-name-synthcum = синтетическое семя
-reagent-desc-synthcum = Синтетическая смазка, разработанная для киборгов.
+reagent-desc-synthcum = Смазка, созданная специально для синтетиков.

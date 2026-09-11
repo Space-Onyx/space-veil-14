@@ -10,7 +10,7 @@ namespace Content.Server._Veil.Genitals;
 [RegisterComponent]
 [Access(typeof(GenitalSystem), typeof(GenitalProfileSystem), typeof(GenitalManagerSystem), typeof(ModifyGenitalSizeSystem),
     typeof(GenitalFluidSystem), typeof(GenitalDetailExamineSystem), typeof(GenitalEquipmentSystem), typeof(GenitalVisualSystem),
-    typeof(GenitalArousalSystem))]
+    typeof(GenitalArousalSystem), typeof(GenitalVibrationArousalSystem))]
 public sealed partial class GenitalComponent : Component
 {
     public ProtoId<GenitalCategoryPrototype> Category;
