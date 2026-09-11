@@ -1,0 +1,303 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+- type: genitalVisual
+  id: PenisHuman
+  category: Penis
+  shape: Human
+  layer: Penis
+  part: Groin
+  statePrefix: penis_human_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_human_1, penis_human_2, penis_human_3, penis_human_4]
+
+- type: genitalVisual
+  id: PenisKnotted
+  category: Penis
+  shape: Knotted
+  layer: Penis
+  part: Groin
+  statePrefix: penis_knotted_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["5"]
+  noArousedSkintoneStates: ["5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_knotted_1, penis_knotted_2, penis_knotted_3, penis_knotted_4]
+
+- type: genitalVisual
+  id: PenisBarbknot
+  category: Penis
+  shape: Barbknot
+  layer: Penis
+  part: Groin
+  statePrefix: penis_barbknot_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["5"]
+  noArousedSkintoneStates: ["5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_barbknot_1, penis_barbknot_2, penis_barbknot_3, penis_barbknot_4]
+
+- type: genitalVisual
+  id: PenisFlared
+  category: Penis
+  shape: Flared
+  layer: Penis
+  part: Groin
+  statePrefix: penis_flared_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["5"]
+  noArousedSkintoneStates: ["5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_flared_1, penis_flared_2, penis_flared_3, penis_flared_4]
+
+- type: genitalVisual
+  id: PenisTentacle
+  category: Penis
+  shape: Tentacle
+  species: [ SlimePerson ]
+  layer: Penis
+  part: Groin
+  statePrefix: penis_tentacle_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["5"]
+  noArousedSkintoneStates: ["1", "2", "3", "5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_tentacle_1, penis_tentacle_2, penis_tentacle_3, penis_tentacle_4]
+
+- type: genitalVisual
+  id: PenisHemi
+  category: Penis
+  shape: Hemi
+  layer: Penis
+  part: Groin
+  statePrefix: penis_hemi_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["5"]
+  noArousedSkintoneStates: ["5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_hemi_1, penis_hemi_2, penis_hemi_3, penis_hemi_4]
+
+- type: genitalVisual
+  id: PenisHemiknot
+  category: Penis
+  shape: Hemiknot
+  layer: Penis
+  part: Groin
+  statePrefix: penis_hemiknot_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["5"]
+  noArousedSkintoneStates: ["5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_hemiknot_1, penis_hemiknot_2, penis_hemiknot_3, penis_hemiknot_4]
+
+- type: genitalVisual
+  id: PenisThick
+  category: Penis
+  shape: Thick
+  layer: Penis
+  part: Groin
+  statePrefix: penis_thick_
+  rsi: _Veil/Mobs/Customization/Genitals/penis.rsi
+  sizeThresholds: [12, 24, 50, 90, 999]
+  sizeStates: ["1", "2", "3", "4", "5"]
+  noSkintoneStates: ["1", "2", "3", "4", "5"]
+  noArousedSkintoneStates: ["1", "2", "3", "4", "5"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/penis.rsi
+  detachedStates: [penis_thick_1, penis_thick_2, penis_thick_3, penis_thick_4]
+
+- type: genitalVisual
+  id: TesticlesSingle
+  category: Testicles
+  shape: Single
+  layer: Testicles
+  part: Groin
+  statePrefix: testicles_single_
+  rsi: _Veil/Mobs/Customization/Genitals/testicles.rsi
+  sizeThresholds: [1, 2, 3]
+  sizeStates: ["1", "2", "3"]
+  noArousedSkintoneStates: ["1", "2", "3"]
+  detachedRsi: _Veil/Mobs/Customization/Genitals/testicles.rsi
+  detachedStates: [testicles_single_1_0_FRONT, testicles_single_2_0_FRONT, testicles_single_3_0_FRONT]
+  detachedSkintoneSuffix: ""
+
+- type: genitalVisual
+  id: TesticlesSheath
+  category: Testicles
+  shape: Sheath
+  layer: Testicles
+  part: Groin
+  statePrefix: testicles_sheath_
+  rsi: _Veil/Mobs/Customization/Genitals/testicles.rsi
+  sizeThresholds: [1, 2, 3]
+  sizeStates: ["1", "2", "3"]
+  detachedRsi: _Veil/Mobs/Customization/Genitals/testicles.rsi
+  detachedStates: [testicles_sheath_1_0_FRONT, testicles_sheath_2_0_FRONT, testicles_sheath_3_0_FRONT]
+  detachedSkintoneSuffix: ""
+
+- type: genitalVisual
+  id: AnusDonut
+  category: Anus
+  shape: Human
+  layer: Anus
+  part: Groin
+  statePrefix: anus_donut_
+  rsi: _Veil/Objects/Specific/Medical/Organs/anus.rsi
+  internal: true
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/anus.rsi
+  detachedStates: [anus]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaHuman
+  category: Vagina
+  shape: Human
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_human_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaGaping
+  category: Vagina
+  shape: Gaping
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_gaping_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaTentacle
+  category: Vagina
+  shape: Tentacle
+  species: [ SlimePerson ]
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_tentacle_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaHairy
+  category: Vagina
+  shape: Hairy
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_hairy_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaFurred
+  category: Vagina
+  shape: Furred
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_furred_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaSpade
+  category: Vagina
+  shape: Spade
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_spade_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaSergal
+  category: Vagina
+  shape: Sergal
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_sergal_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: "-s"
+
+- type: genitalVisual
+  id: VaginaCloaca
+  category: Vagina
+  shape: Cloaca
+  species: [ Vox ]
+  layer: Vagina
+  part: Groin
+  statePrefix: vagina_cloaca_1
+  rsi: _Veil/Mobs/Customization/Genitals/vagina.rsi
+  noSkintoneStates: [""]
+  noArousedSkintoneStates: [""]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/vagina.rsi
+  detachedStates: [vagina]
+  detachedSkintoneSuffix: ""
+
+- type: genitalVisual
+  id: BreastsPair
+  category: Breasts
+  shape: Pair
+  layer: Breasts
+  part: Chest
+  statePrefix: breasts_pair_
+  rsi: _Veil/Mobs/Customization/Genitals/breasts.rsi
+  sizeThresholds: [1, 2, 3, 4, 5, 6, 7]
+  sizeStates: [a, b, c, d, e, f, g]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/breasts.rsi
+  detachedStates: [breasts_pair_a, breasts_pair_b, breasts_pair_c, breasts_pair_d, breasts_pair_e]
+
+- type: genitalVisual
+  id: BreastsQuad
+  category: Breasts
+  shape: Quad
+  species: [ SlimePerson ]
+  layer: Breasts
+  part: Chest
+  statePrefix: breasts_quad_
+  rsi: _Veil/Mobs/Customization/Genitals/breasts.rsi
+  sizeThresholds: [1, 2, 3, 4, 5, 6, 7]
+  sizeStates: [a, b, c, d, e, f, g]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/breasts.rsi
+  detachedStates: [breasts_quad_a, breasts_quad_b, breasts_quad_c, breasts_quad_d, breasts_quad_e]
+
+- type: genitalVisual
+  id: ButtPair
+  category: Butt
+  shape: Pair
+  layer: Butt
+  part: Groin
+  statePrefix: butt_pair_
+  rsi: _Veil/Mobs/Customization/Genitals/butt.rsi
+  sizeThresholds: [0, 1, 2, 3]
+  sizeStates: ["0", "1", "2", "3"]
+  noArousedStates: ["0", "1", "2", "3"]
+  detachedRsi: _Veil/Objects/Specific/Medical/Organs/butt.rsi
+  detachedStates: [butt_pair_1, butt_pair_1, butt_pair_2, butt_pair_3]

@@ -357,6 +357,7 @@ namespace Content.Server.Database
         public string Species { get; set; } = null!;
         [Column("ttsvoice")] public string TTSVoice { get; set; } = null!; // Corvax-TTS
         [Column(TypeName = "jsonb")] public JsonDocument? OrganMarkings { get; set; } = null!;
+        [Column(TypeName = "jsonb")] public JsonDocument? Genitals { get; set; } // <Veil-Genitals>
         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
         public string HairName { get; set; } = null!;
         public string HairColor { get; set; } = null!;

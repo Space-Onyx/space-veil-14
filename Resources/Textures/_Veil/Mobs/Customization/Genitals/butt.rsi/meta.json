@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/9b95fe5ffeececb1625eacc829dbd4366abc5a0d/modular_splurt/icons/obj/genitals/butt_onmob.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "butt_pair_0_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_0_s_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_1_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_1_s_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_2_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_2_s_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_3_0_FRONT",
+      "directions": 4
+    },
+    {
+      "name": "butt_pair_3_s_0_FRONT",
+      "directions": 4
+    }
+  ]
+}

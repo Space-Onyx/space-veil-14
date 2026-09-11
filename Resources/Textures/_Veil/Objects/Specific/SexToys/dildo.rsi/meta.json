@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/master/icons/obj/genitals/dildo.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "dildo_knotted_1"
+    },
+    {
+      "name": "dildo_knotted_2"
+    },
+    {
+      "name": "dildo_knotted_3"
+    },
+    {
+      "name": "dildo_human_1"
+    },
+    {
+      "name": "dildo_human_2"
+    },
+    {
+      "name": "dildo_human_3"
+    },
+    {
+      "name": "dildo_plain_1"
+    },
+    {
+      "name": "dildo_plain_2"
+    },
+    {
+      "name": "dildo_plain_3"
+    },
+    {
+      "name": "dildo_flared_1"
+    },
+    {
+      "name": "dildo_flared_2"
+    },
+    {
+      "name": "dildo_flared_3"
+    },
+    {
+      "name": "dildo_flared_4"
+    },
+    {
+      "name": "dildo_flared_5"
+    }
+  ]
+}

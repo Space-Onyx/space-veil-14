@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: soundCollection
+  id: LewdKiss
+  files:
+  - /Audio/_Veil/Interactions/Kiss/kiss1.ogg
+  - /Audio/_Veil/Interactions/Kiss/kiss2.ogg
+  - /Audio/_Veil/Interactions/Kiss/kiss3.ogg
+  - /Audio/_Veil/Interactions/Kiss/kiss4.ogg
+  - /Audio/_Veil/Interactions/Kiss/kiss5.ogg
+
+- type: soundCollection
+  id: LewdSquelch
+  files:
+  - /Audio/_Veil/Interactions/squelch1.ogg
+  - /Audio/_Veil/Interactions/squelch2.ogg
+  - /Audio/_Veil/Interactions/squelch3.ogg

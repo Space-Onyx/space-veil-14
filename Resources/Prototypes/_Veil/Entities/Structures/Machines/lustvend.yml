@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: VendingMachine
+  id: KinkMate
+  name: KinkMate
+  description: A vending machine for all your unmentionable desires.
+  components:
+  - type: VendingMachine
+    pack: LustVendInventory
+    priceMultiplier: 1
+  - type: VendingMachineVisuals
+    offState: sexnow-off
+    brokenState: sexnow-broken
+    normalState: sexnow
+    denyState: sexnow-deny
+  - type: Sprite
+    sprite: _Veil/Structures/Machines/VendingMachines/kinkomate.rsi
+    layers:
+    - state: sexnow-off
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: sexnow-off
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+      shader: unshaded
+    - state: kink-panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: PointLight
+    color: "#E5679E"

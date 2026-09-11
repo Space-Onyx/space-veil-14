@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/9b95fe5ffeececb1625eacc829dbd4366abc5a0d/icons/obj/genitals/butt.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "butt_pair_5"
+    },
+    {
+      "name": "butt_pair_4"
+    },
+    {
+      "name": "butt_pair_3"
+    },
+    {
+      "name": "butt_pair_2"
+    },
+    {
+      "name": "butt_pair_1"
+    },
+    {
+      "name": "butt_pair_5_s"
+    },
+    {
+      "name": "butt_pair_4_s"
+    },
+    {
+      "name": "butt_pair_3_s"
+    },
+    {
+      "name": "butt_pair_2_s"
+    },
+    {
+      "name": "butt_pair_1_s"
+    }
+  ]
+}

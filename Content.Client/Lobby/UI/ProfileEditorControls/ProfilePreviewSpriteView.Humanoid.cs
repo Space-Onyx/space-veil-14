@@ -29,6 +29,7 @@ public sealed partial class ProfilePreviewSpriteView
             return;
 
         EntMan.System<SharedVisualBodySystem>().ApplyProfileTo(PreviewDummy, humanoid);
+        EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, humanoid); // <Veil-Genitals>
     }
 
     /// <summary>
@@ -73,6 +74,9 @@ public sealed partial class ProfilePreviewSpriteView
                 GiveDummyLoadout(loadout);
             }
         }
+
+        if (humanoid != null && EntMan.HasComponent<VisualBodyComponent>(PreviewDummy)) // <Veil-Genitals>
+            EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, humanoid); // <Veil-Genitals>
     }
 
     /// <summary>
@@ -182,5 +186,8 @@ public sealed partial class ProfilePreviewSpriteView
                 inventorySys.TryEquip(PreviewDummy, item, slot.Name, true, true);
             }
         }
+
+        if (EntMan.HasComponent<VisualBodyComponent>(PreviewDummy)) // <Veil-Genitals>
+            EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, profile); // <Veil-Genitals>
     }
 }

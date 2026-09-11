@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/master/modular_splurt/icons/obj/lewd_items/chastity.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "belt"
+    },
+    {
+      "name": "standard_cage"
+    },
+    {
+      "name": "worn_standard_cage_1",
+      "directions": 4
+    },
+    {
+      "name": "worn_standard_cage_2",
+      "directions": 4
+    },
+    {
+      "name": "worn_standard_cage_3",
+      "directions": 4
+    },
+    {
+      "name": "metal_cage"
+    },
+    {
+      "name": "worn_metal_cage_1",
+      "directions": 4
+    },
+    {
+      "name": "worn_metal_cage_2",
+      "directions": 4
+    },
+    {
+      "name": "worn_metal_cage_3",
+      "directions": 4
+    },
+    {
+      "name": "worn_metal_cage_1_skin",
+      "directions": 4
+    },
+    {
+      "name": "worn_metal_cage_2_skin",
+      "directions": 4
+    },
+    {
+      "name": "worn_metal_cage_3_skin",
+      "directions": 4
+    },
+    {
+      "name": "estim_cage"
+    }
+  ]
+}

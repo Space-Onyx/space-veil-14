@@ -252,6 +252,7 @@ namespace Content.Shared.Preferences
         {
             _cybernetics = new List<EntProtoId>(other.Cybernetics); // <Onyx-CyberneticsPersonalization>
             CopyDescriptionFields(other); // <Onyx-CharacterDescriptions>
+            CopyGenitalFields(other); // <Veil-Genitals>
         }
 
         /// <summary>
@@ -274,12 +275,13 @@ namespace Content.Shared.Preferences
             species ??= HumanoidCharacterProfile.DefaultSpecies;
             sex ??= Sex.Male;
 
-            return new()
+            var profile = new HumanoidCharacterProfile
             {
                 Species = species.Value,
                 Sex = sex.Value,
                 Appearance = HumanoidCharacterAppearance.DefaultWithSpecies(species.Value, sex.Value),
             };
+            return profile.WithGenitals(DefaultGenitals(species.Value.Id, sex.Value)); // <Veil-Genitals>
         }
 
         /// <summary>
@@ -470,6 +472,7 @@ namespace Content.Shared.Preferences
             profile.Bark = baseProfile.Bark.Copy();
             // </Onyx-Barks>
             profile._cybernetics = new List<EntProtoId>(baseProfile.Cybernetics); // <Onyx-CyberneticsPersonalization>
+            profile.CopyRandomizedGenitalFields(baseProfile); // <Veil-Genitals>
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -537,7 +540,11 @@ namespace Content.Shared.Preferences
 
         public HumanoidCharacterProfile WithSex(Sex sex)
         {
-            return new(this) { Sex = sex };
+            // <Veil-Genitals-edited>
+            var profile = new HumanoidCharacterProfile(this) { Sex = sex };
+            profile.UpdateDefaultGenitals(Sex);
+            return profile;
+            // </Veil-Genitals-edited>
         }
 
         public HumanoidCharacterProfile WithVoice(ProtoId<EmoteSoundsPrototype> voice)
@@ -819,6 +826,7 @@ namespace Content.Shared.Preferences
             if (!Bark.MemberwiseEquals(other.Bark)) return false;
             // </Onyx-Barks>
             if (TTSVoice != other.TTSVoice) return false; // Corvax-TTS
+            if (!GenitalFieldsEqual(other)) return false; // <Veil-Genitals>
             return Appearance.Equals(other.Appearance);
         }
 
@@ -826,6 +834,7 @@ namespace Content.Shared.Preferences
         {
             var configManager = collection.Resolve<IConfigurationManager>();
             var prototypeManager = collection.Resolve<IPrototypeManager>();
+            EnsureGenitalFieldsValid(prototypeManager); // <Veil-Genitals>
             var componentFactory = collection.Resolve<IComponentFactory>(); // <Onyx-CyberneticsPersonalization>
 
             if (!prototypeManager.TryIndex(Species, out var speciesPrototype) || speciesPrototype.RoundStart == false)
@@ -1143,6 +1152,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(Appearance);
             hashCode.Add((int)SpawnPriority);
             hashCode.Add((int)PreferenceUnavailable);
+            AddGenitalFieldsHash(ref hashCode); // <Veil-Genitals>
             return hashCode.ToHashCode();
         }
 

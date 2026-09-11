@@ -1139,6 +1139,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("gender");
 
+                    b.Property<byte[]>("Genitals")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("genitals"); // <Veil-Genitals>
+
                     b.Property<string>("HairColor")
                         .IsRequired()
                         .HasColumnType("TEXT")

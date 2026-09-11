@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/9b95fe5ffeececb1625eacc829dbd4366abc5a0d/icons/obj/genitals/anus.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "anus"
+    },
+    {
+      "name": "anus-s"
+    }
+  ]
+}

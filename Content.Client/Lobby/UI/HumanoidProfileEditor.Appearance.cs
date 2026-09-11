@@ -299,6 +299,7 @@ public sealed partial class HumanoidProfileEditor
         UpdateDimensionControls();
         // </Onyx-HeightWidth>
         ReloadPreview();
+        RefreshGenitalEditor(); // <Veil-Genitals>
     }
 
     private void SetAge(int newAge)
@@ -333,6 +334,7 @@ public sealed partial class HumanoidProfileEditor
         UpdateTTSVoicesControls(); // Corvax-TTS
         _markingsModel.SetOrganSexes(newSex);
         ReloadPreview();
+        RefreshGenitalEditor(); // <Veil-Genitals>
     }
 
     private void SetVoice(ProtoId<EmoteSoundsPrototype> newVoice)

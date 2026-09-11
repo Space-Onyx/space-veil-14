@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: genitalCategory
+  id: Penis
+
+- type: genitalCategory
+  id: Testicles
+
+- type: genitalCategory
+  id: Vagina
+
+- type: genitalCategory
+  id: Breasts
+
+- type: genitalCategory
+  id: Butt
+
+- type: genitalCategory
+  id: Anus
+
+- type: entity
+  id: GenitalBase
+  abstract: true
+  name: genital
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/organs.rsi
+    state: appendix
+    visible: false
+  - type: DetachedGenitalVisual
+
+- type: entity
+  parent: GenitalBase
+  id: Genital

@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+- type: entity
+  parent: [BaseItem, BaseFoldable]
+  id: StripperPole
+  name: stripper pole
+  description: A pole fastened to the ceiling and floor, used to show off one's goods to company.
+  components:
+  - type: Transform
+    noRot: true
+  - type: Sprite
+    sprite: _Veil/Structures/Pole/pole.rsi
+    noRot: true
+    drawdepth: BelowMobs
+    offset: 0, 0.65625
+    layers:
+    - state: pole
+      map: ["unfoldedLayer"]
+    - state: pole_base
+      map: ["foldedLayer"]
+      visible: false
+  - type: Item
+    size: Huge
+  - type: Strap
+    position: Stand
+    enabled: false
+    buckleOnInteractHand: false
+    modifyBuckleDrawDepth: false
+  - type: Foldable
+    folded: true
+    foldVerbText: pole-fold-verb
+    unfoldVerbText: pole-unfold-verb
+  - type: SimpleToolUsage
+    quality: Anchoring
+    doAfter: 8
+    usageVerb: pole-tool-verb
+  - type: Pole

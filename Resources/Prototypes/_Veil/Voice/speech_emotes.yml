@@ -1,0 +1,56 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: emote
+  id: Kiss
+  name: chat-emote-name-kiss
+  category: Vocal
+  icon: Interface/Emotes/squeak.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages: ["chat-emote-msg-kiss"]
+  chatTriggers:
+    - kiss
+    - kisses
+    - kissing
+    - kissed
+    - целует
+    - целуются
+    - поцелуй
+
+- type: emote
+  id: Spank
+  name: chat-emote-name-spank
+  category: Vocal
+  icon: Interface/Emotes/tailslap.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages: ["chat-emote-msg-spank"]
+  chatTriggers:
+    - spank
+    - spanks
+    - spanking
+    - spanked
+    - шлепает
+    - шлёпает
+    - шлепок
+
+- type: emote
+  id: Squelch
+  name: chat-emote-name-squelch
+  category: Vocal
+  icon: Interface/Emotes/squish.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages: ["chat-emote-msg-squelch"]
+  chatTriggers:
+    - squelch
+    - squelches
+    - squelching
+    - хлюп
+    - чавкает
+    - чавкнул
+    - чавкнула

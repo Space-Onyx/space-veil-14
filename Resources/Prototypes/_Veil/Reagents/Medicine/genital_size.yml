@@ -1,0 +1,90 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: reagent
+  id: SuccubusMilk
+  name: reagent-name-succubus-milk
+  group: Medicine
+  desc: reagent-desc-succubus-milk
+  physicalDesc: reagent-physical-desc-milky
+  flavor: milk
+  color: "#E60584"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:ModifyGenitalSize
+        category: Breasts
+        amount: 0.1
+    Digestion:
+      metabolismRate: 0.25
+      effects:
+      - !type:ModifyGenitalSize
+        category: Breasts
+        amount: 0.1
+
+- type: reagent
+  id: ModestyMilk
+  name: reagent-name-modesty-milk
+  group: Medicine
+  desc: reagent-desc-modesty-milk
+  physicalDesc: reagent-physical-desc-milky
+  flavor: milk
+  color: "#E60584"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.25
+      effects:
+      - !type:ModifyGenitalSize
+        category: Breasts
+        amount: -0.05
+    Digestion:
+      metabolismRate: 0.25
+      effects:
+      - !type:ModifyGenitalSize
+        category: Breasts
+        amount: -0.05
+
+- type: reagent
+  id: IncubusDraft
+  name: reagent-name-incubus-draft
+  group: Medicine
+  desc: reagent-desc-incubus-draft
+  physicalDesc: reagent-physical-desc-metallic
+  flavor: bitter
+  color: "#888888"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:ModifyGenitalSize
+        category: Penis
+        amount: 0.5
+    Digestion:
+      metabolismRate: 0.5
+      effects:
+      - !type:ModifyGenitalSize
+        category: Penis
+        amount: 0.5
+
+- type: reagent
+  id: ChastityDraft
+  name: reagent-name-chastity-draft
+  group: Medicine
+  desc: reagent-desc-chastity-draft
+  physicalDesc: reagent-physical-desc-metallic
+  flavor: bitter
+  color: "#888888"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:ModifyGenitalSize
+        category: Penis
+        amount: -0.1
+    Digestion:
+      metabolismRate: 0.5
+      effects:
+      - !type:ModifyGenitalSize
+        category: Penis
+        amount: -0.1

@@ -1206,6 +1206,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("gender");
 
+                    b.Property<JsonDocument>("Genitals")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("genitals"); // <Veil-Genitals>
+
                     b.Property<string>("HairColor")
                         .IsRequired()
                         .HasColumnType("text")

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/master/modular_splurt/icons/obj/vibrator.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "vibe"
+    },
+    {
+      "name": "vibing",
+      "delays": [
+        [
+          0.01,
+          0.01
+        ]
+      ]
+    },
+    {
+      "name": "vibesmall"
+    },
+    {
+      "name": "vibingsmall",
+      "delays": [
+        [
+          0.01,
+          0.01
+        ]
+      ]
+    }
+  ]
+}

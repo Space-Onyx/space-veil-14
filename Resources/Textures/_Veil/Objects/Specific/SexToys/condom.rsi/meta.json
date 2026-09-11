@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/master/modular_splurt/icons/obj/condom.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "b_condom_wrapped"
+    },
+    {
+      "name": "b_condom"
+    },
+    {
+      "name": "b_condom_out"
+    },
+    {
+      "name": "condomhat",
+      "directions": 4
+    },
+    {
+      "name": "b_condom_inflated"
+    },
+    {
+      "name": "b_condom_inflated-overlay"
+    },
+    {
+      "name": "b_condom_inflated_med"
+    },
+    {
+      "name": "b_condom_inflated_med-overlay"
+    },
+    {
+      "name": "b_condom_inflated_large"
+    },
+    {
+      "name": "b_condom_inflated_large-overlay"
+    },
+    {
+      "name": "b_condom_inflated_huge"
+    },
+    {
+      "name": "b_condom_inflated_huge-overlay"
+    }
+  ]
+}

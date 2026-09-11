@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: CrateGenericSteel
+  id: CrateSexToys
+  name: sex toy crate
+  description: A crate containing assorted intimate toys.
+  components:
+  - type: StorageFill
+    contents:
+    - id: SexToyDildo
+      amount: 2
+    - id: SexToyVibrator
+      amount: 2
+    - id: SexToyButtplugSmall
+      amount: 2
+    - id: SexToyOnahole
+    - id: SexToyCondom
+      amount: 4
+    - id: StripperPole

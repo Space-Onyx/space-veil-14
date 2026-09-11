@@ -1,0 +1,52 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: genitalConfig
+  id: Default
+  categories:
+    Male: [ Penis, Testicles, Anus, Butt ]
+    Female: [ Vagina, Breasts, Anus, Butt ]
+    Unsexed: [ Penis, Testicles, Vagina, Breasts, Anus, Butt ]
+  alwaysPresent:
+    Male: [ Penis, Testicles, Anus ]
+    Female: [ Vagina, Breasts, Anus ]
+  shapes:
+    Vagina: Human
+  fluids:
+    Breasts: [ Milk, MilkOat, MilkSoy, MilkGoat, MilkSheep, Cream ]
+    Testicles: [ Semen ]
+    Vagina: [ Femcum ]
+  defaultFluids: [ Milk ]
+
+- type: genitalConfig
+  id: SlimePerson
+  parent: Default
+  categories:
+    Male: [ Penis, Testicles, Vagina, Breasts, Anus, Butt ]
+    Female: [ Penis, Testicles, Vagina, Breasts, Anus, Butt ]
+    Unsexed: [ Penis, Testicles, Vagina, Breasts, Anus, Butt ]
+  alwaysPresent:
+    Male: [ Penis, Testicles, Anus ]
+    Female: [ Vagina, Breasts, Anus ]
+  allowTransparentColor: true
+  allowRuntimeSize: true
+  fluids:
+    Breasts: [ Slime ]
+    Testicles: [ Slime ]
+    Vagina: [ Slime ]
+  defaultFluids: [ Slime ]
+
+- type: genitalConfig
+  id: Vox
+  parent: Default
+  categories:
+    Male: [ Vagina, Breasts ]
+    Female: [ Vagina, Breasts ]
+    Unsexed: [ Vagina, Breasts ]
+  alwaysPresent:
+    Male: [ Vagina ]
+    Female: [ Vagina, Breasts ]
+  shapes:
+    Vagina: Cloaca
+  availableShapes:
+    Vagina: [ Cloaca ]

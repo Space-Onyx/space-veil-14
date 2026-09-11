@@ -54,6 +54,14 @@
     DefaultDeathgasp:
       collection: MaleDeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
+    # <Veil-IntimateEmotes>
+    Kiss:
+      collection: LewdKiss
+    Spank:
+      path: /Audio/_Veil/Interactions/slap.ogg
+    Squelch:
+      collection: LewdSquelch
+    # </Veil-IntimateEmotes>
 
 - type: emoteSounds
   id: FemaleHuman
@@ -110,6 +118,14 @@
     DefaultDeathgasp:
       collection: FemaleDeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
+    # <Veil-IntimateEmotes>
+    Kiss:
+      collection: LewdKiss
+    Spank:
+      path: /Audio/_Veil/Interactions/slap.ogg
+    Squelch:
+      collection: LewdSquelch
+    # </Veil-IntimateEmotes>
 
 - type: emoteSounds
   id: MaleReptilian
@@ -418,6 +434,14 @@
     DefaultDeathgasp:
       collection: MaleDeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
+    # <Veil-IntimateEmotes>
+    Kiss:
+      collection: LewdKiss
+    Spank:
+      path: /Audio/_Veil/Interactions/slap.ogg
+    Squelch:
+      collection: LewdSquelch
+    # </Veil-IntimateEmotes>
   params:
     variation: 0.125
     pitch: 0.75
@@ -463,6 +487,14 @@
     DefaultDeathgasp:
       collection: FemaleDeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/Human/gulp.ogg } # <Onyx-RacialEmoteSounds>
+    # <Veil-IntimateEmotes>
+    Kiss:
+      collection: LewdKiss
+    Spank:
+      path: /Audio/_Veil/Interactions/slap.ogg
+    Squelch:
+      collection: LewdSquelch
+    # </Veil-IntimateEmotes>
   params:
     variation: 0.125
     pitch: 0.75

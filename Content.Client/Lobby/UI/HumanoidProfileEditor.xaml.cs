@@ -110,6 +110,7 @@ namespace Content.Client.Lobby.UI
             _allowFlavorText = _cfgManager.GetCVar(CCVars.FlavorText);
 
             InitializeLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
+            InitializeGenitalEditor(); // <Veil-Genitals>
 
             Markings.SetModel(_markingsModel);
 
@@ -441,6 +442,7 @@ namespace Content.Client.Lobby.UI
             RefreshTraits();
             RefreshFlavorText();
             RefreshCybernetics(); // <Onyx-CyberneticsPersonalization>
+            RefreshGenitalEditor(); // <Veil-Genitals>
             ReloadPreview();
 
             if (Profile != null)

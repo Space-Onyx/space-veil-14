@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: reagent
+  id: Semen
+  name: reagent-name-semen
+  group: Drinks
+  desc: reagent-desc-semen
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: salty
+  color: "#FFFFFF"
+  recognizable: true
+
+- type: reagent
+  id: Femcum
+  name: reagent-name-femcum
+  group: Drinks
+  desc: reagent-desc-femcum
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: slimy
+  color: "#FFFFFF"
+  recognizable: true
+
+- type: reagent
+  id: SynthCum
+  name: reagent-name-synthcum
+  group: Drinks
+  desc: reagent-desc-synthcum
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: oily
+  color: "#5CB2CC"
+  recognizable: true

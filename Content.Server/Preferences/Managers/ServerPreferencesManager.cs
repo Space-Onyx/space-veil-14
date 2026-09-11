@@ -18,6 +18,7 @@ using Content.Shared.Preferences.Loadouts;
 using Content.Shared._Onyx.SpeechBarks;
 using Content.Shared.Roles;
 using Content.Shared.Traits;
+using Content.Shared._Veil.Genitals; // <Veil-Genitals>
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
@@ -167,6 +168,14 @@ namespace Content.Server.Preferences.Managers
 
             var loadouts = new Dictionary<string, RoleLoadout>();
 
+            var genitals = HumanoidCharacterProfile.DefaultGenitals(_prototypeManager, species, sex); // <Veil-Genitals>
+            if (profile.Genitals?.RootElement is { } genitalElement) // <Veil-Genitals>
+            {
+                var genitalData = genitalElement.ToDataNode(); // <Veil-Genitals>
+                genitals = _serialization.Read<Dictionary<ProtoId<GenitalCategoryPrototype>, GenitalProfileData>>( // <Veil-Genitals-edited>
+                    genitalData, notNullableOverride: true); // <Veil-Genitals>
+            }
+
             foreach (var role in profile.Loadouts)
             {
                 var loadout = new RoleLoadout(role.RoleName)
@@ -228,7 +237,8 @@ namespace Content.Server.Preferences.Managers
                 .WithOOCFlavorText(profile.OOCFlavorText)
                 .WithCharacterFlavorText(profile.CharacterFlavorText)
                 .WithTagsFlavorText(profile.TagsFlavorText)
-                .WithLinksFlavorText(profile.LinksFlavorText);
+                .WithLinksFlavorText(profile.LinksFlavorText)
+                .WithGenitals(genitals); // <Veil-Genitals>
             // </Onyx-CharacterDescriptions-edited>
         }
 

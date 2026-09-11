@@ -1,0 +1,688 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BaseItem
+  id: SexToyVibrator
+  name: vibrator
+  description: A compact vibrating toy.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/vibrator.rsi
+    state: vibe
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/vibrator.rsi
+  - type: GenitalEquipment
+    slots: [ Penis, Vagina, Breasts, Butt, Anus ]
+    hasVibration: true
+    highVibrationState: vibing
+
+- type: entity
+  parent: BaseItem
+  id: SexToyChastityCage
+  name: chastity cage
+  description: A restraint designed to prevent arousal.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/chastity.rsi
+    state: standard_cage
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/chastity.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    preventsArousal: true
+
+- type: entity
+  parent: BaseItem
+  id: SexToyCondom
+  name: condom
+  description: A protective sheath.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/condom.rsi
+    state: b_condom_wrapped
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Objects/Specific/SexToys/condom.rsi
+  - type: Appearance
+  - type: Condom
+  - type: GenitalFluid
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canUse: false
+    insertDelay: 4
+
+- type: entity
+  parent: BaseItem
+  id: SexToySoundingRod
+  name: sounding rod
+  description: A smooth rod intended for careful urethral stimulation.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/sounding.rsi
+    state: sounding_wrapped
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Objects/Specific/SexToys/sounding.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    insertDelay: 4
+    wrapped: true
+    wrappedState: sounding_wrapped
+    unwrappedState: sounding_rod
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildo
+  name: dildo
+  description: A flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/dildo.rsi
+    state: dildo_human_2
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/dildo.rsi
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+    customizable: true
+
+- type: entity
+  parent: BaseItem
+  id: SexToyOnahole
+  name: onahole
+  description: A soft sleeve designed to stimulate a penis.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/onahole.rsi
+    state: onahole_plain_2
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/onahole.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyButtplugSmall
+  name: small buttplug
+  description: A small plug for the anal ring. Usually used... for gratification.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: buttplug_metal_small
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Anus ]
+    sizeStage: 1
+
+- type: entity
+  parent: BaseItem
+  id: SexToyButtplugMedium
+  name: medium buttplug
+  description: A medium plug for the anal ring. Usually used... for gratification.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: buttplug_metal_medium
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyButtplugBig
+  name: big buttplug
+  description: A big plug for the anal ring. Usually used... for gratification.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: buttplug_metal_big
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Anus ]
+    sizeStage: 3
+
+# Inhand visuals below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoHuman
+  name: human dildo
+  description: A flexible human-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_human
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-human
+      right:
+      - state: inhand-right-human
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoCanine
+  name: canine dildo
+  description: A flexible canine-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_canine
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-canine
+      right:
+      - state: inhand-right-canine
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoEquine
+  name: equine dildo
+  description: A flexible equine-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_equine
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-equine
+      right:
+      - state: inhand-right-equine
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoDragon
+  name: dragon dildo
+  description: A flexible dragon-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_dragon
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-dragon
+      right:
+      - state: inhand-right-dragon
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoTentacle
+  name: tentacle dildo
+  description: A flexible tentacle-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_tentacle
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-tentacle
+      right:
+      - state: inhand-right-tentacle
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoAvian
+  name: avian dildo
+  description: A flexible avian-shaped sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_avian
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-avian
+      right:
+      - state: inhand-right-avian
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyDildoDouble
+  name: double dildo
+  description: A flexible double-ended sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: dildo_double
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-double
+      right:
+      - state: inhand-right-double
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyPolydildoSmall
+  name: small polydildo
+  description: A small flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: polydildo_small
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-small
+      right:
+      - state: inhand-right-small
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+    sizeStage: 1
+
+- type: entity
+  parent: BaseItem
+  id: SexToyPolydildoMedium
+  name: medium polydildo
+  description: A medium flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: polydildo_medium
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-medium
+      right:
+      - state: inhand-right-medium
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+
+- type: entity
+  parent: BaseItem
+  id: SexToyPolydildoBig
+  name: big polydildo
+  description: A big flexible sex toy. Use it in hand to switch between arousal and insertion modes.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: polydildo_big
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-big
+      right:
+      - state: inhand-right-big
+  - type: GenitalEquipment
+    slots: [ Vagina, Butt, Anus ]
+    sizeStage: 3
+
+- type: entity
+  parent: BaseItem
+  id: SexToyMagicWand
+  name: magic wand
+  description: A vibrating magic wand. It doesn't cast spells tho.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: magicwand_alt
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis, Vagina, Breasts, Butt, Anus ]
+    hasVibration: true
+    lowVibrationState: magicwand_low
+    mediumVibrationState: magicwand_medium
+    highVibrationState: magicwand_hard
+
+- type: entity
+  parent: BaseItem
+  id: SexToyBlackWand
+  name: black magic wand
+  description: A vibrating black magic wand. It doesn't cast spells tho.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: blackmwand
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis, Vagina, Breasts, Butt, Anus ]
+    hasVibration: true
+
+- type: entity
+  parent: BaseItem
+  id: SexToyEggVib
+  name: egg vibrator
+  description: A small egg-shaped vibrator.
+  components:
+    - type: Sprite
+      sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+      state: eggvib
+    - type: Item
+      size: Tiny
+      sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    - type: GenitalEquipment
+      slots: [ Penis, Vagina, Breasts, Butt, Anus ]
+      hasVibration: true
+      lowVibrationState: eggvib_pink_low
+      mediumVibrationState: eggvib_pink_medium
+      highVibrationState: eggvib_pink_hard
+    - type: DeviceLinkSink
+      ports:
+        - Toggle
+    - type: SignalVibratorToggle
+
+- type: entity
+  parent: BaseItem
+  id: SexToySignalVib
+  name: signal vibrator
+  description: A signal-controlled vibrator.
+  components:
+    - type: Sprite
+      sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+      state: signalvib
+    - type: Item
+      size: Tiny
+      sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    - type: GenitalEquipment
+      slots: [ Penis, Vagina, Breasts, Butt, Anus ]
+      hasVibration: true
+      lowVibrationState: signalvib_pink_low_on
+      mediumVibrationState: signalvib_pink_medium_on
+      highVibrationState: signalvib_pink_hard_on
+    - type: DeviceLinkSink
+      ports:
+        - Toggle
+    - type: SignalVibratorToggle
+
+- type: entity
+  parent: BaseItem
+  id: SexToyVibroRing
+  name: vibrating ring
+  description: A small vibrating ring.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: vibroring
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    hasVibration: true
+    lowVibrationState: vibroring_pink_on
+    mediumVibrationState: vibroring_pink_on
+    highVibrationState: vibroring_pink_on
+
+- type: entity
+  parent: BaseItem
+  id: SexToyFleshlightGreen
+  name: green fleshlight
+  description: A soft green sleeve designed to stimulate a penis.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: fleshlight_green
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyFleshlightPink
+  name: pink fleshlight
+  description: A soft pink sleeve designed to stimulate a penis.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: fleshlight_pink
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyFleshlightRed
+  name: red fleshlight
+  description: A soft red sleeve designed to stimulate a penis.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: fleshlight_red
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyFleshlightTeal
+  name: teal fleshlight
+  description: A soft teal sleeve designed to stimulate a penis.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: fleshlight_teal
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyFleshlightYellow
+  name: yellow fleshlight
+  description: A soft yellow sleeve designed to stimulate a penis.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: fleshlight_yellow
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+  - type: GenitalEquipment
+    slots: [ Penis ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyChastityBelt
+  name: chastity belt
+  description: A belt designed to block arousal of the vagina or anus.
+  components:
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/chastity.rsi
+    state: belt
+  - type: Item
+    size: Small
+    sprite: _Veil/Objects/Specific/SexToys/chastity.rsi
+  - type: GenitalEquipment
+    slots: [ Vagina, Anus ]
+    preventsArousal: true
+
+# Content below taken from Wega (https://github.com/wega-team/ss14-wega), licensed under GNU GPL v3.
+- type: entity
+  parent: BaseItem
+  id: SexToyStraponHuman
+  name: human strapon
+  description: A human-shaped dildo on a harness, for use on a partner.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    state: human
+  - type: Item
+    size: Small
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-human
+      right:
+      - state: inhand-right-human
+  - type: Clothing
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    slots: [belt]
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT-human
+  - type: GenitalEquipment
+    slots: [ Vagina, Anus ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyStraponCanine
+  name: canine strapon
+  description: A canine-shaped dildo on a harness, for use on a partner.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    state: canine
+  - type: Item
+    size: Small
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-canine
+      right:
+      - state: inhand-right-canine
+  - type: Clothing
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    slots: [belt]
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT-canine
+  - type: GenitalEquipment
+    slots: [ Vagina, Anus ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyStraponEquine
+  name: equine strapon
+  description: An equine-shaped dildo on a harness, for use on a partner.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    state: equine
+  - type: Item
+    size: Small
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-equine
+      right:
+      - state: inhand-right-equine
+  - type: Clothing
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    slots: [belt]
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT-equine
+  - type: GenitalEquipment
+    slots: [ Vagina, Anus ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyStraponDragon
+  name: dragon strapon
+  description: A dragon-shaped dildo on a harness, for use on a partner.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    state: dragon
+  - type: Item
+    size: Small
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-dragon
+      right:
+      - state: inhand-right-dragon
+  - type: Clothing
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    slots: [belt]
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT-dragon
+  - type: GenitalEquipment
+    slots: [ Vagina, Anus ]
+    canInsert: false
+
+- type: entity
+  parent: BaseItem
+  id: SexToyStraponAvian
+  name: avian strapon
+  description: An avian-shaped dildo on a harness, for use on a partner.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    state: avian
+  - type: Item
+    size: Small
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-avian
+      right:
+      - state: inhand-right-avian
+  - type: Clothing
+    sprite: _Veil/Clothing/Belt/strapon.rsi
+    slots: [belt]
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT-avian
+  - type: GenitalEquipment
+    slots: [ Vagina, Anus ]
+    canInsert: false

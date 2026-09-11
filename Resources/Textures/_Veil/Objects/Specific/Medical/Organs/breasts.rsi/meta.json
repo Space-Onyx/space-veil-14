@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/9b95fe5ffeececb1625eacc829dbd4366abc5a0d/icons/obj/genitals/breasts.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "breasts_pair_e"
+    },
+    {
+      "name": "breasts_pair_d"
+    },
+    {
+      "name": "breasts_pair_c"
+    },
+    {
+      "name": "breasts_pair_b"
+    },
+    {
+      "name": "breasts_pair_a"
+    },
+    {
+      "name": "breasts_pair_e_s"
+    },
+    {
+      "name": "breasts_pair_d_s"
+    },
+    {
+      "name": "breasts_pair_c_s"
+    },
+    {
+      "name": "breasts_pair_b_s"
+    },
+    {
+      "name": "breasts_pair_a_s"
+    },
+    {
+      "name": "breasts_quad_e"
+    },
+    {
+      "name": "breasts_quad_d"
+    },
+    {
+      "name": "breasts_quad_c"
+    },
+    {
+      "name": "breasts_quad_b"
+    },
+    {
+      "name": "breasts_quad_a"
+    },
+    {
+      "name": "breasts_quad_e_s"
+    },
+    {
+      "name": "breasts_quad_d_s"
+    },
+    {
+      "name": "breasts_quad_c_s"
+    },
+    {
+      "name": "breasts_quad_b_s"
+    },
+    {
+      "name": "breasts_quad_a_s"
+    },
+    {
+      "name": "breasts_sextuple_e"
+    },
+    {
+      "name": "breasts_sextuple_d"
+    },
+    {
+      "name": "breasts_sextuple_c"
+    },
+    {
+      "name": "breasts_sextuple_b"
+    },
+    {
+      "name": "breasts_sextuple_a"
+    },
+    {
+      "name": "breasts_sextuple_e_s"
+    },
+    {
+      "name": "breasts_sextuple_d_s"
+    },
+    {
+      "name": "breasts_sextuple_c_s"
+    },
+    {
+      "name": "breasts_sextuple_b_s"
+    },
+    {
+      "name": "breasts_sextuple_a_s"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon-Station (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station), sexnow states selected for KinkMate by Space Veil",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "kink",
+      "delays": [
+        [
+          0.1,
+          1,
+          0.1,
+          1,
+          0.1,
+          1,
+          0.1,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "kink-off"
+    },
+    {
+      "name": "kink-deny",
+      "delays": [
+        [
+          0.05,
+          0.05,
+          0.05,
+          0.05,
+          0.1,
+          0.3,
+          0.3
+        ]
+      ]
+    },
+    {
+      "name": "kink-broken"
+    },
+    {
+      "name": "kink-panel"
+    },
+    {
+      "name": "kink-light-mask"
+    },
+    {
+      "name": "sexnow",
+      "delays": [
+        [
+          1,
+          0.4,
+          1,
+          0.4,
+          1,
+          0.4
+        ]
+      ]
+    },
+    {
+      "name": "sexnow-off",
+      "delays": [
+        [
+          1,
+          0.4,
+          1,
+          0.4,
+          1,
+          0.4
+        ]
+      ]
+    },
+    {
+      "name": "sexnow-deny",
+      "delays": [
+        [
+          1,
+          0.4,
+          1,
+          0.4,
+          1,
+          0.4
+        ]
+      ]
+    },
+    {
+      "name": "sexnow-broken",
+      "delays": [
+        [
+          1,
+          0.4,
+          1,
+          0.4,
+          1,
+          0.4
+        ]
+      ]
+    }
+  ]
+}

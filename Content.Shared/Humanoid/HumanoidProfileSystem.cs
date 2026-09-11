@@ -56,6 +56,9 @@ public sealed partial class HumanoidProfileSystem : EntitySystem
 
         Dirty(ent);
 
+        var profileApplied = new HumanoidProfileAppliedEvent(profile); // <Veil-Genitals>
+        RaiseLocalEvent(ent, ref profileApplied); // <Veil-Genitals>
+
         var voiceChanged = new VoiceChangedEvent(ent.Comp.Voice, profile.Voice);
         RaiseLocalEvent(ent, ref voiceChanged);
 
@@ -110,3 +113,6 @@ public sealed partial class HumanoidProfileSystem : EntitySystem
         return Loc.GetString("identity-age-old");
     }
 }
+
+[ByRefEvent]
+public readonly record struct HumanoidProfileAppliedEvent(HumanoidCharacterProfile Profile); // <Veil-Genitals>
