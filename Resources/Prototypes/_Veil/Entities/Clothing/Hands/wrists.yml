@@ -1,0 +1,79 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  parent: BaseItem
+  id: BraceletTalk
+  name: talk bracelet
+  description: A bracelet asking others to come and chat.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+    state: talk_need
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+  - type: Clothing
+    slots: [gloves]
+
+- type: entity
+  parent: BaseItem
+  id: BraceletLove
+  name: love seeking bracelet
+  description: A bracelet signaling an active search for love.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+    state: love_need
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+  - type: Clothing
+    slots: [gloves]
+
+- type: entity
+  parent: BaseItem
+  id: BraceletRape
+  name: rape bait bracelet
+  description: A provocative bracelet with a risky invitation.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+    state: rape_need
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+  - type: Clothing
+    slots: [gloves]
+
+- type: entity
+  parent: BaseItem
+  id: BraceletFuckMe
+  name: fuck-me bracelet
+  description: A blunt bracelet begging to be taken.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+    state: fuckme_need
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+  - type: Clothing
+    slots: [gloves]
+
+- type: entity
+  parent: BaseItem
+  id: BraceletFuckYou
+  name: fuck-you bracelet
+  description: A blunt bracelet offering to take someone.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+    state: fuckyou_need
+  - type: Item
+    size: Tiny
+    sprite: _Veil/Clothing/Hands/wrists.rsi
+  - type: Clothing
+    slots: [gloves]
+
+

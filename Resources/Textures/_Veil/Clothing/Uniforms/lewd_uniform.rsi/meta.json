@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/master/modular_splurt/icons/mob/clothing/lewd_clothing/uniform/lewd_uniform.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "lewdmaid"
+    },
+    {
+      "name": "janimaid"
+    },
+    {
+      "name": "stripper_white",
+      "directions": 4
+    },
+    {
+      "name": "stripper_cyan",
+      "directions": 4
+    },
+    {
+      "name": "stripper_yellow",
+      "directions": 4
+    },
+    {
+      "name": "stripper_green",
+      "directions": 4
+    },
+    {
+      "name": "stripper_red",
+      "directions": 4
+    },
+    {
+      "name": "stripper_latex",
+      "directions": 4
+    },
+    {
+      "name": "stripper_orange",
+      "directions": 4
+    },
+    {
+      "name": "stripper_purple",
+      "directions": 4
+    },
+    {
+      "name": "stripper_black",
+      "directions": 4
+    },
+    {
+      "name": "stripper_tealblack",
+      "directions": 4
+    }
+  ]
+}

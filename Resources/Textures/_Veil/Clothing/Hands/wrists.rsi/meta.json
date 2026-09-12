@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from BlueMoon (https://github.com/BlueMoon-Labs/MOLOT-BlueMoon-Station/blob/master/modular_splurt/icons/obj/clothing/wrists.dmi)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "talk_need"
+    },
+    {
+      "name": "love_need"
+    },
+    {
+      "name": "rape_need"
+    },
+    {
+      "name": "fuckme_need"
+    },
+    {
+      "name": "fuckyou_need"
+    }
+  ]
+}

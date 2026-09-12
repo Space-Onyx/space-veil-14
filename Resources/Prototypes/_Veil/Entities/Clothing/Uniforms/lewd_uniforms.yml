@@ -1,0 +1,140 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  abstract: true
+  parent: ClothingUniformBase
+  id: BaseLewdUniform
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Uniforms/lewd_uniform.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Uniforms/lewd_uniform.rsi
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperWhite
+  name: white stripper uniform
+  description: A daring white outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_white
+  - type: Clothing
+    equippedState: stripper_white
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperCyan
+  name: cyan stripper uniform
+  description: A daring cyan outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_cyan
+  - type: Clothing
+    equippedState: stripper_cyan
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperYellow
+  name: yellow stripper uniform
+  description: A daring yellow outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_yellow
+  - type: Clothing
+    equippedState: stripper_yellow
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperGreen
+  name: green stripper uniform
+  description: A daring green outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_green
+  - type: Clothing
+    equippedState: stripper_green
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperRed
+  name: red stripper uniform
+  description: A daring red outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_red
+  - type: Clothing
+    equippedState: stripper_red
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperLatex
+  name: latex stripper uniform
+  description: A daring latex outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_latex
+  - type: Clothing
+    equippedState: stripper_latex
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperOrange
+  name: orange stripper uniform
+  description: A daring orange outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_orange
+  - type: Clothing
+    equippedState: stripper_orange
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperPurple
+  name: purple stripper uniform
+  description: A daring purple outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_purple
+  - type: Clothing
+    equippedState: stripper_purple
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperBlack
+  name: black stripper uniform
+  description: A daring black outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_black
+  - type: Clothing
+    equippedState: stripper_black
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdStripperTealblack
+  name: teal-black stripper uniform
+  description: A daring teal-black outfit for bold performances.
+  components:
+  - type: Sprite
+    state: stripper_tealblack
+  - type: Clothing
+    equippedState: stripper_tealblack
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdMaid
+  name: lewd maid uniform
+  description: A maid uniform leaving little to imagination.
+  components:
+  - type: Sprite
+    state: lewdmaid
+
+- type: entity
+  parent: BaseLewdUniform
+  id: LewdJanimaid
+  name: lewd janitorial maid uniform
+  description: A janitorial maid uniform with a naughty twist.
+  components:
+  - type: Sprite
+    state: janimaid

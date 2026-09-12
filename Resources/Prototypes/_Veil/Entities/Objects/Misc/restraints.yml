@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2026 Space Veil Contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseRestraintCuffs
+  components:
+  - type: Item
+    size: Small
+    storedRotation: 90
+  - type: Handcuff
+    cuffedRSI: Objects/Misc/handcuffs.rsi
+    bodyIconState: body-overlay
+  - type: Tag
+    tags:
+    - Handcuffs
+  - type: MeleeWeapon
+    wideAnimationRotation: 90
+    resetOnHandSelected: false
+    animation: WeaponArcDisarm
+    damage:
+      types:
+        Blunt: 0
+  - type: UseDelay
+    delay: 3
+
+- type: entity
+  parent: BaseRestraintCuffs
+  id: SilkRibbonCuffs
+  name: silk ribbon
+  description: A soft colorful ribbon for playful bondage games.
+  components:
+  - type: Handcuff
+    breakoutTime: 45
+  - type: Sprite
+    sprite: _Veil/Objects/Misc/restraints.rsi
+    state: silk_ribbon
+
+- type: entity
+  parent: BaseRestraintCuffs
+  id: RopeCuffs
+  name: rope cuffs
+  description: A classy rope for tying someone up gently.
+  components:
+  - type: Handcuff
+    breakoutTime: 45
+  - type: Sprite
+    sprite: _Veil/Objects/Misc/restraints.rsi
+    state: cuff_rope
+
+- type: entity
+  parent: BaseRestraintCuffs
+  id: BeltCuffs
+  name: belt cuffs
+  description: Suspending belts that double as soft restraints.
+  components:
+  - type: Handcuff
+    breakoutTime: 45
+  - type: Sprite
+    sprite: _Veil/Objects/Misc/restraints.rsi
+    state: cuff_belts
+
+- type: entity
+  parent: BaseRestraintCuffs
+  id: BondageRope
+  name: bondage rope
+  description: A rope designed to not cut into skin. Perfect for tying someone up.
+  components:
+  - type: Handcuff
+    breakoutTime: 60
+  - type: Sprite
+    sprite: _Veil/Objects/Misc/restraints.rsi
+    state: rope
+
+- type: entity
+  parent: BaseRestraintCuffs
+  id: PinkCuffs
+  name: pink cuffs
+  description: Soft pink cuffs for bedroom games.
+  components:
+  - type: Handcuff
+    breakoutTime: 1
+  - type: Sprite
+    sprite: _Veil/Objects/Specific/SexToys/lewd_items.rsi
+    state: pinkcuffs
