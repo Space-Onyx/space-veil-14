@@ -130,7 +130,7 @@
   - type: Sprite
     state: lewdmaid
   - type: Clothing
-    equippedState: janimaid
+    equippedState: lewdmaid
 
 - type: entity
   parent: BaseLewdUniform
@@ -139,6 +139,6 @@
   description: A janitorial maid uniform with a naughty twist.
   components:
   - type: Sprite
-    state: lewdmaid
+    state: janimaid
   - type: Clothing
-    equippedState: lewdmaid
+    equippedState: janimaid
