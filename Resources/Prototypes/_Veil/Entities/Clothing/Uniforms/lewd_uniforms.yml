@@ -129,6 +129,8 @@
   components:
   - type: Sprite
     state: lewdmaid
+  - type: Clothing
+    equippedState: janimaid
 
 - type: entity
   parent: BaseLewdUniform
@@ -138,3 +140,5 @@
   components:
   - type: Sprite
     state: janimaid
+  - type: Clothing
+    equippedState: janimaid

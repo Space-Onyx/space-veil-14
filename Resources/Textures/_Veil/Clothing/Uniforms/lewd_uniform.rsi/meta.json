@@ -8,10 +8,12 @@
   },
   "states": [
     {
-      "name": "lewdmaid"
+      "name": "lewdmaid",
+      "directions": 4
     },
     {
-      "name": "janimaid"
+      "name": "janimaid",
+      "directions": 4
     },
     {
       "name": "stripper_white",

@@ -58,6 +58,9 @@
     ClothingShoesBootsCowboyWhite: 1
     ClothingHeadHatWizardFake: 1
     ClothingOuterWizardFake: 1
+    # <Veil-ElegantMaid>
+    ClothingUniformJumpskirtElegantMaid: 1
+    # </Veil-ElegantMaid>
     # <Onyx-GoobClothing>
     ClothingHeadSanabi: 1
     ClothingNeckCloakSanabi: 1
