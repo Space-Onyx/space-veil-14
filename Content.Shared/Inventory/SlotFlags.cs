@@ -36,6 +36,7 @@ public enum SlotFlags
     TIE = 1 << 20,
     SHOULDERS = 1 << 21,
     // </Onyx-InventorySubslots>
+    BRACELET = 1 << 22, // <Veil-BraceletSubslot>
     All = ~NONE,
 
     WITHOUT_POCKET = All & ~POCKET

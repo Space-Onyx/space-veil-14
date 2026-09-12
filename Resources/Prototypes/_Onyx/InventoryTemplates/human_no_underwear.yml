@@ -36,6 +36,16 @@
       uiWindowPos: 2,1
       strippingWindowPos: 2,2
       displayName: Ring
+    # <Veil-BraceletSubslot>
+    - name: bracelet
+      slotTexture: gloves
+      fullTextureName: template_small
+      slotFlags: BRACELET
+      subSlotOf: gloves
+      uiWindowPos: 2,1
+      strippingWindowPos: 2,2
+      displayName: Bracelet
+    # </Veil-BraceletSubslot>
     - name: neck
       slotTexture: neck
       slotFlags: NECK

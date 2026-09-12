@@ -14,7 +14,7 @@
     size: Tiny
     sprite: _Veil/Clothing/Hands/wrists.rsi
   - type: Clothing
-    slots: [gloves]
+    slots: [BRACELET]
 
 - type: entity
   parent: BaseItem
@@ -29,7 +29,7 @@
     size: Tiny
     sprite: _Veil/Clothing/Hands/wrists.rsi
   - type: Clothing
-    slots: [gloves]
+    slots: [BRACELET]
 
 - type: entity
   parent: BaseItem
@@ -44,7 +44,7 @@
     size: Tiny
     sprite: _Veil/Clothing/Hands/wrists.rsi
   - type: Clothing
-    slots: [gloves]
+    slots: [BRACELET]
 
 - type: entity
   parent: BaseItem
@@ -59,7 +59,7 @@
     size: Tiny
     sprite: _Veil/Clothing/Hands/wrists.rsi
   - type: Clothing
-    slots: [gloves]
+    slots: [BRACELET]
 
 - type: entity
   parent: BaseItem
@@ -74,6 +74,6 @@
     size: Tiny
     sprite: _Veil/Clothing/Hands/wrists.rsi
   - type: Clothing
-    slots: [gloves]
+    slots: [BRACELET]
 
 
