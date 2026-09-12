@@ -139,6 +139,6 @@
   description: A janitorial maid uniform with a naughty twist.
   components:
   - type: Sprite
-    state: janimaid
+    state: lewdmaid
   - type: Clothing
-    equippedState: janimaid
+    equippedState: lewdmaid
