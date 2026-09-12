@@ -111,6 +111,7 @@ namespace Content.Client.Lobby.UI
 
             InitializeLoadoutPersonalization(); // <Onyx-LoadoutPersonalization>
             InitializeGenitalEditor(); // <Veil-Genitals>
+            InitializeErpStatus(); // <Veil-ErpStatus>
 
             Markings.SetModel(_markingsModel);
 
@@ -423,6 +424,7 @@ namespace Content.Client.Lobby.UI
             UpdateSexControls();
             UpdateVoiceControls();
             UpdateGenderControls();
+            UpdateErpStatusControls(); // <Veil-ErpStatus>
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateAgeEdit();

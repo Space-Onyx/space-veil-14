@@ -88,7 +88,7 @@ public sealed partial class HumanoidCharacterProfileV1
 
     public HumanoidCharacterProfile ToV2()
     {
-        return new(Name, FlavorText, Species, TTSVoice, Age,
+        return new HumanoidCharacterProfile(Name, FlavorText, Species, TTSVoice, Age, // <Veil-ErpStatus-edited>
             // <Onyx-HeightWidth>
             1f, 1f,
             // </Onyx-HeightWidth>
@@ -96,7 +96,7 @@ public sealed partial class HumanoidCharacterProfileV1
             // <Onyx-Barks>
             new BarkData()
             // </Onyx-Barks>
-             );
+             ).WithErpStatus(ErpStatus); // <Veil-ErpStatus-edited>
     }
 
     // In V2 voices are stored as a separate database entry, this picks the default for the species and sex, which would give the same voice as pre-nubody.

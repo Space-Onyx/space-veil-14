@@ -36,6 +36,8 @@ public sealed partial class DetailExaminableWindow : FancyWindow
         var sex = Loc.GetString($"humanoid-profile-editor-sex-{sexValue.ToString().ToLowerInvariant()}-text");
         var gender = Loc.GetString($"humanoid-profile-editor-pronouns-{genderValue.ToString().ToLowerInvariant()}-text");
         PreviewGenderText.Text = $"{species}|{sex}|{gender}";
+        PreviewErpStatusText.Text = GetErpStatusText(humanoid.ErpStatus); // <Veil-ErpStatus>
+        PreviewErpStatusText.FontColorOverride = GetErpStatusColor(humanoid.ErpStatus); // <Veil-ErpStatus>
         TargetPreview.SetEntity(target);
 
         PreviewAppearanceText.SetMessage(GetContent(detail.Content, "detail-examinable-empty-flavor"));
@@ -93,4 +95,32 @@ public sealed partial class DetailExaminableWindow : FancyWindow
             PreviewLinksContainer.AddChild(button);
         }
     }
+
+    // <Veil-ErpStatus>
+    private static string GetErpStatusText(ErpStatus status)
+    {
+        return Loc.GetString(status switch
+        {
+            ErpStatus.No => "humanoid-profile-editor-status-no-text",
+            ErpStatus.Semi => "humanoid-profile-editor-status-semi-text",
+            ErpStatus.Full => "humanoid-profile-editor-status-full-text",
+            ErpStatus.Absolute => "humanoid-profile-editor-status-absolute-text",
+            ErpStatus.Ask => "humanoid-profile-editor-status-ask-text",
+            _ => "humanoid-profile-editor-status-no-text",
+        });
+    }
+
+    private static Color GetErpStatusColor(ErpStatus status)
+    {
+        return status switch
+        {
+            ErpStatus.No => Color.Red,
+            ErpStatus.Semi => Color.Orange,
+            ErpStatus.Full => Color.Blue,
+            ErpStatus.Absolute => Color.Purple,
+            ErpStatus.Ask => Color.FromHex("#66aaff"),
+            _ => Color.Gray,
+        };
+    }
+    // </Veil-ErpStatus>
 }

@@ -253,6 +253,7 @@ namespace Content.Shared.Preferences
             _cybernetics = new List<EntProtoId>(other.Cybernetics); // <Onyx-CyberneticsPersonalization>
             CopyDescriptionFields(other); // <Onyx-CharacterDescriptions>
             CopyGenitalFields(other); // <Veil-Genitals>
+            CopyErpStatus(other); // <Veil-ErpStatus>
         }
 
         /// <summary>
@@ -473,6 +474,7 @@ namespace Content.Shared.Preferences
             // </Onyx-Barks>
             profile._cybernetics = new List<EntProtoId>(baseProfile.Cybernetics); // <Onyx-CyberneticsPersonalization>
             profile.CopyRandomizedGenitalFields(baseProfile); // <Veil-Genitals>
+            profile.ErpStatus = ErpStatus.No; // <Veil-ErpStatus>
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -811,6 +813,7 @@ namespace Content.Shared.Preferences
             if (Sex != other.Sex) return false;
             if (Voice != other.Voice) return false;
             if (Gender != other.Gender) return false;
+            if (ErpStatus != other.ErpStatus) return false; // <Veil-ErpStatus>
             if (Species != other.Species) return false;
             if (PreferenceUnavailable != other.PreferenceUnavailable) return false;
             if (SpawnPriority != other.SpawnPriority) return false;
@@ -835,6 +838,7 @@ namespace Content.Shared.Preferences
             var configManager = collection.Resolve<IConfigurationManager>();
             var prototypeManager = collection.Resolve<IPrototypeManager>();
             EnsureGenitalFieldsValid(prototypeManager); // <Veil-Genitals>
+            EnsureErpStatusValid(); // <Veil-ErpStatus>
             var componentFactory = collection.Resolve<IComponentFactory>(); // <Onyx-CyberneticsPersonalization>
 
             if (!prototypeManager.TryIndex(Species, out var speciesPrototype) || speciesPrototype.RoundStart == false)
@@ -1149,6 +1153,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(Voice);
             hashCode.Add(TTSVoice); // Corvax-TTS
             hashCode.Add((int)Gender);
+            hashCode.Add((int)ErpStatus); // <Veil-ErpStatus>
             hashCode.Add(Appearance);
             hashCode.Add((int)SpawnPriority);
             hashCode.Add((int)PreferenceUnavailable);

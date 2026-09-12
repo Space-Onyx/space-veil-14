@@ -124,6 +124,13 @@
                                     <Control HorizontalExpand="True"/>
                                     <OptionButton Name="PronounsButton" HorizontalAlignment="Right" />
                                 </BoxContainer>
+                                <!-- <Veil-ErpStatus> -->
+                                <BoxContainer HorizontalExpand="True">
+                                    <Label Text="{Loc 'humanoid-profile-editor-status-label'}" />
+                                    <Control HorizontalExpand="True"/>
+                                    <OptionButton Name="StatusButton" HorizontalAlignment="Right" />
+                                </BoxContainer>
+                                <!-- </Veil-ErpStatus> -->
                                 <!-- Show clothing -->
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-clothing'}" />

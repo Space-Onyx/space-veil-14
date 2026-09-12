@@ -44,6 +44,7 @@ public sealed partial class HumanoidProfileSystem : EntitySystem
         ent.Comp.Species = profile.Species;
         ent.Comp.Voice = profile.Voice;
         ent.Comp.Sex = profile.Sex;
+        ent.Comp.ErpStatus = profile.ErpStatus; // <Veil-ErpStatus>
         // Corvax-TTS-start
         ent.Comp.TTSVoice = profile.TTSVoice;
         if (TryComp<TTSComponent>(ent, out var _TTSComponent) && _TTSComponent.VoicePrototypeId == "Taskmaster")
