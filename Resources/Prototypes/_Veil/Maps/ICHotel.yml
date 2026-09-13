@@ -1,0 +1,66 @@
+- type: gameMap
+  id: Hotel
+  mapName: Отель
+  minPlayers: 0
+  mapPath: /Maps/_Veil/ICHotel/hotel.yml
+  stations: {}
+
+- type: additionalMap
+  id: OnyxBox
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxGate
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxOrigin
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxKettle
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxPaper
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxOmega
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxSilly
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxMaus
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxBeta
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxPacked
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: OnyxTushkan
+  maps:
+  - Hotel
+
+- type: additionalMap
+  id: CorvaxGoobCluster
+  maps:
+  - Hotel
