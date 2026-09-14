@@ -31,6 +31,7 @@
       Nitrium: danger
       Pluoxium: ignore
       # </Onyx-GoobGases>
+      Aphrodisiac: ignore # <Veil-Aphrodisiac>
   - type: GuideHelp
     guides:
     - DeviceMonitoringAndControl

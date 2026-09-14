@@ -1,0 +1,22 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: DrinkBottleGlassBaseFull
+  id: DrinkAphrodisiacBottleFull
+  name: aphrodisiac bottle
+  description: A heart-shaped bottle filled with sweet pink aphrodisiac.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Aphrodisiac
+          Quantity: 100
+  - type: Label
+    localizedLabel: reagent-name-aphrodisiac
+  - type: Sprite
+    sprite: _Veil/Objects/Consumable/Drinks/aphrodisiac_bottle.rsi

@@ -1,0 +1,34 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: reaction
+  id: Aphrodisiac
+  reactants:
+    SpaceDrugs:
+      amount: 2
+    Ephedrine:
+      amount: 1
+    Ethanol:
+      amount: 1
+    Sugar:
+      amount: 1
+    Plasma:
+      amount: 1
+      catalyst: true
+  products:
+    Aphrodisiac: 5
+
+- type: reaction
+  id: AphrodisiacVaporization
+  source: true
+  minTemp: 373.15
+  reactants:
+    Aphrodisiac:
+      amount: 1
+  effects:
+  - !type:CreateGas
+    gas: Aphrodisiac
+    moles: 4.6795

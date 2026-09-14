@@ -1,0 +1,15 @@
+// Space Veil
+// Copyright (C) 2026 Space Veil contributors
+//
+// This file is licensed under AGPL-3.0-or-later.
+// See LICENSES for the full license text.
+
+void fragment()
+{
+    highp vec2 uv = FRAGCOORD.xy * SCREEN_PIXEL_SIZE.xy;
+    highp float edge = min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y));
+    highp float vignette = 1.0 - smoothstep(0.0, 0.26, edge);
+    highp float pulse = 0.92 + sin(TIME * 1.4) * 0.08;
+
+    COLOR = vec4(0.91, 0.16, 0.42, vignette * pulse * 0.088);
+}

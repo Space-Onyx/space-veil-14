@@ -224,7 +224,7 @@ namespace Content.Shared.Atmos
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
         // <Onyx-GoobGases-edited>
-        public const int TotalNumberOfGases = 13;
+        public const int TotalNumberOfGases = 14; // <Veil-Aphrodisiac-edited>
         // </Onyx-GoobGases-edited>
 
         /// <summary>
@@ -398,6 +398,7 @@ namespace Content.Shared.Atmos
         Ammonia = 6,
         NitrousOxide = 7,
         Frezon = 8,
+        Aphrodisiac = 13, // <Veil-Aphrodisiac>
         // <Onyx-GoobGases>
         BZ = 9,
         Healium = 10,

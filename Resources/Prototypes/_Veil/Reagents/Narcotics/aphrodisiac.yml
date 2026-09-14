@@ -1,0 +1,37 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: reagent
+  id: Aphrodisiac
+  name: reagent-name-aphrodisiac
+  group: Narcotics
+  desc: reagent-desc-aphrodisiac
+  physicalDesc: reagent-physical-desc-syrupy
+  flavor: sweet
+  color: "#ff69b4"
+  metamorphicSprite:
+    sprite: _Veil/Objects/Consumable/Drinks/aphrodisiac_glass.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  boilingPoint: 100.0
+  recognizable: true
+  metabolisms:
+    Digestion:
+      metabolismRate: 0.1
+      effects:
+      - !type:IncreaseChemicalArousal
+        amount: 1
+        maximum: 60
+        scaling: false
+    Respiration:
+      metabolismRate: 0.2
+      effects:
+      - !type:IncreaseChemicalArousal
+        amount: 4
+        maximum: 60
+        scaling: false

@@ -1,0 +1,19 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: gas
+  id: Aphrodisiac
+  name: gas-aphrodisiac
+  abbreviation: gas-aphrodisiac-abbreviation
+  molarHeatCapacity: 40
+  heatCapacityRatio: 1.3
+  molarMass: 46
+  gasOverlaySprite:
+    sprite: /Textures/_Veil/Effects/aphrodisiac_gas.rsi
+    state: aphrodisiac
+  color: "#ff69b4"
+  reagent: Aphrodisiac
+  pricePerMole: 2

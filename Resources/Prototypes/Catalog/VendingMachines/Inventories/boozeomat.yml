@@ -53,3 +53,4 @@
     DrinkBottleOfNothingFull: 1
   emaggedInventory:
     DrinkPoisonWinebottleFull: 2
+    DrinkAphrodisiacBottleFull: 1 # <Veil-Aphrodisiac>

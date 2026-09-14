@@ -6,4 +6,11 @@ namespace Content.Shared._Veil.Genitals;
 [RegisterComponent]
 public sealed partial class SexualArousalComponent : Component
 {
+    public float ChemicalArousal;
+
+    public TimeSpan LastChemicalArousalAt;
+
+    public bool ChemicallyAroused;
+
+    public HashSet<EntityUid> ChemicallyArousedOrgans = [];
 }
