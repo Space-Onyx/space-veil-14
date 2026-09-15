@@ -37,6 +37,7 @@
     Growl: { collection: FelinidGrowls }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: FemaleTajaran
@@ -76,6 +77,7 @@
     Growl: { collection: FelinidGrowls }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansFemale } # <Veil-MoanEmote>
 
 # species
 - type: emoteSounds

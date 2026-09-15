@@ -1,6 +1,33 @@
 # SPDX-FileCopyrightText: 2026 Space Veil Contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+
+- type: emote
+  id: Moan
+  name: chat-emote-name-moan
+  category: Vocal
+  icon: _Veil/Interface/Emotes/moan.png
+  whitelist:
+    components:
+    - Vocal
+  chatMessages: ["chat-emote-msg-moan"]
+  chatTriggers:
+    - стонет
+    - стонет.
+    - стонет!
+    - стонать
+    - стонать.
+    - стонать!
+    - стон
+    - стон.
+    - стон!
+    - простонал
+    - простонал.
+    - простонал!
+    - простонала
+    - простонала.
+    - простонала!
+
 - type: emote
   id: Kiss
   name: chat-emote-name-kiss

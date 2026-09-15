@@ -1,6 +1,29 @@
 # SPDX-FileCopyrightText: 2026 Space Veil Contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+
+- type: soundCollection
+  id: MoansMale
+  files:
+  - /Audio/_Veil/Voice/Moan/moan_m1.ogg
+  - /Audio/_Veil/Voice/Moan/moan_m2.ogg
+  - /Audio/_Veil/Voice/Moan/moan_m3.ogg
+  - /Audio/_Veil/Voice/Moan/moan_m4.ogg
+  - /Audio/_Veil/Voice/Moan/moan_m5.ogg
+  - /Audio/_Veil/Voice/Moan/moan_m6.ogg
+  - /Audio/_Veil/Voice/Moan/moan_m7.ogg
+
+- type: soundCollection
+  id: MoansFemale
+  files:
+  - /Audio/_Veil/Voice/Moan/moan_f1.ogg
+  - /Audio/_Veil/Voice/Moan/moan_f2.ogg
+  - /Audio/_Veil/Voice/Moan/moan_f3.ogg
+  - /Audio/_Veil/Voice/Moan/moan_f4.ogg
+  - /Audio/_Veil/Voice/Moan/moan_f5.ogg
+  - /Audio/_Veil/Voice/Moan/moan_f6.ogg
+  - /Audio/_Veil/Voice/Moan/moan_f7.ogg
+
 - type: soundCollection
   id: LewdKiss
   files:

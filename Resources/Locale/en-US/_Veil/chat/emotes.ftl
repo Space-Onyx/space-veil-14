@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2026 Space Veil Contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+chat-emote-name-moan = moan
+chat-emote-msg-moan = moans.
+
 chat-emote-name-kiss = Kiss
 chat-emote-msg-kiss = kisses.
 chat-emote-name-spank = Spank

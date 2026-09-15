@@ -27,6 +27,7 @@
     Gasp: { collection: MaleGasp }
     DefaultDeathgasp: { collection: MaleDeathGasp }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: FemaleShadowkin
@@ -53,6 +54,7 @@
     Gasp: { collection: FemaleGasp }
     DefaultDeathgasp: { collection: FemaleDeathGasp }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
+    Moan: { collection: MoansFemale } # <Veil-MoanEmote>
 
 - type: emote
   id: Mars

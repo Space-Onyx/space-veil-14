@@ -61,6 +61,8 @@
       path: /Audio/_Veil/Interactions/slap.ogg
     Squelch:
       collection: LewdSquelch
+    Moan:
+      collection: MoansMale
     # </Veil-IntimateEmotes>
 
 - type: emoteSounds
@@ -125,6 +127,8 @@
       path: /Audio/_Veil/Interactions/slap.ogg
     Squelch:
       collection: LewdSquelch
+    Moan:
+      collection: MoansFemale
     # </Veil-IntimateEmotes>
 
 - type: emoteSounds
@@ -159,6 +163,7 @@
     Yawn: { collection: MaleYawn }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: FemaleReptilian
@@ -192,6 +197,7 @@
     Yawn: { collection: FemaleYawn }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansFemale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: MaleSlime
@@ -240,6 +246,7 @@
     DefaultDeathgasp:
       collection: MaleDeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg } # <Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
   params:
     variation: 0.125
 
@@ -290,6 +297,7 @@
     DefaultDeathgasp:
       collection: FemaleDeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg } # <Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansFemale } # <Veil-MoanEmote>
   params:
     variation: 0.125
 
@@ -330,6 +338,7 @@
     Whistle: { collection: Whistles }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
   params:
     variation: 0.125
     # TODO: We need vox sounds for the other emotes
@@ -364,6 +373,7 @@
     Sigh: { collection: DionaSighs }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
   params:
     variation: 0.125
 
@@ -392,6 +402,7 @@
     DefaultDeathgasp:
       collection: DeathGasp
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg } # <Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: UnisexDwarf
@@ -441,6 +452,8 @@
       path: /Audio/_Veil/Interactions/slap.ogg
     Squelch:
       collection: LewdSquelch
+    Moan:
+      collection: MoansMale
     # </Veil-IntimateEmotes>
   params:
     variation: 0.125
@@ -494,6 +507,8 @@
       path: /Audio/_Veil/Interactions/slap.ogg
     Squelch:
       collection: LewdSquelch
+    Moan:
+      collection: MoansFemale
     # </Veil-IntimateEmotes>
   params:
     variation: 0.125
@@ -535,6 +550,7 @@
     Cough: { collection: MaleCoughs }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: UnisexSilicon
@@ -648,6 +664,7 @@
     Snore: { collection: Snores }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansMale } # <Veil-MoanEmote>
 
 - type: emoteSounds
   id: FemaleVulpkanin
@@ -696,6 +713,7 @@
     Snore: { collection: Snores }
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
+    Moan: { collection: MoansFemale } # <Veil-MoanEmote>
 
 # body emotes
 - type: emoteSounds
