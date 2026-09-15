@@ -1,0 +1,68 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: UnderwearChemistBikini
+  name: chemist bikini bottom
+  description: A white bikini bottom with chemistry-green trim.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/chemist_bikini.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: UnderwearDoctorBikini
+  name: doctor bikini bottom
+  description: A white bikini bottom marked with medical blue.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/doctor_bikini.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: UnderwearParamedicBikini
+  name: paramedic bikini bottom
+  description: A practical bikini bottom in paramedic colors.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/paramedic_bikini.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: UnderwearVirologistBikini
+  name: virologist bikini bottom
+  description: A bikini bottom colored for virology work, though offering no protection from it.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/virologist_bikini.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearBottomBase
+  id: UnderwearIntimateStickers
+  name: intimate stickers
+  description: Decorative stickers offering only the most symbolic coverage.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/intimate_stickers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearTopBase
+  id: UnderwearNippleStickers
+  name: nipple stickers
+  description: Small decorative stickers offering minimal coverage.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/nipple_stickers.rsi
+
+- type: entity
+  parent: OnyxClothingUnderwearTopBase
+  id: UnderwearHeartNippleStickers
+  name: heart-shaped nipple stickers
+  description: Heart-shaped decorative stickers offering minimal coverage.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Underwear/heart_nipple_stickers.rsi

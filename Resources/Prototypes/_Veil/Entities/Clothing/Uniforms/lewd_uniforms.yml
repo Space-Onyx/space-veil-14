@@ -142,3 +142,25 @@
     state: janimaid
   - type: Clothing
     equippedState: janimaid
+
+- type: entity
+  parent: ClothingUniformBase
+  id: LewdBlackShirt
+  name: black sheer nightshirt
+  description: A translucent black nightshirt made for comfortable sleep.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Uniforms/black_shirt.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Uniforms/black_shirt.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: LewdWhiteShirt
+  name: white sheer nightshirt
+  description: A translucent white nightshirt made for comfortable sleep.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Uniforms/white_shirt.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Uniforms/white_shirt.rsi

@@ -25,3 +25,7 @@ ent-LewdMaid = lewd maid uniform
     .desc = A maid uniform leaving little to imagination.
 ent-LewdJanimaid = lewd janitorial maid uniform
     .desc = A janitorial maid uniform with a naughty twist.
+ent-LewdBlackShirt = black sheer nightshirt
+    .desc = A translucent black nightshirt made for comfortable sleep.
+ent-LewdWhiteShirt = white sheer nightshirt
+    .desc = A translucent white nightshirt made for comfortable sleep.

@@ -1,0 +1,20 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: ClothingNeckBase
+  id: LeatherCollar
+  name: leather collar
+  description: A sturdy leather collar with a ring for attaching a leash.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Neck/leather_collar.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Neck/leather_collar.rsi
+    quickEquip: true
+    equipDelay: 4
+    unequipDelay: 5
+  - type: Collar

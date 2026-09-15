@@ -1,0 +1,47 @@
+# Space Veil
+# Copyright (C) 2026 Space Veil contributors
+#
+# This file is licensed under AGPL-3.0-or-later.
+# See LICENSES for the full license text.
+
+- type: entity
+  parent: ClothingMaskMuzzle
+  id: LewdMuzzle
+  name: leather muzzle
+  description: A fitted leather muzzle that turns speech into muffled sounds.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Masks/lewd_muzzle.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Masks/lewd_muzzle.rsi
+
+- type: entity
+  parent: ClothingMaskMuzzle
+  id: BallGag
+  name: ball gag
+  description: A leather-strapped gag with a solid ball that thoroughly muffles its wearer.
+  components:
+  - type: Sprite
+    sprite: _Veil/Clothing/Masks/ball_gag.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Masks/ball_gag.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: RingGag
+  name: ring gag
+  description: An open ring gag that muffles speech without blocking the mouth completely.
+  components:
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: _Veil/Clothing/Masks/ring_gag.rsi
+  - type: Clothing
+    sprite: _Veil/Clothing/Masks/ring_gag.rsi
+    equipDelay: 3
+    unequipDelay: 3
+  - type: MumbleAccent
+    relayAccent: true
+  - type: EmoteBlocker
+    blocksCategories:
+    - Vocal
