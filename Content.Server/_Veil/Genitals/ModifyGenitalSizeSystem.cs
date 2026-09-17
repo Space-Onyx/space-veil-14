@@ -3,6 +3,7 @@
 
 using Content.Shared._Veil.Genitals;
 using Content.Shared.EntityEffects;
+using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 
 namespace Content.Server._Veil.Genitals;
@@ -14,6 +15,9 @@ public sealed partial class ModifyGenitalSizeSystem : EntityEffectSystem<MobStat
 
     protected override void Effect(Entity<MobStateComponent> entity, ref EntityEffectEvent<ModifyGenitalSize> args)
     {
+        if (TryComp(entity, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No)
+            return;
+
         if (!_genitals.TryGetGenital(entity, args.Effect.Category, out var organ) ||
             !TryComp(organ, out GenitalComponent? genital))
             return;

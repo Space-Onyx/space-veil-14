@@ -3,6 +3,7 @@
 
 using Content.Shared._Veil.Genitals;
 using Content.Shared.Examine;
+using Content.Shared.Humanoid;
 
 namespace Content.Server._Veil.Genitals;
 
@@ -17,6 +18,9 @@ public sealed partial class GenitalDetailExamineSystem : SharedGenitalCoverageSy
     private void OnExamined(Entity<GenitalVisualStateComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
+            return;
+
+        if (TryComp(ent.Owner, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No)
             return;
 
         foreach (var layer in ent.Comp.Layers)

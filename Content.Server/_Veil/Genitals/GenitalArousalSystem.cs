@@ -6,6 +6,7 @@
 
 using Content.Server.Administration.Logs;
 using Content.Shared._Veil.Genitals;
+using Content.Shared.Humanoid;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
 using Content.Shared.Database;
@@ -27,6 +28,9 @@ public sealed partial class GenitalArousalSystem : EntitySystem
     public bool CanSetAroused(EntityUid organ, bool aroused)
     {
         if (!TryComp(organ, out GenitalArousalComponent? state))
+            return false;
+
+        if (aroused && IsErpDisabled(organ))
             return false;
 
         return state.Aroused != aroused && (!aroused || !_equipment.PreventsArousal(organ));
@@ -59,6 +63,9 @@ public sealed partial class GenitalArousalSystem : EntitySystem
 
     public void SetAllAroused(EntityUid body, bool aroused, bool log = true)
     {
+        if (aroused && TryComp(body, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No)
+            return;
+
         var changed = false;
         foreach (var (organ, _) in _genitals.GetGenitals(body))
         {
@@ -68,5 +75,13 @@ public sealed partial class GenitalArousalSystem : EntitySystem
 
         if (changed && log)
             _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(body)} set genital arousal to {aroused}");
+    }
+
+    private bool IsErpDisabled(EntityUid organ)
+    {
+        if (TryComp(organ, out GenitalComponent? genital) && genital.Body.IsValid())
+            return TryComp(genital.Body, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
+
+        return false;
     }
 }

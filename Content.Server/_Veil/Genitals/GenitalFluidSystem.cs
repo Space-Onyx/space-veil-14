@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._Veil.Genitals;
+using Content.Shared.Humanoid;
 using Content.Server.Fluids.EntitySystems;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
@@ -62,6 +63,12 @@ public sealed partial class GenitalFluidSystem : EntitySystem
         amount = 0f;
         fluidName = string.Empty;
         intoCondom = false;
+        if (IsErpDisabled(user))
+            return false;
+
+        if (TryComp(organ, out GenitalComponent? genital) && genital.Body.IsValid() && IsErpDisabled(genital.Body))
+            return false;
+
         if (!TryComp(organ, out GenitalFluidComponent? fluid) ||
             fluid.Amount < 0.1f ||
             _timing.CurTime < fluid.NextExpress)
@@ -131,5 +138,10 @@ public sealed partial class GenitalFluidSystem : EntitySystem
         }
 
         return false;
+    }
+
+    private bool IsErpDisabled(EntityUid uid)
+    {
+        return TryComp(uid, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
     }
 }

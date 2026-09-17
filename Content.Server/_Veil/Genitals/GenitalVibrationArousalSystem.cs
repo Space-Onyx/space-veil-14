@@ -3,6 +3,7 @@
 
 using System.Linq;
 using Content.Shared._Veil.Genitals;
+using Content.Shared.Humanoid;
 using Content.Shared.Jittering;
 using Content.Shared.Popups;
 using Robust.Shared.Random;
@@ -79,6 +80,9 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
 
             var body = genital.Body;
 
+            if (IsErpDisabled(body))
+                continue;
+
             if (TryComp(organ, out GenitalArousalComponent? arousal) && !arousal.Aroused)
             {
                 var progress = _progress.GetValueOrDefault(organ) + ArousalIncreasePerSecond * equipment.Vibration * frameTime;
@@ -98,6 +102,9 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
 
         foreach (var (body, vibration) in _pulses)
         {
+            if (IsErpDisabled(body))
+                continue;
+
             if (!_nextPulse.TryGetValue(body, out var nextPulse) || _timing.CurTime >= nextPulse)
             {
                 _nextPulse[body] = _timing.CurTime + PulseInterval(vibration);
@@ -183,5 +190,10 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
             2 => TimeSpan.FromSeconds(5),
             _ => TimeSpan.FromSeconds(4),
         };
+    }
+
+    private bool IsErpDisabled(EntityUid uid)
+    {
+        return TryComp(uid, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
     }
 }

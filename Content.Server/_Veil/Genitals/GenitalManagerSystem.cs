@@ -4,6 +4,7 @@
 using Content.Server.Administration.Logs;
 using System.Linq;
 using Content.Shared._Veil.Genitals;
+using Content.Shared.Humanoid;
 using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
@@ -60,6 +61,13 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
         var query = EntityQueryEnumerator<SexualArousalComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
+            if (IsErpDisabled(uid))
+            {
+                if (_ui.IsUiOpen(uid, GenitalManagerUiKey.Key, uid))
+                    _ui.CloseUi(uid, GenitalManagerUiKey.Key, uid);
+                continue;
+            }
+
             if (_ui.IsUiOpen(uid, GenitalManagerUiKey.Key, uid))
                 UpdateUi((uid, comp));
         }
@@ -72,7 +80,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void OnUiOpened(Entity<SexualArousalComponent> ent, ref BoundUIOpenedEvent args)
     {
-        if (args.Actor != ent.Owner || !IsAlive(ent))
+        if (args.Actor != ent.Owner || !IsAlive(ent) || IsErpDisabled(ent.Owner))
         {
             _ui.CloseUi(ent.Owner, GenitalManagerUiKey.Key, args.Actor);
             return;
@@ -83,6 +91,9 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void OnGetVerbs(Entity<SexualArousalComponent> ent, ref GetVerbsEvent<Verb> args)
     {
+        if (IsErpDisabled(ent.Owner) || IsErpDisabled(args.User))
+            return;
+
         AddInsertVerbs(ent, ref args);
         AddRemoveVerbs(ent, ref args);
 
@@ -136,6 +147,9 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
         if (!args.CanInteract || args.Using is not { } item)
             return;
 
+        if (IsErpDisabled(ent.Owner) || IsErpDisabled(args.User))
+            return;
+
         if (!TryComp(item, out GenitalEquipmentComponent? equipment) || !equipment.CanInsert)
             return;
 
@@ -164,6 +178,9 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
         if (!args.CanInteract)
             return;
 
+        if (IsErpDisabled(ent.Owner) || IsErpDisabled(args.User))
+            return;
+
         var user = args.User;
         foreach (var (organ, genital) in _genitals.GetGenitals(ent))
         {
@@ -184,6 +201,9 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void RemoveEquipment(Entity<SexualArousalComponent> ent, EntityUid organ, string itemName, EntityUid user)
     {
+        if (IsErpDisabled(ent.Owner) || IsErpDisabled(user))
+            return;
+
         if (!_equipment.TryRemove(organ, user))
             return;
 
@@ -287,7 +307,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void TryMilk(Entity<SexualArousalComponent> ent, EntityUid actor)
     {
-        if (actor != ent.Owner || !IsAlive(ent) ||
+        if (IsErpDisabled(ent.Owner) || IsErpDisabled(actor) || actor != ent.Owner || !IsAlive(ent) ||
             !TryGetOwned(ent, "Breasts", out var breasts, out _) ||
             !_fluids.TryExpress(ent.Owner, breasts, out var amount, out _, out var intoCondom))
         {
@@ -305,7 +325,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void TryExpress(Entity<SexualArousalComponent> ent, EntityUid actor, string category, EntityUid organ)
     {
-        if (actor != ent.Owner || !IsAlive(ent) ||
+        if (IsErpDisabled(ent.Owner) || IsErpDisabled(actor) || actor != ent.Owner || !IsAlive(ent) ||
             !_fluids.TryExpress(ent.Owner, organ, out var amount, out var fluid, out var intoCondom))
         {
             _popup.PopupEntity(Loc.GetString("genital-fluid-express-failed"), ent, actor);
@@ -334,6 +354,9 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void OpenFor(EntityUid user)
     {
+        if (IsErpDisabled(user))
+            return;
+
         EnsureUi(user);
         _ui.TryOpenUi(user, GenitalManagerUiKey.Key, user);
         if (TryComp(user, out SexualArousalComponent? state))
@@ -342,7 +365,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private bool ValidateOwner(Entity<SexualArousalComponent> ent, EntityUid actor)
     {
-        return actor == ent.Owner && IsAlive(ent) && _ui.IsUiOpen(ent.Owner, GenitalManagerUiKey.Key, actor);
+        return actor == ent.Owner && IsAlive(ent) && !IsErpDisabled(ent.Owner) && _ui.IsUiOpen(ent.Owner, GenitalManagerUiKey.Key, actor);
     }
 
     private bool TryGetOwned(
@@ -430,6 +453,11 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     private bool IsAlive(EntityUid body)
     {
         return TryComp(body, out MobStateComponent? mob) && mob.CurrentState == MobState.Alive;
+    }
+
+    private bool IsErpDisabled(EntityUid uid)
+    {
+        return TryComp(uid, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
     }
 
     private string? GetFluidName(EntityUid organ)

@@ -7,6 +7,7 @@ using Content.Server.Fluids.EntitySystems;
 using Content.Shared._Veil.Genitals;
 using Content.Shared.Body;
 using Content.Shared.Body.Systems;
+using Content.Shared.Humanoid;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Database;
@@ -139,6 +140,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         if (args.Handled || args.Target is not { } target || !args.CanReach)
             return;
 
+        if (IsErpDisabled(target) || IsErpDisabled(args.User))
+            return;
+
         if (!ent.Comp.CanUse)
         {
             _popup.PopupEntity(Loc.GetString("genital-equipment-use-insert-menu"), ent, args.User);
@@ -247,6 +251,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
 
     public bool TryEquip(Entity<GenitalEquipmentComponent> equipment, EntityUid body, EntityUid user, EntityUid? targetOrgan = null)
     {
+        if (IsErpDisabled(body) || IsErpDisabled(user))
+            return false;
+
         if (!equipment.Comp.CanInsert)
             return false;
 
@@ -323,6 +330,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
 
     public bool TryStartEquip(Entity<GenitalEquipmentComponent> equipment, EntityUid body, EntityUid user, EntityUid? targetOrgan = null)
     {
+        if (IsErpDisabled(body) || IsErpDisabled(user))
+            return false;
+
         if (!equipment.Comp.CanInsert ||
             equipment.Comp.Wrapped ||
             (TryComp(equipment, out CondomComponent? condom) && !condom.Unwrapped) ||
@@ -373,6 +383,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
 
     public bool TryUse(Entity<GenitalEquipmentComponent> equipment, EntityUid body, EntityUid user)
     {
+        if (IsErpDisabled(body) || IsErpDisabled(user))
+            return false;
+
         if (_timing.CurTime < equipment.Comp.NextUse ||
             !CanUse(equipment, body, user, out var organ))
         {
@@ -429,6 +442,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
     {
         organ = default;
 
+        if (IsErpDisabled(body) || IsErpDisabled(user))
+            return false;
+
         foreach (var (candidate, genital) in _genitals.GetGenitals(body))
         {
             if (!IsGenitalAccessible(body, genital.Category.Id, genital.Shape, genital.Size, genital.Visibility) ||
@@ -446,6 +462,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
     public bool CanUse(Entity<GenitalEquipmentComponent> equipment, EntityUid body, EntityUid user, out EntityUid organ)
     {
         organ = default;
+
+        if (IsErpDisabled(body) || IsErpDisabled(user))
+            return false;
 
         if (!equipment.Comp.CanUse)
             return false;
@@ -466,6 +485,9 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
 
     public bool TryRemove(EntityUid organ, EntityUid user)
     {
+        if (IsErpDisabled(user))
+            return false;
+
         if (!_containers.TryGetContainer(organ, EquipmentContainer, out var found) ||
             found is not ContainerSlot { ContainedEntity: { } item } container ||
             !_containers.Remove(item, container))
@@ -491,5 +513,10 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         return GetEquipment(organ) is { } item &&
             TryComp(item, out GenitalEquipmentComponent? equipment) &&
             equipment.PreventsArousal;
+    }
+
+    private bool IsErpDisabled(EntityUid uid)
+    {
+        return TryComp(uid, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
     }
 }
