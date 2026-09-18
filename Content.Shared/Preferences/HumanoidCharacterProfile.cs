@@ -244,10 +244,10 @@ namespace Content.Shared.Preferences
                 other.PreferenceUnavailable,
                 new HashSet<ProtoId<AntagPrototype>>(other.AntagPreferences),
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
-                new Dictionary<string, RoleLoadout>(other.Loadouts),
-                // <Onyx-Barks>
-                other.Bark
-                // </Onyx-Barks>
+                other.Loadouts.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Clone()), // <Onyx-ProfilePersistence-edited>
+                // <Onyx-ProfilePersistence>
+                other.Bark.Copy()
+                // </Onyx-ProfilePersistence>
                 )
         {
             _cybernetics = new List<EntProtoId>(other.Cybernetics); // <Onyx-CyberneticsPersonalization>
@@ -475,6 +475,10 @@ namespace Content.Shared.Preferences
             profile._cybernetics = new List<EntProtoId>(baseProfile.Cybernetics); // <Onyx-CyberneticsPersonalization>
             profile.CopyRandomizedGenitalFields(baseProfile); // <Veil-Genitals>
             profile.ErpStatus = ErpStatus.No; // <Veil-ErpStatus>
+            // <Onyx-ProfilePersistence>
+            profile.CopyDescriptionFields(baseProfile);
+            profile._jobAlternatives = new Dictionary<ProtoId<JobPrototype>, ProtoId<AlternativeJobPrototype>>(baseProfile.JobAlternatives);
+            // </Onyx-ProfilePersistence>
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -987,6 +991,7 @@ namespace Content.Shared.Preferences
             Name = name;
             FlavorText = flavortext;
             EnsureDescriptionFieldsValid(configManager); // <Onyx-CharacterDescriptions>
+            EnsureBarkValid(prototypeManager, configManager); // <Onyx-ProfilePersistence>
             Age = age;
             // <Onyx-HeightWidth>
             Height = height;
@@ -1004,6 +1009,7 @@ namespace Content.Shared.Preferences
             {
                 _jobPriorities.Add(job, priority);
             }
+            PruneJobAlternatives(); // <Onyx-ProfilePersistence>
 
             PreferenceUnavailable = prefsUnavailableMode;
 
@@ -1143,6 +1149,12 @@ namespace Content.Shared.Preferences
             hashCode.Add(Name);
             hashCode.Add(FlavorText);
             AddDescriptionFieldsHash(ref hashCode); // <Onyx-CharacterDescriptions>
+            // <Onyx-ProfilePersistence>
+            hashCode.Add(Bark.Proto);
+            hashCode.Add(Bark.Pitch);
+            hashCode.Add(Bark.MinVar);
+            hashCode.Add(Bark.MaxVar);
+            // </Onyx-ProfilePersistence>
             hashCode.Add(Species);
             hashCode.Add(Age);
             // <Onyx-HeightWidth>

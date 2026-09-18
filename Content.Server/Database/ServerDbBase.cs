@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Shared.Administration.Logs;
+using Content.Shared._Onyx.Ghost.Skins; // <Onyx-GhostSkins>
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Database;
 using Content.Shared.Humanoid;
@@ -154,6 +155,7 @@ namespace Content.Server.Database
                 UserId = userId.UserId,
                 SelectedCharacterSlot = 0,
                 AdminOOCColor = Color.Red.ToHex(),
+                GhostSkinId = "Default", // <Onyx-GhostSkins>
                 ConstructionFavorites = [],
             };
 
@@ -202,6 +204,17 @@ namespace Content.Server.Database
             await db.DbContext.SaveChangesAsync();
         }
 
+        // <Onyx-GhostSkins>
+        public async Task SaveGhostSkinAsync(NetUserId userId, ProtoId<GhostSkinPrototype> skin)
+        {
+            await using var db = await GetDb();
+            var prefs = await db.DbContext.Preference.SingleAsync(p => p.UserId == userId.UserId);
+            prefs.GhostSkinId = skin.Id;
+
+            await db.DbContext.SaveChangesAsync();
+        }
+        // </Onyx-GhostSkins>
+
         private static async Task SetSelectedCharacterSlotAsync(NetUserId userId, int newSlot, ServerDbContext db)
         {
             var prefs = await db.Preference.SingleAsync(p => p.UserId == userId.UserId);
@@ -230,6 +243,12 @@ namespace Content.Server.Database
             profile.Width = humanoid.Width;
             // </Onyx-HeightWidth>
             profile.CyberneticIds = humanoid.Cybernetics.Select(id => id.Id).ToList(); // <Onyx-CyberneticsPersonalization>
+            // <Onyx-ProfilePersistence>
+            profile.BarkProto = humanoid.Bark.Proto;
+            profile.BarkPitch = humanoid.Bark.Pitch;
+            profile.BarkMinVar = humanoid.Bark.MinVar;
+            profile.BarkMaxVar = humanoid.Bark.MaxVar;
+            // </Onyx-ProfilePersistence>
             profile.Sex = humanoid.Sex.ToString();
             profile.Voice = humanoid.Voice.ToString();
             profile.Gender = humanoid.Gender.ToString();
@@ -295,6 +314,9 @@ namespace Content.Server.Database
                 {
                     RoleName = role,
                     EntityName = loadouts.EntityName ?? string.Empty,
+                    // <Onyx-ProfilePersistence>
+                    SyntheticLawPreset = loadouts.SyntheticLawPreset?.Id,
+                    // </Onyx-ProfilePersistence>
                 };
 
                 foreach (var (group, groupLoadouts) in loadouts.SelectedLoadouts)

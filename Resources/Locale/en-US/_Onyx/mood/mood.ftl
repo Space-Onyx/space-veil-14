@@ -163,3 +163,9 @@ mood-effect-TastyEffect =
 
 # Crab-17
 mood-effect-LostMoneyCrab17 = I lost a lot of money in that market crash...
+
+# Dirty worn clothing and body
+mood-effect-DirtySocks = My socks are dirty, wearing them is unpleasant.
+mood-effect-DirtyUnderwear = My underwear is dirty, wearing it is unpleasant.
+mood-effect-DirtyUniform = My uniform is stained, wearing it is unpleasant.
+mood-effect-DirtyBody = My skin is covered in grime.

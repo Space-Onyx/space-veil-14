@@ -263,3 +263,9 @@ mood-effect-TastyEffect =
 
 # Crab-17
 mood-effect-LostMoneyCrab17 = Я потерял слишком много денег из-за этого обвала...
+
+# Грязная носимая одежда и тело
+mood-effect-DirtySocks = Мои носки грязные, носить их неприятно.
+mood-effect-DirtyUnderwear = Нижнее бельё грязное, носить его неприятно.
+mood-effect-DirtyUniform = Униформа в пятнах, носить её неприятно.
+mood-effect-DirtyBody = Кожа покрыта грязью.

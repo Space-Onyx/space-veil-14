@@ -1051,6 +1051,11 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("construction_favorites");
 
+                    b.Property<string>("GhostSkinId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ghost_skin_id");
+
                     b.Property<int>("SelectedCharacterSlot")
                         .HasColumnType("INTEGER")
                         .HasColumnName("selected_character_slot");
@@ -1078,6 +1083,25 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER")
                         .HasColumnName("age");
+
+                    // <Onyx-ProfilePersistence>
+                    b.Property<float>("BarkMaxVar")
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_max_var");
+
+                    b.Property<float>("BarkMinVar")
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_min_var");
+
+                    b.Property<float>("BarkPitch")
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_pitch");
+
+                    b.Property<string>("BarkProto")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("bark_proto");
+                    // </Onyx-ProfilePersistence>
 
                     b.Property<string>("CharacterName")
                         .IsRequired()
@@ -1302,6 +1326,12 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("role_name");
+
+                    // <Onyx-ProfilePersistence>
+                    b.Property<string>("SyntheticLawPreset")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("synthetic_law_preset");
+                    // </Onyx-ProfilePersistence>
 
                     b.HasKey("Id")
                         .HasName("PK_profile_role_loadout");
