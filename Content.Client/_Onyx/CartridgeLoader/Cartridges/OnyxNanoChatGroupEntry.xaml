@@ -1,0 +1,47 @@
+<cartridges:OnyxNanoChatGroupEntry
+    xmlns="https://spacestation14.io"
+    xmlns:cartridges="clr-namespace:Content.Client._Onyx.CartridgeLoader.Cartridges"
+    xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+    HorizontalExpand="True">
+    <Button Name="ChatButton"
+            StyleClasses="ButtonSquare"
+            HorizontalExpand="True"
+            MinSize="0 56"
+            Margin="0 1">
+        <BoxContainer Orientation="Horizontal"
+                      HorizontalExpand="True"
+                      VerticalExpand="True"
+                      Margin="4 2"
+                      VerticalAlignment="Center">
+            <PanelContainer Name="UnreadIndicator"
+                            MinSize="8 8"
+                            MaxSize="8 8"
+                            VerticalAlignment="Center"
+                            Margin="0 0 4 0">
+                <PanelContainer.PanelOverride>
+                    <graphics:StyleBoxFlat
+                        BackgroundColor="#17c622"
+                        BorderColor="#0f7a15" />
+                </PanelContainer.PanelOverride>
+            </PanelContainer>
+
+            <BoxContainer Orientation="Vertical"
+                          HorizontalExpand="True"
+                          VerticalExpand="True"
+                          VerticalAlignment="Center"
+                          MaxWidth="95">
+                <RichTextLabel Name="NameLabel"
+                               StyleClasses="LabelHeading"
+                               HorizontalExpand="True"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="0 -2 0 0" />
+                <Label Name="MembersLabel"
+                       StyleClasses="LabelSubText"
+                       HorizontalExpand="True"
+                       ClipText="False"
+                       HorizontalAlignment="Center" />
+            </BoxContainer>
+        </BoxContainer>
+    </Button>
+</cartridges:OnyxNanoChatGroupEntry>

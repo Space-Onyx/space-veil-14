@@ -12,16 +12,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     xmlns="https://spacestation14.io"
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     HorizontalExpand="True">
+    <!-- <Onyx-NanoChatGroups> -->
     <Button Name="ChatButton"
             StyleClasses="ButtonSquare"
             HorizontalExpand="True"
-            MaxSize="137 64"
+            MinSize="0 56"
             Margin="0 1">
         <BoxContainer Orientation="Horizontal"
                       HorizontalExpand="True"
                       VerticalExpand="True"
-                      MinWidth="132"
-                      Margin="6 4"
+                      Margin="4 2"
                       VerticalAlignment="Center">
             <!-- Unread indicator dot -->
             <PanelContainer Name="UnreadIndicator"
@@ -40,7 +40,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <BoxContainer Orientation="Vertical"
                           HorizontalExpand="True"
                           VerticalExpand="True"
-                          VerticalAlignment="Center">
+                          VerticalAlignment="Center"
+                          MaxWidth="95">
+    <!-- </Onyx-NanoChatGroups> -->
                 <RichTextLabel Name="NameLabel"
                                StyleClasses="LabelHeading"
                                HorizontalExpand="True"
