@@ -1,0 +1,32 @@
+# Content taken from Goob-Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+
+- type: marking
+  id: dogEars
+  activeVariant: dogEarsWag
+  bodyPart: HeadTop
+  groupWhitelist: [ Human ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/dog_markings.rsi
+    state: dog_ears_standard
+- type: marking
+  id: dogEarsWag
+  bodyPart: HeadTop
+  groupWhitelist: []
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/dog_markings.rsi
+    state: dog_ears_animated
+- type: marking
+  id: dogTail
+  activeVariant: dogTailWag
+  bodyPart: Tail
+  groupWhitelist: [ Human ]
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/dog_markings.rsi
+    state: dog_tail_standard
+- type: marking
+  id: dogTailWag
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+  - sprite: _Onyx/Mobs/Customization/Goob/dog_markings.rsi
+    state: dog_tail_animated

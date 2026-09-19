@@ -38,17 +38,20 @@
       required: false
     # Corvax-Sponsors-start
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 1
+      limit: 1 # <Onyx-MarkingCategories-edited>
       required: false
-    # <Onyx-VisualEars>
-    enum.HumanoidVisualLayers.Ears:
-      limit: 1
-      required: false
-    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Tail:
       limit: 1
       required: false
     # Corvax-Sponsors-end
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Head:
+      limit: 4
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 2
+      required: false
+    # </Onyx-GoobMarkings>
   appearances:
     enum.HumanoidVisualLayers.Hair:
       layerAlpha: 0.72
@@ -89,9 +92,6 @@
       Eyes: OrganSlimePersonEyes
       Lungs: OrganSlimePersonLungs
       Heart: OrganSlimePersonCirculator # <Onyx-SlimeCirculator>
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganSlimePersonTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: SlimePerson
 

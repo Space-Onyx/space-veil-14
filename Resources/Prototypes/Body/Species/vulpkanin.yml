@@ -12,10 +12,6 @@
     enum.HumanoidVisualLayers.Head:
       limit: 3
       required: false
-    enum.HumanoidVisualLayers.Ears: # <Onyx-VisualEars-edited>
-      limit: 1
-      required: true
-      default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
@@ -51,6 +47,12 @@
     enum.HumanoidVisualLayers.RFoot:
       limit: 2
       required: false
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.HeadTop:
+      limit: 3 # <Onyx-MarkingCategories-edited>
+      required: true
+      default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
+    # </Onyx-GoobMarkings>
     # <Onyx-Underwear-edited>
     # Undergarment marking defaults removed in favor of wearable underwear items.
     # </Onyx-Underwear-edited>
@@ -61,6 +63,8 @@
   categories: [ HideSpawnMenu ]
   name: vulpkanin appearance
   components:
+  - type: MarkingActivity # <Onyx-MarkingActivity>
+    action: ActionToggleWaggingVulpkanin # <Onyx-MarkingActivity>
   - type: InitialBody
     organs:
       # <Onyx-ChestGroin-edited>
@@ -86,9 +90,6 @@
       Stomach: OrganVulpkaninStomach
       Liver: OrganVulpkaninLiver
       Kidneys: OrganVulpkaninKidneys
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganVulpkaninTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Vulpkanin
   - type: Inventory
@@ -397,11 +398,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganVulpkaninInternal ]
   id: OrganVulpkaninEars
-  # <Onyx-VisualEars>
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Vulpkanin }
-  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganVulpkaninInternal, OrganVulpkaninMetabolizer ]

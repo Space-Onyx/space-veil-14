@@ -3,13 +3,8 @@
   id: Human
   limits:
     enum.HumanoidVisualLayers.HeadTop:
-      limit: 1
+      limit: 8 # <Onyx-MarkingCategories-edited>
       required: false
-    # <Onyx-VisualEars>
-    enum.HumanoidVisualLayers.Ears:
-      limit: 1
-      required: false
-    # </Onyx-VisualEars>
     enum.HumanoidVisualLayers.Hair:
       limit: 1
       required: false
@@ -53,6 +48,14 @@
     enum.HumanoidVisualLayers.Special:
       limit: 0
       required: false
+    # <Onyx-GoobMarkings>
+    enum.HumanoidVisualLayers.Head:
+      limit: 4
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 2
+      required: false
+    # </Onyx-GoobMarkings>
 
 - type: entity
   parent: BaseSpeciesAppearance
@@ -92,9 +95,6 @@
       Stomach: OrganHumanStomach
       Liver: OrganHumanLiver
       Kidneys: OrganHumanKidneys
-  - type: ProfileOrgans # <Onyx-ProfileOrgans>
-    organs:
-      Tail: { prototype: OrganHumanTail, parent: Groin, presenceLayers: [ Tail, TailOverlay ] }
   - type: HumanoidProfile
     species: Human
 
@@ -222,11 +222,6 @@
 - type: entity
   parent: [ OrganBaseEars, OrganHumanInternal ]
   id: OrganHumanEars
-  # <Onyx-VisualEars>
-  components:
-  - type: VisualOrganMarkings
-    markingData: { layers: [ Ears, EarsOverlay ], group: Human }
-  # </Onyx-VisualEars>
 
 - type: entity
   parent: [ OrganBaseLungs, OrganHumanInternal, OrganHumanMetabolizer ]
