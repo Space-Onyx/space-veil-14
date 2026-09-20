@@ -34,5 +34,6 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         StatusButton.SelectId((int)Profile.ErpStatus);
+        RefreshGenitalEditor();
     }
 }

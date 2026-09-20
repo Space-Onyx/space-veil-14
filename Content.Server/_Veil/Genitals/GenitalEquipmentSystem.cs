@@ -2,14 +2,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Server.Administration.Logs;
-using System.Linq;
 using Content.Server.Fluids.EntitySystems;
 using Content.Shared._Veil.Genitals;
-using Content.Shared.Body;
-using Content.Shared.Body.Systems;
 using Content.Shared.Humanoid;
 using Content.Shared.Chemistry.Components;
-using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Database;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DoAfter;
@@ -273,6 +269,7 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         if (targetOrgan is { } chosen)
         {
             if (!TryComp(chosen, out GenitalComponent? chosenGenital) ||
+                chosenGenital.Body != body ||
                 !equipment.Comp.Slots.Contains(chosenGenital.Category) ||
                 !IsGenitalAccessible(body, chosenGenital.Category.Id, chosenGenital.Shape, chosenGenital.Size, chosenGenital.Visibility) ||
                 (_containers.TryGetContainer(chosen, EquipmentContainer, out var chosenContainer) &&
@@ -433,6 +430,11 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
                 _stun.TryAddStunDuration(body, TimeSpan.FromSeconds(2));
         }
 
+        var moanIntensity = equipment.Comp.HasVibration && equipment.Comp.Vibration > 0
+            ? equipment.Comp.Vibration
+            : equipment.Comp.SizeStage >= 3 ? 2 : 1;
+        _genitalArousal.TryMoan(body, moanIntensity);
+
         _adminLog.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(user):player} used {ToPrettyString(equipment)} on {ToPrettyString(body):player}");
         return true;
@@ -483,12 +485,22 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         return false;
     }
 
-    public bool TryRemove(EntityUid organ, EntityUid user)
+    public bool CanRemove(EntityUid organ, EntityUid body, EntityUid user)
     {
-        if (IsErpDisabled(user))
+        if (IsErpDisabled(body) || IsErpDisabled(user) ||
+            !TryComp(organ, out GenitalComponent? genital) ||
+            genital.Body != body ||
+            !IsGenitalAccessible(body, genital.Category.Id, genital.Shape, genital.Size, genital.Visibility))
             return false;
 
-        if (!_containers.TryGetContainer(organ, EquipmentContainer, out var found) ||
+        return _containers.TryGetContainer(organ, EquipmentContainer, out var found) &&
+            found is ContainerSlot { ContainedEntity: not null };
+    }
+
+    public bool TryRemove(EntityUid organ, EntityUid body, EntityUid user)
+    {
+        if (!CanRemove(organ, body, user) ||
+            !_containers.TryGetContainer(organ, EquipmentContainer, out var found) ||
             found is not ContainerSlot { ContainedEntity: { } item } container ||
             !_containers.Remove(item, container))
             return false;
@@ -499,6 +511,19 @@ public sealed partial class GenitalEquipmentSystem : SharedGenitalCoverageSystem
         _adminLog.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(user):player} removed {ToPrettyString(item)} from {ToPrettyString(organ)}");
         return true;
+    }
+
+    public void Eject(EntityUid organ, EntityUid body)
+    {
+        if (!TryComp(organ, out GenitalComponent? genital) || genital.Body != body)
+            return;
+
+        if (!_containers.TryGetContainer(organ, EquipmentContainer, out var found) ||
+            found is not ContainerSlot { ContainedEntity: { } item } container ||
+            !_containers.Remove(item, container))
+            return;
+
+        _transform.SetCoordinates(item, Transform(body).Coordinates);
     }
 
     public EntityUid? GetEquipment(EntityUid organ)

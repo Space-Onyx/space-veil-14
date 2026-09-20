@@ -1230,6 +1230,12 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("gender");
 
+                    // <Veil-ErpStatus>
+                    b.Property<byte>("ErpStatus")
+                        .HasColumnType("smallint")
+                        .HasColumnName("erp_status");
+                    // </Veil-ErpStatus>
+
                     b.Property<JsonDocument>("Genitals")
                         .HasColumnType("jsonb")
                         .HasColumnName("genitals"); // <Veil-Genitals>

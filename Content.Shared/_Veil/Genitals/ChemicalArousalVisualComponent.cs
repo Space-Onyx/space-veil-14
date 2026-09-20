@@ -1,8 +1,5 @@
-// Space Veil
-// Copyright (C) 2026 Space Veil contributors
-//
-// This file is licensed under AGPL-3.0-or-later.
-// See LICENSES for the full license text.
+// SPDX-FileCopyrightText: 2026 Space Veil Contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Robust.Shared.GameStates;
 

@@ -45,7 +45,26 @@ public static class GenitalRestrictions
     public static string DefaultShape(IPrototypeManager prototypes, string speciesId, ProtoId<GenitalCategoryPrototype> category)
     {
         var config = Config(prototypes, speciesId);
-        return config.Shapes.TryGetValue(category, out var shape) ? shape : GenitalProfileData.Default(category).Shape;
+        return config.Shapes.TryGetValue(category, out var shape)
+            ? shape
+            : prototypes.Index(category).DefaultShape;
+    }
+
+    public static (float Min, float Max) SizeRange(
+        IPrototypeManager prototypes,
+        ProtoId<GenitalCategoryPrototype> category)
+    {
+        var prototype = prototypes.Index(category);
+        return (prototype.MinSize, prototype.MaxSize);
+    }
+
+    public static List<ProtoId<GenitalCategoryPrototype>> Categories(IPrototypeManager prototypes)
+    {
+        return prototypes.EnumeratePrototypes<GenitalCategoryPrototype>()
+            .OrderBy(category => category.Order)
+            .ThenBy(category => category.ID, StringComparer.Ordinal)
+            .Select(category => new ProtoId<GenitalCategoryPrototype>(category.ID))
+            .ToList();
     }
 
     public static List<string> AllowedFluids(IPrototypeManager prototypes, string speciesId, ProtoId<GenitalCategoryPrototype> category)
@@ -75,7 +94,7 @@ public static class GenitalRestrictions
 
         foreach (var visual in prototypes.EnumeratePrototypes<GenitalVisualPrototype>())
         {
-            if (visual.Internal || visual.Category != category ||
+            if (visual.Category != category ||
                 !string.Equals(visual.Shape, shape, StringComparison.OrdinalIgnoreCase))
                 continue;
 
@@ -89,15 +108,5 @@ public static class GenitalRestrictions
         }
 
         return false;
-    }
-
-    public static IEnumerable<ProtoId<GenitalCategoryPrototype>> Categories()
-    {
-        yield return new ProtoId<GenitalCategoryPrototype>("Penis");
-        yield return new ProtoId<GenitalCategoryPrototype>("Testicles");
-        yield return new ProtoId<GenitalCategoryPrototype>("Vagina");
-        yield return new ProtoId<GenitalCategoryPrototype>("Breasts");
-        yield return new ProtoId<GenitalCategoryPrototype>("Butt");
-        yield return new ProtoId<GenitalCategoryPrototype>("Anus");
     }
 }

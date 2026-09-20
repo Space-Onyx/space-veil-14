@@ -13,4 +13,6 @@ public sealed partial class SexualArousalComponent : Component
     public bool ChemicallyAroused;
 
     public HashSet<EntityUid> ChemicallyArousedOrgans = [];
+
+    public TimeSpan NextMoan;
 }

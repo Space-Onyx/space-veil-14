@@ -6,6 +6,5 @@ namespace Content.Shared._Veil.Genitals;
 [RegisterComponent]
 public sealed partial class GenitalArousalComponent : Component
 {
-    [DataField]
     public bool Aroused;
 }

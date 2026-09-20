@@ -4,7 +4,6 @@
 using Content.Shared._Veil.Genitals;
 using Content.Shared.Humanoid;
 using Content.Server.Fluids.EntitySystems;
-using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
@@ -28,26 +27,46 @@ public sealed partial class GenitalFluidSystem : EntitySystem
     [Dependency] private GenitalEquipmentSystem _equipment = default!;
 
     private const float CondomCapacity = 30f;
+    private const float UpdateInterval = 1f;
+
+    private float _updateAccumulator;
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        _updateAccumulator += frameTime;
+        if (_updateAccumulator < UpdateInterval)
+            return;
+
+        var elapsed = _updateAccumulator;
+        _updateAccumulator = 0f;
         var query = EntityQueryEnumerator<GenitalFluidComponent, GenitalComponent>();
         while (query.MoveNext(out _, out var fluid, out var genital))
         {
-            var capacity = GetCapacity(genital.Size);
-            fluid.Amount = Math.Min(capacity, fluid.Amount + fluid.ProductionPerSecond * frameTime);
+            if (genital.Body.IsValid() && IsErpDisabled(genital.Body))
+                continue;
+
+            var category = _prototypes.Index(genital.Category);
+            var capacity = GetCapacity(category, genital.Size);
+            fluid.Amount = Math.Min(capacity, fluid.Amount + category.FluidProductionPerSecond * elapsed);
         }
     }
 
-    public static float GetCapacity(float size)
+    public static float GetCapacity(GenitalCategoryPrototype category, float size)
     {
-        return Math.Max(5f, size * 2.5f);
+        return Math.Max(0f, category.FluidCapacityBase + size * category.FluidCapacityPerSize);
     }
 
     public bool TryGetAmount(EntityUid organ, float size, out float amount, out float capacity)
     {
-        capacity = GetCapacity(size);
+        if (!TryComp(organ, out GenitalComponent? genital))
+        {
+            amount = 0f;
+            capacity = 0f;
+            return false;
+        }
+
+        capacity = GetCapacity(_prototypes.Index(genital.Category), size);
         if (!TryComp(organ, out GenitalFluidComponent? fluid))
         {
             amount = 0f;
@@ -58,6 +77,15 @@ public sealed partial class GenitalFluidSystem : EntitySystem
         return true;
     }
 
+    public void ClampToCapacity(EntityUid organ, float size)
+    {
+        if (!TryComp(organ, out GenitalComponent? genital) ||
+            !TryComp(organ, out GenitalFluidComponent? fluid))
+            return;
+
+        fluid.Amount = Math.Min(fluid.Amount, GetCapacity(_prototypes.Index(genital.Category), size));
+    }
+
     public bool TryExpress(EntityUid user, EntityUid organ, out float amount, out string fluidName, out bool intoCondom)
     {
         amount = 0f;
@@ -66,7 +94,7 @@ public sealed partial class GenitalFluidSystem : EntitySystem
         if (IsErpDisabled(user))
             return false;
 
-        if (TryComp(organ, out GenitalComponent? genital) && genital.Body.IsValid() && IsErpDisabled(genital.Body))
+        if (!TryComp(organ, out GenitalComponent? genital) || genital.Body != user || IsErpDisabled(genital.Body))
             return false;
 
         if (!TryComp(organ, out GenitalFluidComponent? fluid) ||
@@ -128,7 +156,7 @@ public sealed partial class GenitalFluidSystem : EntitySystem
                 continue;
 
             if (_equipment.GetEquipment(candidate) is not { } item ||
-                Prototype(item)?.ID != "SexToyCondom" ||
+                !HasComp<CondomComponent>(item) ||
                 !TryComp(item, out GenitalFluidComponent? fluid))
                 continue;
 

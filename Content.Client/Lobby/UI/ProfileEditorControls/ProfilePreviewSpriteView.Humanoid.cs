@@ -29,7 +29,8 @@ public sealed partial class ProfilePreviewSpriteView
             return;
 
         EntMan.System<SharedVisualBodySystem>().ApplyProfileTo(PreviewDummy, humanoid);
-        EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, humanoid); // <Veil-Genitals>
+        if (humanoid.ErpStatus != ErpStatus.No) // <Veil-Genitals>
+            EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, humanoid); // <Veil-Genitals>
     }
 
     /// <summary>
@@ -75,7 +76,7 @@ public sealed partial class ProfilePreviewSpriteView
             }
         }
 
-        if (humanoid != null && EntMan.HasComponent<VisualBodyComponent>(PreviewDummy)) // <Veil-Genitals>
+        if (humanoid is { ErpStatus: not ErpStatus.No } && EntMan.HasComponent<VisualBodyComponent>(PreviewDummy)) // <Veil-Genitals-edited>
             EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, humanoid); // <Veil-Genitals>
     }
 
@@ -187,7 +188,7 @@ public sealed partial class ProfilePreviewSpriteView
             }
         }
 
-        if (EntMan.HasComponent<VisualBodyComponent>(PreviewDummy)) // <Veil-Genitals>
+        if (profile.ErpStatus != ErpStatus.No && EntMan.HasComponent<VisualBodyComponent>(PreviewDummy)) // <Veil-Genitals-edited>
             EntMan.System<Content.Client._Veil.Genitals.GenitalPreviewSystem>().ApplyPreview(PreviewDummy, profile); // <Veil-Genitals>
     }
 }

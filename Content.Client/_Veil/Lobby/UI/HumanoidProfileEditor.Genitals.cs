@@ -20,18 +20,7 @@ namespace Content.Client.Lobby.UI;
 
 public sealed partial class HumanoidProfileEditor
 {
-    private static readonly ProtoId<GenitalCategoryPrototype>[] GenitalOrder =
-    [
-        "Penis",
-        "Testicles",
-        "Vagina",
-        "Breasts",
-        "Butt",
-        "Anus",
-    ];
-
-    private static readonly ProtoId<GenitalCategoryPrototype> BreastsCategory = "Breasts";
-    private static readonly ProtoId<GenitalCategoryPrototype> ButtCategory = "Butt";
+    private readonly List<ProtoId<GenitalCategoryPrototype>> _genitalOrder = [];
 
     private bool CanPreviewArousal(ProtoId<GenitalCategoryPrototype> category)
     {
@@ -46,7 +35,6 @@ public sealed partial class HumanoidProfileEditor
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, FloatSpinBox> _genitalSizes = [];
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, FloatSpinBox> _genitalMinSizes = [];
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, FloatSpinBox> _genitalMaxSizes = [];
-    private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, List<Control>> _genitalRuntimeSizeControls = [];
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, CheckBox> _genitalSkinToggles = [];
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, CheckBox> _genitalLactationToggles = [];
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, OptionButton> _genitalFluids = [];
@@ -59,6 +47,7 @@ public sealed partial class HumanoidProfileEditor
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, BoxContainer> _genitalDetails = [];
     private readonly Dictionary<ProtoId<GenitalCategoryPrototype>, PanelContainer> _genitalCards = [];
     private BoxContainer? _genitalEditor;
+    private Label? _genitalDisabledNotice;
     private PanelContainer? _genitalColorCard;
     private ColorSelectorSliders? _genitalColorPicker;
     private string? _genitalColorTarget;
@@ -66,6 +55,7 @@ public sealed partial class HumanoidProfileEditor
 
     private void InitializeGenitalEditor()
     {
+        _genitalOrder.AddRange(GenitalRestrictions.Categories(_prototypeManager));
         _genitalEditor = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -108,7 +98,16 @@ public sealed partial class HumanoidProfileEditor
         header.AddChild(headerBox);
         _genitalEditor.AddChild(header);
 
-        foreach (var category in GenitalOrder)
+        _genitalDisabledNotice = new Label
+        {
+            Text = Loc.GetString("genital-erp-disabled"),
+            StyleClasses = { "LabelSubText" },
+            HorizontalExpand = true,
+            Visible = false,
+        };
+        _genitalEditor.AddChild(_genitalDisabledNotice);
+
+        foreach (var category in _genitalOrder)
             AddGenitalCard(category);
 
         _genitalColorCard = new PanelContainer
@@ -275,7 +274,7 @@ public sealed partial class HumanoidProfileEditor
             colorRow.AddChild(color);
             details.AddChild(colorRow);
 
-            var (minSize, maxSize) = GenitalProfileData.GetSizeRange(category);
+            var (minSize, maxSize) = GenitalRestrictions.SizeRange(_prototypeManager, category);
             if (maxSize > minSize)
             {
                 var sizePanel = new PanelContainer
@@ -397,7 +396,8 @@ public sealed partial class HumanoidProfileEditor
             visibilityRow.AddChild(visibility);
             details.AddChild(visibilityRow);
 
-            if (category == BreastsCategory)
+            var categoryPrototype = _prototypeManager.Index(category);
+            if (categoryPrototype.FluidOptional)
             {
                 var lactation = new CheckBox { Text = Loc.GetString("genital-setting-lactation") };
                 lactation.OnToggled += _ =>
@@ -410,7 +410,7 @@ public sealed partial class HumanoidProfileEditor
                 details.AddChild(lactation);
             }
 
-            if (category == BreastsCategory || category.Id == "Testicles" || category.Id == "Vagina")
+            if (categoryPrototype.ProducesFluid)
             {
                 var fluidRow = new BoxContainer
                 {
@@ -615,7 +615,7 @@ public sealed partial class HumanoidProfileEditor
         var genitals = Profile.Genitals.ToDictionary(entry => entry.Key, entry => new GenitalProfileData(entry.Value));
         if (!genitals.TryGetValue(category, out var data))
         {
-            data = GenitalProfileData.Default(category, true);
+            data = GenitalProfileData.Default(_prototypeManager, category, true);
             genitals.Add(category, data);
         }
 
@@ -633,7 +633,7 @@ public sealed partial class HumanoidProfileEditor
         var genitals = Profile.Genitals.ToDictionary(entry => entry.Key, entry => new GenitalProfileData(entry.Value));
         if (!genitals.TryGetValue(category, out var data))
         {
-            data = GenitalProfileData.Default(category);
+            data = GenitalProfileData.Default(_prototypeManager, category);
             genitals.Add(category, data);
         }
 
@@ -653,7 +653,13 @@ public sealed partial class HumanoidProfileEditor
         _updatingGenitals = true;
         try
         {
-            foreach (var category in GenitalOrder)
+            var enabled = Profile.ErpStatus != ErpStatus.No;
+            if (_genitalDisabledNotice != null)
+                _genitalDisabledNotice.Visible = !enabled;
+            if (!enabled)
+                HideGenitalColorPicker();
+
+            foreach (var category in _genitalOrder)
                 SyncGenitalCardLocked(category);
 
             var preview = _entManager.System<GenitalPreviewSystem>();
@@ -708,7 +714,8 @@ public sealed partial class HumanoidProfileEditor
         if (Profile == null)
             return;
 
-        var allowed = GenitalRestrictions.IsCategoryAllowed(_prototypeManager, Profile.Species.Id, Profile.Sex, category);
+        var allowed = Profile.ErpStatus != ErpStatus.No &&
+            GenitalRestrictions.IsCategoryAllowed(_prototypeManager, Profile.Species.Id, Profile.Sex, category);
         if (_genitalCards.TryGetValue(category, out var card))
             card.Visible = allowed;
         if (!allowed)
@@ -716,7 +723,7 @@ public sealed partial class HumanoidProfileEditor
 
         var data = Profile.Genitals.GetValueOrDefault(category);
         var present = data?.Present == true;
-        var fallback = GenitalProfileData.Default(category);
+        var fallback = GenitalProfileData.Default(_prototypeManager, category);
         var current = data ?? fallback;
 
         if (_genitalToggles.TryGetValue(category, out var toggle) && toggle.Pressed != present)
@@ -740,10 +747,13 @@ public sealed partial class HumanoidProfileEditor
                     shape.AddItem(ShapeLocName(shapeName), shape.ItemCount);
                 _genitalShapeNames[category] = shapes;
             }
-            var index = shapes.FindIndex(name =>
-                string.Equals(name, current.Shape, StringComparison.OrdinalIgnoreCase));
-            if (shape.SelectedId != (index < 0 ? 0 : index))
-                shape.SelectId(index < 0 ? 0 : index);
+            if (shapes.Count > 0)
+            {
+                var index = shapes.FindIndex(name =>
+                    string.Equals(name, current.Shape, StringComparison.OrdinalIgnoreCase));
+                if (shape.SelectedId != (index < 0 ? 0 : index))
+                    shape.SelectId(index < 0 ? 0 : index);
+            }
         }
 
         if (_genitalColorRows.TryGetValue(category, out var colorRow))
@@ -763,13 +773,6 @@ public sealed partial class HumanoidProfileEditor
         if (_genitalMaxSizes.TryGetValue(category, out var maximum) &&
             Math.Abs(maximum.Value - current.MaxSize) > 0.001f)
             maximum.Value = current.MaxSize;
-
-        if (_genitalRuntimeSizeControls.TryGetValue(category, out var runtimeSizeControls))
-        {
-            var visible = GenitalRestrictions.Config(_prototypeManager, Profile.Species.Id).AllowRuntimeSize;
-            foreach (var control in runtimeSizeControls)
-                control.Visible = visible;
-        }
 
         if (_genitalSkinToggles.TryGetValue(category, out var skin) &&
             skin.Pressed != current.UseSkinColor)

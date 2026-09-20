@@ -31,24 +31,27 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
     [Dependency] private IPrototypeManager _prototypeManager = default!;
     [Dependency] private GenitalFluidSystem _fluids = default!;
 
+    private readonly HashSet<EntityUid> _openPanels = [];
+    private float _uiRefreshTimer;
+
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<SexualArousalComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<GenitalComponent, GenitalArousalChangedEvent>(OnArousalChanged);
         SubscribeLocalEvent<GenitalsChangedEvent>(OnGenitalsChanged);
         SubscribeLocalEvent<SexualArousalComponent, GetVerbsEvent<Verb>>(OnGetVerbs);
 
         Subs.BuiEvents<SexualArousalComponent>(GenitalManagerUiKey.Key, subs =>
         {
+            subs.Event<BoundUIOpenedEvent>(OnUiOpened);
+            subs.Event<BoundUIClosedEvent>(OnUiClosed);
             subs.Event<GenitalSetVisibilityMessage>(OnSetVisibility);
             subs.Event<GenitalSetArousedMessage>(OnSetAroused);
             subs.Event<GenitalEquipmentRemoveMessage>(OnRemoveEquipment);
             subs.Event<GenitalSetSizeMessage>(OnSetSize);
+            subs.Event<GenitalExpressFluidMessage>(OnExpressFluid);
         });
     }
-
-    private float _uiRefreshTimer;
 
     public override void Update(float frameTime)
     {
@@ -58,18 +61,17 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
             return;
 
         _uiRefreshTimer = 0f;
-        var query = EntityQueryEnumerator<SexualArousalComponent>();
-        while (query.MoveNext(out var uid, out var comp))
+        foreach (var uid in _openPanels.ToArray())
         {
-            if (IsErpDisabled(uid))
+            if (!TryComp(uid, out SexualArousalComponent? comp) || IsErpDisabled(uid) ||
+                !_ui.IsUiOpen(uid, GenitalManagerUiKey.Key, uid))
             {
-                if (_ui.IsUiOpen(uid, GenitalManagerUiKey.Key, uid))
-                    _ui.CloseUi(uid, GenitalManagerUiKey.Key, uid);
+                _openPanels.Remove(uid);
+                _ui.CloseUi(uid, GenitalManagerUiKey.Key, uid);
                 continue;
             }
 
-            if (_ui.IsUiOpen(uid, GenitalManagerUiKey.Key, uid))
-                UpdateUi((uid, comp));
+            UpdateUi((uid, comp));
         }
     }
 
@@ -87,6 +89,12 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
         }
 
         UpdateUi(ent);
+        _openPanels.Add(ent.Owner);
+    }
+
+    private void OnUiClosed(Entity<SexualArousalComponent> ent, ref BoundUIClosedEvent args)
+    {
+        _openPanels.Remove(ent.Owner);
     }
 
     private void OnGetVerbs(Entity<SexualArousalComponent> ent, ref GetVerbsEvent<Verb> args)
@@ -107,37 +115,22 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
             Act = () => OpenFor(user),
         });
 
-        if (IsCoveredByClothes(ent.Owner, BodyPartType.Chest) ||
-            IsCoveredByClothes(ent.Owner, BodyPartType.Groin) ||
-            IsCoveredByUnderwear(ent.Owner, BodyPartType.Chest) ||
-            IsCoveredByUnderwear(ent.Owner, BodyPartType.Groin))
-            return;
-
-        if (TryGetOwned(ent.Owner, "Breasts", out var breasts, out _) &&
-            TryComp(breasts, out GenitalFluidComponent? milk) && milk.Amount >= 0.1f)
+        foreach (var (organ, genital) in _genitals.GetGenitals(ent))
         {
-            args.Verbs.Add(new Verb
-            {
-                Category = ExpressCategory,
-                Text = Loc.GetString("genital-lactation-button"),
-                Act = () => TryMilk((ent.Owner, ent.Comp), user),
-            });
-        }
-
-        foreach (var category in new[] { "Testicles", "Vagina" })
-        {
-            if (!TryGetOwned(ent.Owner, category, out var organ, out _) ||
+            if (!IsGenitalAccessible(ent.Owner, genital.Category.Id, genital.Shape, genital.Size, genital.Visibility) ||
                 !TryComp(organ, out GenitalFluidComponent? fluid) || fluid.Amount < 0.1f)
                 continue;
 
-            var captured = category;
+            var category = _prototypeManager.Index(genital.Category);
             var capturedOrgan = organ;
             args.Verbs.Add(new Verb
             {
                 Category = ExpressCategory,
-                Text = Loc.GetString("genital-fluid-express-button",
-                    ("organ", Loc.GetString($"ent-Genital{captured}"))),
-                Act = () => TryExpress((ent.Owner, ent.Comp), user, captured, capturedOrgan),
+                Text = category.UsesMilkLabel
+                    ? Loc.GetString("genital-lactation-button")
+                    : Loc.GetString("genital-fluid-express-button",
+                        ("organ", Loc.GetString($"ent-Genital{genital.Category.Id}"))),
+                Act = () => TryExpress((ent.Owner, ent.Comp), user, genital.Category.Id, capturedOrgan, category.UsesMilkLabel),
             });
         }
     }
@@ -204,7 +197,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
         if (IsErpDisabled(ent.Owner) || IsErpDisabled(user))
             return;
 
-        if (!_equipment.TryRemove(organ, user))
+        if (!_equipment.TryRemove(organ, ent.Owner, user))
             return;
 
         if (user == ent.Owner)
@@ -236,6 +229,12 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
 
     private void OnGenitalsChanged(GenitalsChangedEvent args)
     {
+        if (IsErpDisabled(args.Body))
+        {
+            CloseFor(args.Body);
+            return;
+        }
+
         var hasGenitals = _genitals.GetGenitals(args.Body).Any();
         if (hasGenitals)
         {
@@ -280,7 +279,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
             return;
 
         var itemName = Name(item);
-        if (!_equipment.TryRemove(organ, ent.Owner))
+        if (!_equipment.TryRemove(organ, ent.Owner, ent.Owner))
             return;
 
         _popup.PopupEntity(Loc.GetString("genital-equipment-removed-felt", ("item", itemName)), ent, ent.Owner);
@@ -301,41 +300,49 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
             return;
 
         genital.Size = size;
+        _fluids.ClampToCapacity(organ, size);
         _visuals.RefreshBody(ent);
         FinishChange(ent, organ, args.Category, $"size to {size:F1}");
     }
 
-    private void TryMilk(Entity<SexualArousalComponent> ent, EntityUid actor)
+    private void OnExpressFluid(Entity<SexualArousalComponent> ent, ref GenitalExpressFluidMessage args)
     {
-        if (IsErpDisabled(ent.Owner) || IsErpDisabled(actor) || actor != ent.Owner || !IsAlive(ent) ||
-            !TryGetOwned(ent, "Breasts", out var breasts, out _) ||
-            !_fluids.TryExpress(ent.Owner, breasts, out var amount, out _, out var intoCondom))
-        {
-            _popup.PopupEntity(Loc.GetString("genital-lactation-failed"), ent, actor);
-            SuppressVibrationPopup(ent.Owner);
+        if (!ValidateOwner(ent, args.Actor) ||
+            !TryGetOwned(ent, args.Category, out var organ, out var genital) ||
+            !IsGenitalAccessible(ent.Owner, genital.Category.Id, genital.Shape, genital.Size, genital.Visibility))
             return;
-        }
 
-        if (!intoCondom)
-            _popup.PopupEntity(Loc.GetString("genital-lactation-success", ("amount", amount.ToString("F1"))), ent, actor);
-        SuppressVibrationPopup(ent.Owner);
-        _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(ent):player} milked {amount:F1}u from breasts");
-        UpdateUi(ent);
+        if (_prototypeManager.Index(genital.Category).UsesMilkLabel)
+            TryExpress(ent, args.Actor, args.Category, organ, usesMilkLabel: true);
+        else
+            TryExpress(ent, args.Actor, args.Category, organ, usesMilkLabel: false);
     }
 
-    private void TryExpress(Entity<SexualArousalComponent> ent, EntityUid actor, string category, EntityUid organ)
+    private void TryExpress(
+        Entity<SexualArousalComponent> ent,
+        EntityUid actor,
+        string category,
+        EntityUid organ,
+        bool usesMilkLabel)
     {
         if (IsErpDisabled(ent.Owner) || IsErpDisabled(actor) || actor != ent.Owner || !IsAlive(ent) ||
             !_fluids.TryExpress(ent.Owner, organ, out var amount, out var fluid, out var intoCondom))
         {
-            _popup.PopupEntity(Loc.GetString("genital-fluid-express-failed"), ent, actor);
+            _popup.PopupEntity(Loc.GetString(usesMilkLabel
+                ? "genital-lactation-failed"
+                : "genital-fluid-express-failed"), ent, actor);
             SuppressVibrationPopup(ent.Owner);
             return;
         }
 
         if (!intoCondom)
-            _popup.PopupEntity(Loc.GetString("genital-fluid-express-success",
-                ("amount", amount.ToString("F1")), ("fluid", fluid)), ent, actor);
+        {
+            var message = usesMilkLabel
+                ? Loc.GetString("genital-lactation-success", ("amount", amount.ToString("F1")))
+                : Loc.GetString("genital-fluid-express-success",
+                    ("amount", amount.ToString("F1")), ("fluid", fluid));
+            _popup.PopupEntity(message, ent, actor);
+        }
         SuppressVibrationPopup(ent.Owner);
         _adminLog.Add(LogType.Action, LogImpact.Low,
             $"{ToPrettyString(ent):player} expressed {amount:F1}u of {fluid} from {category}");
@@ -350,6 +357,12 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
             _ui.SetUi((body, userInterface), GenitalManagerUiKey.Key,
                 new InterfaceData("GenitalManagerBoundUserInterface"));
         }
+    }
+
+    public void CloseFor(EntityUid body)
+    {
+        _openPanels.Remove(body);
+        _ui.CloseUi(body, GenitalManagerUiKey.Key, body);
     }
 
     private void OpenFor(EntityUid user)
@@ -434,6 +447,7 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
                 canArouse,
                 arousal?.Aroused ?? false,
                 _equipment.GetEquipment(organ) is { } item ? Name(item) : null,
+                _equipment.CanRemove(organ, ent.Owner, ent.Owner),
                 canResize && genital.MaxSize > genital.MinSize,
                 genital.MinSize,
                 genital.MaxSize,
@@ -442,7 +456,10 @@ public sealed partial class GenitalManagerSystem : SharedGenitalCoverageSystem
                 genital.Color,
                 fluidAmount,
                 fluidCapacity,
-                GetFluidName(organ)));
+                GetFluidName(organ),
+                fluidAmount >= 0.1f &&
+                IsGenitalAccessible(ent.Owner, genital.Category.Id, genital.Shape, genital.Size, genital.Visibility),
+                _prototypeManager.Index(genital.Category).UsesMilkLabel));
         }
 
         entries.Sort((a, b) => string.Compare(a.Category, b.Category, StringComparison.Ordinal));

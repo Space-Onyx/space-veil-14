@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2026 Space Veil Contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Shared.Body;
 using Content.Shared.Humanoid;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Array;

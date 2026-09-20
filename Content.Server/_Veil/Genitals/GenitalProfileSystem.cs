@@ -19,6 +19,7 @@ public sealed partial class GenitalProfileSystem : EntitySystem
     [Dependency] private GenitalSystem _genitals = default!;
     [Dependency] private GenitalManagerSystem _manager = default!;
     [Dependency] private GenitalVisualSystem _visuals = default!;
+    [Dependency] private GenitalEquipmentSystem _equipment = default!;
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
 
@@ -32,7 +33,10 @@ public sealed partial class GenitalProfileSystem : EntitySystem
     private void OnProfileApplied(Entity<HumanoidProfileComponent> ent, ref HumanoidProfileAppliedEvent args)
     {
         var pending = EnsureComp<PendingGenitalProfileComponent>(ent);
-        pending.Genitals = args.Profile.Genitals.ToDictionary(entry => entry.Key, entry => new GenitalProfileData(entry.Value));
+        pending.Genitals = args.Profile.ErpStatus == ErpStatus.No
+            ? []
+            : args.Profile.Genitals.ToDictionary(entry => entry.Key, entry => new GenitalProfileData(entry.Value));
+        pending.Enabled = args.Profile.ErpStatus != ErpStatus.No;
         pending.SkinColor = args.Profile.Appearance.SkinColor;
         pending.Species = args.Profile.Species;
         pending.Sex = args.Profile.Sex;
@@ -46,6 +50,14 @@ public sealed partial class GenitalProfileSystem : EntitySystem
 
     private void TryApply(EntityUid body, PendingGenitalProfileComponent pending)
     {
+        if (!pending.Enabled)
+        {
+            _manager.CloseFor(body);
+            RemCompDeferred<PendingGenitalProfileComponent>(body);
+            _visuals.RefreshBody(body);
+            return;
+        }
+
         var groins = _body.GetBodyChildrenOfType(body, BodyPartType.Groin).ToList();
         if (groins.Count != 1)
             return;
@@ -59,22 +71,25 @@ public sealed partial class GenitalProfileSystem : EntitySystem
             {
                 if (_genitals.TryGetGenital(body, category, out var existing))
                 {
-                if (HasComp<ProfileGeneratedGenitalComponent>(existing))
-                    ApplyProfileData(existing, data, pending.SkinColor, pending.Species.Id);
-                continue;
-            }
+                    if (HasComp<ProfileGeneratedGenitalComponent>(existing))
+                        ApplyProfileData(existing, data, pending.SkinColor, pending.Species.Id);
+                    continue;
+                }
 
-            if (_genitals.TryCreateGenital(body, category, out var created))
-            {
-                EnsureComp<ProfileGeneratedGenitalComponent>(created);
-                ApplyProfileData(created, data, pending.SkinColor, pending.Species.Id);
-            }
+                if (_genitals.TryCreateGenital(body, category, out var created))
+                {
+                    EnsureComp<ProfileGeneratedGenitalComponent>(created);
+                    ApplyProfileData(created, data, pending.SkinColor, pending.Species.Id);
+                }
                 continue;
             }
 
             if (!_genitals.TryGetGenital(body, category, out var absent) ||
-                !HasComp<ProfileGeneratedGenitalComponent>(absent) ||
-                !_genitals.TryRemoveGenital(body, category, out var removed))
+                !HasComp<ProfileGeneratedGenitalComponent>(absent))
+                continue;
+
+            _equipment.Eject(absent, body);
+            if (!_genitals.TryRemoveGenital(body, category, out var removed))
                 continue;
 
             QueueDel(removed);
@@ -103,39 +118,32 @@ public sealed partial class GenitalProfileSystem : EntitySystem
         genital.MaxSize = data.MaxSize;
         genital.Visibility = data.Visibility;
 
-        if (genital.Category.Id == "Breasts")
-        {
-            if (data.Lactating)
-            {
-                var fluid = EnsureComp<GenitalFluidComponent>(organ);
-                var allowed = GenitalRestrictions.AllowedFluids(_prototypes, speciesId, genital.Category);
-                fluid.ReagentId = allowed.Contains(data.FluidId)
-                    ? data.FluidId
-                    : GenitalRestrictions.DefaultFluid(_prototypes, speciesId, genital.Category);
-            }
-            else
-            {
-                RemCompDeferred<GenitalFluidComponent>(organ);
-            }
-        }
-        else if (genital.Category.Id == "Vagina" || genital.Category.Id == "Testicles")
-        {
-            var fluid = EnsureComp<GenitalFluidComponent>(organ);
-            var allowed = GenitalRestrictions.AllowedFluids(_prototypes, speciesId, genital.Category);
-            fluid.ReagentId = allowed.Contains(data.FluidId)
-                ? data.FluidId
-                : GenitalRestrictions.DefaultFluid(_prototypes, speciesId, genital.Category);
-        }
-        else
+        var category = _prototypes.Index(genital.Category);
+        if (!category.ProducesFluid)
         {
             RemCompDeferred<GenitalFluidComponent>(organ);
+            return;
         }
+
+        if (category.FluidOptional && !data.Lactating)
+        {
+            RemCompDeferred<GenitalFluidComponent>(organ);
+            return;
+        }
+
+        var fluid = EnsureComp<GenitalFluidComponent>(organ);
+        var allowed = GenitalRestrictions.AllowedFluids(_prototypes, speciesId, genital.Category);
+        fluid.ReagentId = allowed.Contains(data.FluidId)
+            ? data.FluidId
+            : GenitalRestrictions.DefaultFluid(_prototypes, speciesId, genital.Category);
     }
 }
 
 [RegisterComponent]
 public sealed partial class PendingGenitalProfileComponent : Component
 {
+    public bool Enabled;
+
     public Dictionary<ProtoId<GenitalCategoryPrototype>, GenitalProfileData> Genitals = [];
 
     public Color SkinColor = Color.White;

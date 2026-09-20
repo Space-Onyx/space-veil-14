@@ -6,6 +6,7 @@ using Content.Shared.Body;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Humanoid;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server._Veil.Genitals;
@@ -36,12 +37,15 @@ public sealed partial class GenitalVisualSystem : SharedGenitalCoverageSystem
     {
         var layers = new List<GenitalLayerData>();
 
-        foreach (var (organ, genital) in CollectOrgans(body))
+        if (!TryComp(body, out HumanoidProfileComponent? profile) || profile.ErpStatus != ErpStatus.No)
         {
-            if (!TryBuildLayer(body, organ, genital, out var layer))
-                continue;
+            foreach (var (organ, genital) in CollectOrgans(body))
+            {
+                if (!TryBuildLayer(body, organ, genital, out var layer))
+                    continue;
 
-            layers.Add(layer);
+                layers.Add(layer);
+            }
         }
 
         layers.Sort((a, b) => a.Layer.CompareTo(b.Layer));

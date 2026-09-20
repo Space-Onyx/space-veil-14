@@ -29,6 +29,7 @@ genital-setting-size-help = Reagents stay within these bounds. Slimes can also r
 genital-setting-color = Color
 genital-preview-aroused = Show aroused
 genital-off = None
+genital-erp-disabled = Intimate settings are unavailable while ERP status is disabled. Saved settings are kept.
 genital-shape-human = Human
 genital-shape-plain = Plain
 genital-shape-knotted = Knotted

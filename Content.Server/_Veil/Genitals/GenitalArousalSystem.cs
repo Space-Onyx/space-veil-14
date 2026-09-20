@@ -1,15 +1,13 @@
-// Space Veil
-// Copyright (C) 2026 Space Veil contributors
-//
-// This file is licensed under AGPL-3.0-or-later.
-// See LICENSES for the full license text.
+// SPDX-FileCopyrightText: 2026 Space Veil Contributors
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Server.Administration.Logs;
+using Content.Server.Chat.Systems;
 using Content.Shared._Veil.Genitals;
 using Content.Shared.Humanoid;
-using Content.Shared.Body;
-using Content.Shared.Body.Systems;
 using Content.Shared.Database;
+using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Server._Veil.Genitals;
 
@@ -19,11 +17,11 @@ public sealed partial class GenitalArousalSystem : EntitySystem
     [Dependency] private GenitalEquipmentSystem _equipment = default!;
     [Dependency] private GenitalVisualSystem _visuals = default!;
     [Dependency] private IAdminLogManager _adminLog = default!;
+    [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-    }
+    private static readonly TimeSpan MoanCooldown = TimeSpan.FromSeconds(6);
 
     public bool CanSetAroused(EntityUid organ, bool aroused)
     {
@@ -77,11 +75,35 @@ public sealed partial class GenitalArousalSystem : EntitySystem
             _adminLog.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(body)} set genital arousal to {aroused}");
     }
 
+    public bool TryMoan(EntityUid body, int intensity)
+    {
+        if (intensity <= 0 || IsErpDisabledBody(body) ||
+            !TryComp(body, out SexualArousalComponent? arousal) || _timing.CurTime < arousal.NextMoan)
+            return false;
+
+        var chance = Math.Clamp(intensity, 1, 3) switch
+        {
+            1 => 0.2f,
+            2 => 0.4f,
+            _ => 0.65f,
+        };
+        if (!_random.Prob(chance) || !_chat.TryEmoteWithChat(body, "Moan"))
+            return false;
+
+        arousal.NextMoan = _timing.CurTime + MoanCooldown;
+        return true;
+    }
+
     private bool IsErpDisabled(EntityUid organ)
     {
         if (TryComp(organ, out GenitalComponent? genital) && genital.Body.IsValid())
             return TryComp(genital.Body, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
 
         return false;
+    }
+
+    private bool IsErpDisabledBody(EntityUid body)
+    {
+        return TryComp(body, out HumanoidProfileComponent? profile) && profile.ErpStatus == ErpStatus.No;
     }
 }

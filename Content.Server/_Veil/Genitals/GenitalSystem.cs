@@ -25,18 +25,6 @@ public sealed partial class GenitalSystem : EntitySystem
     private const string GenitalsContainer = "veil-genitals";
 
     private static readonly EntProtoId GenitalPrototype = "Genital";
-    private static readonly ProtoId<GenitalCategoryPrototype> Penis = "Penis";
-    private static readonly ProtoId<GenitalCategoryPrototype> Testicles = "Testicles";
-    private static readonly ProtoId<GenitalCategoryPrototype> Vagina = "Vagina";
-    private static readonly ProtoId<GenitalCategoryPrototype> Breasts = "Breasts";
-    private static readonly ProtoId<GenitalCategoryPrototype> Butt = "Butt";
-    private static readonly ProtoId<GenitalCategoryPrototype> Anus = "Anus";
-
-    public override void Initialize()
-    {
-        base.Initialize();
-    }
-
     public IEnumerable<(EntityUid Id, GenitalComponent Component)> GetGenitals(EntityUid body)
     {
         foreach (var (partId, _) in _body.GetBodyChildren(body))
@@ -89,7 +77,7 @@ public sealed partial class GenitalSystem : EntitySystem
         if (TryGetGenital(body, category, out _))
             return false;
 
-        var partType = category == Breasts ? BodyPartType.Chest : BodyPartType.Groin;
+        var partType = _prototypes.Index(category).Part;
         EntityUid? target = null;
         foreach (var (candidate, _) in _body.GetBodyChildrenOfType(body, partType))
         {
@@ -156,9 +144,9 @@ public sealed partial class GenitalSystem : EntitySystem
 
         var genital = EnsureComp<GenitalComponent>(organ);
         genital.Category = category;
-        genital.Shape = GenitalProfileData.Default(category).Shape;
+        genital.Shape = _prototypes.Index(category).DefaultShape;
         ApplyArousalCapability(organ, category);
-        if (category == Breasts || category == Testicles || category == Vagina)
+        if (_prototypes.Index(category).ProducesFluid)
             EnsureComp<GenitalFluidComponent>(organ);
         else
             RemCompDeferred<GenitalFluidComponent>(organ);
@@ -167,7 +155,7 @@ public sealed partial class GenitalSystem : EntitySystem
 
     private void ApplyArousalCapability(EntityUid organ, ProtoId<GenitalCategoryPrototype> category)
     {
-        if (category == Penis || category == Testicles || category == Vagina || category == Breasts || category == Butt || category == Anus)
+        if (_prototypes.HasIndex(category))
         {
             EnsureComp<GenitalArousalComponent>(organ);
             return;

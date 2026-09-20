@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2026 Space Veil Contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Linq;
 using Content.Shared._Veil.Genitals;
 using Content.Shared.Humanoid;
 using Content.Shared.Jittering;
@@ -48,6 +47,8 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
     private readonly Dictionary<EntityUid, TimeSpan> _nextMessage = new();
     private readonly Dictionary<EntityUid, int> _pulses = new();
     private readonly Dictionary<EntityUid, TimeSpan> _suppressedUntil = new();
+    private readonly HashSet<EntityUid> _activeOrgans = [];
+    private readonly List<EntityUid> _stale = [];
 
     public override void Initialize()
     {
@@ -68,6 +69,7 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
         base.Update(frameTime);
 
         _pulses.Clear();
+        _activeOrgans.Clear();
         var query = EntityQueryEnumerator<GenitalEquipmentComponent>();
         while (query.MoveNext(out var uid, out var equipment))
         {
@@ -82,6 +84,8 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
 
             if (IsErpDisabled(body))
                 continue;
+
+            _activeOrgans.Add(organ);
 
             if (TryComp(organ, out GenitalArousalComponent? arousal) && !arousal.Aroused)
             {
@@ -109,6 +113,7 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
             {
                 _nextPulse[body] = _timing.CurTime + PulseInterval(vibration);
                 Jitter(body, vibration);
+                _arousalSys.TryMoan(body, vibration);
             }
 
             if (_suppressedUntil.TryGetValue(body, out var until) && _timing.CurTime < until)
@@ -121,32 +126,10 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
             Message(body, vibration);
         }
 
-        if (_nextPulse.Count > _pulses.Count)
-        {
-            foreach (var body in _nextPulse.Keys.ToArray())
-            {
-                if (!_pulses.ContainsKey(body))
-                    _nextPulse.Remove(body);
-            }
-        }
-
-        if (_nextMessage.Count > _pulses.Count)
-        {
-            foreach (var body in _nextMessage.Keys.ToArray())
-            {
-                if (!_pulses.ContainsKey(body))
-                    _nextMessage.Remove(body);
-            }
-        }
-
-        if (_suppressedUntil.Count > _pulses.Count)
-        {
-            foreach (var body in _suppressedUntil.Keys.ToArray())
-            {
-                if (!_pulses.ContainsKey(body))
-                    _suppressedUntil.Remove(body);
-            }
-        }
+        RemoveInactive(_progress, _activeOrgans.Contains);
+        RemoveInactive(_nextPulse, _pulses.ContainsKey);
+        RemoveInactive(_nextMessage, _pulses.ContainsKey);
+        RemoveInactive(_suppressedUntil, _pulses.ContainsKey);
     }
 
     private void Jitter(EntityUid body, int vibration)
@@ -190,6 +173,19 @@ public sealed partial class GenitalVibrationArousalSystem : EntitySystem
             2 => TimeSpan.FromSeconds(5),
             _ => TimeSpan.FromSeconds(4),
         };
+    }
+
+    private void RemoveInactive<T>(Dictionary<EntityUid, T> entries, Func<EntityUid, bool> isActive)
+    {
+        _stale.Clear();
+        foreach (var uid in entries.Keys)
+        {
+            if (!isActive(uid))
+                _stale.Add(uid);
+        }
+
+        foreach (var uid in _stale)
+            entries.Remove(uid);
     }
 
     private bool IsErpDisabled(EntityUid uid)

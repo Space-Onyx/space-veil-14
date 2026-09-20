@@ -3,21 +3,57 @@
 
 - type: genitalCategory
   id: Penis
+  order: 0
+  defaultSize: 6
+  minSize: 1
+  maxSize: 20
 
 - type: genitalCategory
   id: Testicles
+  order: 1
+  defaultShape: Single
+  defaultSize: 2
+  minSize: 1
+  maxSize: 3
+  producesFluid: true
+  fluidCapacityBase: 3
+  fluidCapacityPerSize: 3
+  fluidProductionPerSecond: 0.025
 
 - type: genitalCategory
   id: Vagina
+  order: 2
+  producesFluid: true
+  fluidCapacityBase: 4
+  fluidCapacityPerSize: 4
+  fluidProductionPerSecond: 0.02
 
 - type: genitalCategory
   id: Breasts
+  order: 3
+  part: Chest
+  defaultShape: Pair
+  defaultSize: 3
+  minSize: 1
+  maxSize: 7
+  producesFluid: true
+  fluidOptional: true
+  usesMilkLabel: true
+  fluidCapacityBase: 2
+  fluidCapacityPerSize: 4
+  fluidProductionPerSecond: 0.03
 
 - type: genitalCategory
   id: Butt
+  order: 4
+  defaultShape: Pair
+  defaultSize: 0
+  minSize: 0
+  maxSize: 3
 
 - type: genitalCategory
   id: Anus
+  order: 5
 
 - type: entity
   id: GenitalBase

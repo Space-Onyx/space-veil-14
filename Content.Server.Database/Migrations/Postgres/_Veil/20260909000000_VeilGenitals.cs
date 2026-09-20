@@ -1,6 +1,3 @@
-// SPDX-FileCopyrightText: 2026 Space Veil Contributors
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System.Text.Json;

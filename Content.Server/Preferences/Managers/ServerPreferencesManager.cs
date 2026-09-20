@@ -251,7 +251,10 @@ namespace Content.Server.Preferences.Managers
                 .WithCharacterFlavorText(profile.CharacterFlavorText)
                 .WithTagsFlavorText(profile.TagsFlavorText)
                 .WithLinksFlavorText(profile.LinksFlavorText)
-                .WithGenitals(genitals); // <Veil-Genitals>
+                // <Veil-ErpStatus-edited>
+                .WithGenitals(genitals)
+                .WithErpStatus((ErpStatus) profile.ErpStatus);
+                // </Veil-ErpStatus-edited>
             // </Onyx-CharacterDescriptions-edited>
         }
 

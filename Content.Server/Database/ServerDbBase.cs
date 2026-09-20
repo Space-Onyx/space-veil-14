@@ -256,11 +256,14 @@ namespace Content.Server.Database
             profile.SkinColor = appearance.SkinColor.ToHex();
             profile.SpawnPriority = (int) humanoid.SpawnPriority;
             profile.OrganMarkings = JsonSerializer.SerializeToDocument(dataNode.ToJsonNode());
+            // <Veil-Genitals>
             var genitalNode = _serialization.WriteValue(
                 humanoid.Genitals.ToDictionary(entry => entry.Key, entry => entry.Value),
                 alwaysWrite: true,
-                notNullableOverride: true); // <Veil-Genitals>
-            profile.Genitals = JsonSerializer.SerializeToDocument(genitalNode.ToJsonNode()); // <Veil-Genitals>
+                notNullableOverride: true);
+            profile.Genitals = JsonSerializer.SerializeToDocument(genitalNode.ToJsonNode());
+            // </Veil-Genitals>
+            profile.ErpStatus = (byte) humanoid.ErpStatus; // <Veil-ErpStatus>
 
             // support for downgrades - at some point this should be removed
             var legacyMarkings = appearance.Markings

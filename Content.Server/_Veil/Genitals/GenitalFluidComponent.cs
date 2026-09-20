@@ -7,7 +7,6 @@ namespace Content.Server._Veil.Genitals;
 public sealed partial class GenitalFluidComponent : Component
 {
     public float Amount;
-    public float ProductionPerSecond = 0.02f;
     public string ReagentId = "Milk";
     public TimeSpan NextExpress;
 }

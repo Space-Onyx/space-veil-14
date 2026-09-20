@@ -1163,6 +1163,12 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("gender");
 
+                    // <Veil-ErpStatus>
+                    b.Property<byte>("ErpStatus")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("erp_status");
+                    // </Veil-ErpStatus>
+
                     b.Property<byte[]>("Genitals")
                         .HasColumnType("jsonb")
                         .HasColumnName("genitals"); // <Veil-Genitals>

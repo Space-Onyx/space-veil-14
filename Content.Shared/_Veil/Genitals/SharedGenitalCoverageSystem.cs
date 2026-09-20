@@ -45,7 +45,9 @@ public abstract partial class SharedGenitalCoverageSystem : EntitySystem
         if (GenitalVisualBuilder.TryFindBest(_prototypes, category, shape, size, out var visual) && !visual.Internal)
             return visual.Part;
 
-        return categoryId == "Breasts" ? BodyPartType.Chest : BodyPartType.Groin;
+        return _prototypes.TryIndex<GenitalCategoryPrototype>(category, out var categoryPrototype)
+            ? categoryPrototype.Part
+            : BodyPartType.Groin;
     }
 
     public bool IsGenitalAccessible(EntityUid body, string categoryId, string shape, float size, GenitalVisibility visibility)

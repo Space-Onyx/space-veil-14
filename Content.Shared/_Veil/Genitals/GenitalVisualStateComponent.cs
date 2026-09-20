@@ -10,7 +10,7 @@ namespace Content.Shared._Veil.Genitals;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class GenitalVisualStateComponent : Component
 {
-    [DataField, AutoNetworkedField]
+    [AutoNetworkedField]
     public List<GenitalLayerData> Layers = new();
 }
 

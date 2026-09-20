@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._Veil.Genitals;
+using Content.Shared.Humanoid;
 using Content.Shared.Preferences;
 using Robust.Shared.Prototypes;
 
@@ -16,6 +17,9 @@ public sealed partial class GenitalPreviewSystem : SharedGenitalCoverageSystem
     public void ApplyPreview(EntityUid dummy, HumanoidCharacterProfile profile)
     {
         if (TerminatingOrDeleted(dummy))
+            return;
+
+        if (profile.ErpStatus == ErpStatus.No)
             return;
 
         var layers = new List<GenitalLayerData>();

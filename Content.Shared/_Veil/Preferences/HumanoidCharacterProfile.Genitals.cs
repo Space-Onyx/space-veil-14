@@ -13,16 +13,6 @@ namespace Content.Shared.Preferences;
 
 public sealed partial class HumanoidCharacterProfile
 {
-    private static readonly HashSet<ProtoId<GenitalCategoryPrototype>> CoreGenitalCategories =
-    [
-        "Penis",
-        "Testicles",
-        "Vagina",
-        "Breasts",
-        "Butt",
-        "Anus",
-    ];
-
     [DataField]
     private Dictionary<ProtoId<GenitalCategoryPrototype>, GenitalProfileData> _genitals = [];
 
@@ -50,12 +40,12 @@ public sealed partial class HumanoidCharacterProfile
         Sex sex)
     {
         var result = new Dictionary<ProtoId<GenitalCategoryPrototype>, GenitalProfileData>();
-        foreach (var category in CoreGenitalCategories)
+        foreach (var category in GenitalRestrictions.Categories(prototypes))
         {
             if (!GenitalRestrictions.IsCategoryAllowed(prototypes, speciesId, sex, category))
                 continue;
 
-            var data = GenitalProfileData.Default(category);
+            var data = GenitalProfileData.Default(prototypes, category);
             data.Shape = GenitalRestrictions.DefaultShape(prototypes, speciesId, category);
             data.FluidId = GenitalRestrictions.DefaultFluid(prototypes, speciesId, category);
             data.Present = GenitalRestrictions.IsAlwaysPresent(prototypes, speciesId, sex, category);
@@ -119,7 +109,7 @@ public sealed partial class HumanoidCharacterProfile
 
         foreach (var category in _genitals.Keys.ToArray())
         {
-            if (!CoreGenitalCategories.Contains(category) ||
+            if (!prototypes.HasIndex(category) ||
                 !GenitalRestrictions.IsCategoryAllowed(prototypes, speciesId, Sex, category))
             {
                 _genitals.Remove(category);
@@ -134,12 +124,12 @@ public sealed partial class HumanoidCharacterProfile
             _genitals[category] = data;
         }
 
-        foreach (var category in CoreGenitalCategories)
+        foreach (var category in GenitalRestrictions.Categories(prototypes))
         {
             if (!GenitalRestrictions.IsCategoryAllowed(prototypes, speciesId, Sex, category) || _genitals.ContainsKey(category))
                 continue;
 
-            var data = GenitalProfileData.Default(category);
+            var data = GenitalProfileData.Default(prototypes, category);
             data.Shape = GenitalRestrictions.DefaultShape(prototypes, speciesId, category);
             data.FluidId = GenitalRestrictions.DefaultFluid(prototypes, speciesId, category);
             data.Present = GenitalRestrictions.IsAlwaysPresent(prototypes, speciesId, Sex, category);
@@ -238,45 +228,27 @@ public sealed partial class GenitalProfileData : IEquatable<GenitalProfileData>
         FluidId = other.FluidId;
     }
 
-    public static GenitalProfileData Default(ProtoId<GenitalCategoryPrototype> category, bool present = false)
+    public static GenitalProfileData Default(
+        IPrototypeManager prototypes,
+        ProtoId<GenitalCategoryPrototype> category,
+        bool present = false)
     {
-        var (shape, size, fluid) = category.Id switch
-        {
-            "Penis" => ("Human", 6f, "Milk"),
-            "Testicles" => ("Single", 2f, "Semen"),
-            "Breasts" => ("Pair", 3f, "Milk"),
-            "Butt" => ("Pair", 0f, "Milk"),
-            "Anus" => ("Donut", 1f, "Milk"),
-            _ => ("Human", 1f, "Femcum"),
-        };
+        var prototype = prototypes.Index(category);
 
         return new GenitalProfileData
         {
             Present = present,
-            Shape = shape,
-            Size = size,
-            MinSize = size,
-            MaxSize = GetSizeRange(category).Max,
-            FluidId = fluid,
-        };
-    }
-
-    public static (float Min, float Max) GetSizeRange(ProtoId<GenitalCategoryPrototype> category)
-    {
-        return category.Id switch
-        {
-            "Penis" => (1f, 20f),
-            "Testicles" => (1f, 3f),
-            "Breasts" => (1f, 7f),
-            "Butt" => (0f, 3f),
-            _ => (1f, 1f),
+            Shape = prototype.DefaultShape,
+            Size = prototype.DefaultSize,
+            MinSize = prototype.DefaultSize,
+            MaxSize = prototype.MaxSize,
         };
     }
 
     public GenitalProfileData Validated(IPrototypeManager prototypes, string speciesId, ProtoId<GenitalCategoryPrototype> category)
     {
-        var defaults = Default(category);
-        var (minSize, maxSize) = GetSizeRange(category);
+        var defaults = Default(prototypes, category);
+        var (minSize, maxSize) = GenitalRestrictions.SizeRange(prototypes, category);
         var initialSize = Math.Clamp(float.IsFinite(Size) ? Size : defaults.Size, minSize, maxSize);
         var runtimeMin = Math.Clamp(float.IsFinite(MinSize) ? MinSize : minSize, minSize, maxSize);
         var runtimeMax = Math.Clamp(float.IsFinite(MaxSize) ? MaxSize : maxSize, runtimeMin, maxSize);

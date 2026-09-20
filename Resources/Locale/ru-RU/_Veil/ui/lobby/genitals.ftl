@@ -29,6 +29,7 @@ genital-setting-size-help = Реагенты не выходят за эти г�
 genital-setting-color = Цвет
 genital-preview-aroused = Показать возбуждение
 genital-off = Нет
+genital-erp-disabled = Интимные настройки недоступны, пока ERP-статус отключён. Сохранённые параметры не удаляются.
 genital-shape-human = Обычная
 genital-shape-plain = Гладкая
 genital-shape-knotted = С узлом

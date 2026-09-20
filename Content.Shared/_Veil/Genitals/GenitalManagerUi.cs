@@ -26,15 +26,18 @@ public sealed class GenitalManagerEntry(
     bool canArouse,
     bool aroused,
     string? equipmentName,
+    bool canRemove,
     bool canResize,
     float minSize,
     float maxSize,
     string previewRsi,
     string previewState,
     Color previewColor,
-    float? milkAmount,
-    float? milkCapacity,
-    string? fluidName)
+    float? fluidAmount,
+    float? fluidCapacity,
+    string? fluidName,
+    bool canExpress,
+    bool usesMilkLabel)
 {
     public readonly string Category = category;
     public readonly float Size = size;
@@ -42,15 +45,18 @@ public sealed class GenitalManagerEntry(
     public readonly bool CanArouse = canArouse;
     public readonly bool Aroused = aroused;
     public readonly string? EquipmentName = equipmentName;
+    public readonly bool CanRemove = canRemove;
     public readonly bool CanResize = canResize;
     public readonly float MinSize = minSize;
     public readonly float MaxSize = maxSize;
     public readonly string PreviewRsi = previewRsi;
     public readonly string PreviewState = previewState;
     public readonly Color PreviewColor = previewColor;
-    public readonly float? MilkAmount = milkAmount;
-    public readonly float? MilkCapacity = milkCapacity;
+    public readonly float? FluidAmount = fluidAmount;
+    public readonly float? FluidCapacity = fluidCapacity;
     public readonly string? FluidName = fluidName;
+    public readonly bool CanExpress = canExpress;
+    public readonly bool UsesMilkLabel = usesMilkLabel;
 }
 
 [Serializable, NetSerializable]
@@ -81,6 +87,12 @@ public sealed class GenitalSetSizeMessage(string category, float size) : BoundUs
 {
     public readonly string Category = category;
     public readonly float Size = size;
+}
+
+[Serializable, NetSerializable]
+public sealed class GenitalExpressFluidMessage(string category) : BoundUserInterfaceMessage
+{
+    public readonly string Category = category;
 }
 
 [Serializable, NetSerializable]

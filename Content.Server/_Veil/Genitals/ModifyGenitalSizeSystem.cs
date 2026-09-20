@@ -12,6 +12,7 @@ public sealed partial class ModifyGenitalSizeSystem : EntityEffectSystem<MobStat
 {
     [Dependency] private GenitalSystem _genitals = default!;
     [Dependency] private GenitalVisualSystem _visuals = default!;
+    [Dependency] private GenitalFluidSystem _fluids = default!;
 
     protected override void Effect(Entity<MobStateComponent> entity, ref EntityEffectEvent<ModifyGenitalSize> args)
     {
@@ -27,6 +28,7 @@ public sealed partial class ModifyGenitalSizeSystem : EntityEffectSystem<MobStat
             return;
 
         genital.Size = size;
+        _fluids.ClampToCapacity(organ, size);
         _visuals.RefreshBody(entity);
     }
 }
