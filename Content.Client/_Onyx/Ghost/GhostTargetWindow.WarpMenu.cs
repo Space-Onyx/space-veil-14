@@ -98,7 +98,7 @@ public sealed partial class GhostTargetWindow
             };
 
             foreach (var entry in groupEntries)
-                grid.AddChild(CreateGhostWarpButton(entry, groupColor));
+                grid.AddChild(CreateGhostWarpButton(entry, Color.FromHex("#666a73")));
 
             section.AddChild(grid);
         }
@@ -186,4 +186,5 @@ public sealed partial class GhostTargetWindow
 
         return Color.FromHex("#666a73");
     }
+
 }
