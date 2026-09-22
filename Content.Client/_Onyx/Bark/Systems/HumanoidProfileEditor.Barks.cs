@@ -13,9 +13,15 @@ public sealed partial class HumanoidProfileEditor
 {
     private List<BarkPrototype> _barkList = new();
     private FancyWindow? _barkWindow;
+    private bool _updatingSpeechRevealSpeed;
 
     private void InitializeBarks()
     {
+        if (!_cfgManager.GetCVar(CCVars.BarksEnabled))
+            return;
+
+        BarksContainer.Visible = true;
+        SpeechRevealSpeedContainer.Visible = _cfgManager.GetCVar(CCVars.SpeechBubbleRevealEnabled);
         _barkList = _prototypeManager
             .EnumeratePrototypes<BarkPrototype>()
             .Where(o => o.RoundStart)
@@ -26,7 +32,16 @@ public sealed partial class HumanoidProfileEditor
         BarkPlayButton.OnPressed += _ => PlayPreviewBark();
         SpeechRevealSpeedSlider.MinValue = _cfgManager.GetCVar(CCVars.SpeechBubbleRevealMinSpeed);
         SpeechRevealSpeedSlider.MaxValue = _cfgManager.GetCVar(CCVars.SpeechBubbleRevealMaxSpeed);
-        SpeechRevealSpeedSlider.OnValueChanged += _ => SetSpeechBubbleRevealSpeed(SpeechRevealSpeedSlider.Value);
+        SpeechRevealSpeedSlider.OnValueChanged += _ =>
+        {
+            if (!_updatingSpeechRevealSpeed)
+                SetSpeechBubbleRevealSpeed(SpeechRevealSpeedSlider.Value);
+        };
+        SpeechRevealSpeedEdit.OnTextChanged += args =>
+        {
+            if (!_updatingSpeechRevealSpeed && float.TryParse(args.Text, out var speed))
+                SetSpeechBubbleRevealSpeed(speed, updateEdit: false);
+        };
     }
 
     private void OpenBarkWindow()
@@ -96,8 +111,10 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         UpdateBarkButtonText();
+        _updatingSpeechRevealSpeed = true;
         SpeechRevealSpeedSlider.Value = Profile.SpeechBubbleRevealSpeed;
-        SpeechRevealSpeedValue.Text = MathF.Round(Profile.SpeechBubbleRevealSpeed).ToString();
+        SpeechRevealSpeedEdit.Text = MathF.Round(Profile.SpeechBubbleRevealSpeed).ToString();
+        _updatingSpeechRevealSpeed = false;
         // Обновляем окно барков если оно открыто
         if (_barkWindow != null && _barkWindow.ContentsContainer.ChildCount > 0)
         {
@@ -142,7 +159,7 @@ public sealed partial class HumanoidProfileEditor
         );
     }
 
-    private void SetSpeechBubbleRevealSpeed(float speed)
+    private void SetSpeechBubbleRevealSpeed(float speed, bool updateEdit = true)
     {
         if (Profile is null)
             return;
@@ -155,7 +172,39 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         Profile = Profile.WithSpeechBubbleRevealSpeed(speed);
-        SpeechRevealSpeedValue.Text = speed.ToString();
+        _updatingSpeechRevealSpeed = true;
+        SpeechRevealSpeedSlider.Value = speed;
+        if (updateEdit)
+            SpeechRevealSpeedEdit.Text = speed.ToString();
+        _updatingSpeechRevealSpeed = false;
+        SetDirty();
+    }
+
+    private void SetBarkProto(string prototype)
+    {
+        Profile = Profile?.WithBarkProto(prototype);
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkPitch(float pitch)
+    {
+        Profile = Profile?.WithBarkPitch(Math.Clamp(pitch, _cfgManager.GetCVar(CCVars.BarksMinPitch), _cfgManager.GetCVar(CCVars.BarksMaxPitch)));
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkMinVariation(float variation)
+    {
+        Profile = Profile?.WithBarkMinVariation(Math.Clamp(variation, _cfgManager.GetCVar(CCVars.BarksMinDelay), Profile.Bark.MaxVar));
+        ReloadPreview();
+        SetDirty();
+    }
+
+    private void SetBarkMaxVariation(float variation)
+    {
+        Profile = Profile?.WithBarkMaxVariation(Math.Clamp(variation, Profile.Bark.MinVar, _cfgManager.GetCVar(CCVars.BarksMaxDelay)));
+        ReloadPreview();
         SetDirty();
     }
 }
