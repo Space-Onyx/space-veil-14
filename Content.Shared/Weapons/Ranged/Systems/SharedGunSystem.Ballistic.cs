@@ -3,6 +3,7 @@ using Content.Shared.Emp;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Power;
 using Content.Shared.Stacks;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
@@ -416,6 +417,16 @@ public abstract partial class SharedGunSystem
         if (!refiller.AutoRefill || IsFull(entity))
             return;
 
+        // <Onyx-BallisticSelfRefillerPower-edited>
+        if (refiller.PowerConsumption > 0)
+        {
+            var getCharge = new GetChargeEvent();
+            RaiseLocalEvent(entity.Owner, ref getCharge);
+            if (getCharge.CurrentCharge < refiller.PowerConsumption)
+                return;
+        }
+        // </Onyx-BallisticSelfRefillerPower-edited>
+
         if (refiller.AmmoProto is not { } refillerAmmoProto)
         {
             // No ammo proto on the refiller, so just increment the unspawned count on the provider
@@ -438,14 +449,24 @@ public abstract partial class SharedGunSystem
         {
             // Can't use unspawned ammo, so spawn an entity and try to insert it.
             var ammoEntity = PredictedSpawnAttachedTo(refiller.AmmoProto, Transform(entity).Coordinates);
-            var insertSucceeded = TryBallisticInsert(entity, ammoEntity, null, suppressInsertionSound: true);
-            if (!insertSucceeded)
+            if (!TryBallisticInsert(entity, ammoEntity, null, suppressInsertionSound: true))
             {
                 PredictedQueueDel(ammoEntity);
                 Log.Error(
                     $"Failed to insert ammo {ammoEntity} into non-full {entity}. This is a configuration error. Is the {nameof(BallisticAmmoSelfRefillerComponent)}'s {nameof(BallisticAmmoSelfRefillerComponent.AmmoProto)} incorrect for the {nameof(BallisticAmmoProviderComponent)}'s {nameof(BallisticAmmoProviderComponent.Whitelist)}?");
+                return;
             }
         }
+
+        Audio.PlayPredicted(entity.Comp2.RechargeSound, entity, entity);
+
+        // <Onyx-BallisticSelfRefillerPower-edited>
+        if (refiller.PowerConsumption > 0)
+        {
+            var changeCharge = new ChangeChargeEvent(-refiller.PowerConsumption);
+            RaiseLocalEvent(entity.Owner, ref changeCharge);
+        }
+        // </Onyx-BallisticSelfRefillerPower-edited>
     }
 }
 
