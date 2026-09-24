@@ -4,8 +4,8 @@
   name: "item"
   components:
   - type: Item
-  - type: EdibleMatter # <Onyx-WegaGenetics>
     size: Small
+  - type: EdibleMatter # <Onyx-WegaGenetics>
   - type: Animateable
   - type: Clickable
   - type: InteractionOutline
