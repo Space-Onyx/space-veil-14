@@ -1,0 +1,298 @@
+- type: constructionGraph
+  id: DoubleAirlock
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: assembly
+      completed:
+      - !type:SetAnchor
+        value: false
+      steps:
+      - material: Steel
+        amount: 8
+        doAfter: 2
+
+  - node: assembly
+    entity: DoubleGlassAirlockAssembly
+    actions:
+    - !type:SnapToGrid {}
+    - !type:SetAnchor {}
+    edges:
+    - to: wired
+      conditions:
+      - !type:EntityAnchored {}
+      steps:
+      - material: Cable
+        amount: 10
+        doAfter: 2.5
+    - to: start
+      conditions:
+      - !type:EntityAnchored
+        anchored: false
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Welding
+        doAfter: 3
+
+  - node: wired
+    entity: DoubleGlassAirlockAssembly
+    edges:
+    - to: electronics
+      conditions:
+      - !type:EntityAnchored {}
+      steps:
+      - component: DoorElectronics
+        store: board
+        name: construction-graph-component-door-electronics-circuit-board
+        icon:
+          sprite: "Objects/Misc/module.rsi"
+          state: "door_electronics"
+        doAfter: 3
+    - to: assembly
+      completed:
+      - !type:SpawnPrototype
+        prototype: CableApcStack1
+        amount: 10
+      steps:
+      - tool: Cutting
+        doAfter: 2.5
+
+  - node: electronics
+    edges:
+    - to: glassElectronics
+      conditions:
+      - !type:EntityAnchored {}
+      steps:
+      - material: ReinforcedGlass
+        amount: 2
+        doAfter: 2
+    - to: wired
+      conditions:
+      - !type:EntityAnchored {}
+      completed:
+      - !type:EmptyAllContainers
+        pickup: true
+        emptyAtUser: true
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+  - node: glassElectronics
+    entity: DoubleGlassAirlockAssembly
+    edges:
+    - to: doubleGlassAirlock
+      conditions:
+      - !type:EntityAnchored {}
+      steps:
+      - material: ReinforcedGlass
+        amount: 2
+        doAfter: 2
+      - tool: Screwing
+        doAfter: 2.5
+    - to: wired
+      conditions:
+      - !type:EntityAnchored {}
+      completed:
+      - !type:EmptyAllContainers
+        pickup: true
+        emptyAtUser: true
+      - !type:SpawnPrototype
+        prototype: SheetRGlass1
+        amount: 2
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+  ## Double glass airlock
+  - node: doubleGlassAirlock
+    entity: DoubleGlassAirlock
+    doNotReplaceInheritingEntities: true
+    actions:
+    - !type:SetWiresPanelSecurity
+      wiresAccessible: true
+    edges:
+    - to: glassElectronics
+      conditions:
+      - !type:EntityAnchored {}
+      - !type:DoorWelded {}
+      - !type:DoorBolted
+        value: false
+      - !type:WirePanel {}
+      - !type:AllWiresCut
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetRGlass1
+        amount: 2
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+    - to: medSecurityUnfinished
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 2
+
+    - to: highSecurityUnfinished
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - material: Plasteel
+        amount: 4
+        doAfter: 2
+
+  - node: medSecurityUnfinished
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level1
+      wiresAccessible: false
+    edges:
+    - to: doubleGlassAirlock
+      completed:
+      - !type:GivePrototype
+        prototype: SheetSteel1
+        amount: 4
+      conditions:
+      - !type:WirePanel {}
+      - !type:HasTag
+        tag: GlassAirlock
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+    - to: medSecurity
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Welding
+        doAfter: 3
+
+  - node: medSecurity
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level2
+      wiresAccessible: false
+    edges:
+    - to: medSecurityUnfinished
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Welding
+        doAfter: 10
+
+  - node: highSecurityUnfinished
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level3
+      wiresAccessible: false
+    edges:
+    - to: doubleGlassAirlock
+      completed:
+      - !type:GivePrototype
+        prototype: SheetPlasteel1
+        amount: 4
+      conditions:
+      - !type:WirePanel {}
+      - !type:HasTag
+        tag: GlassAirlock
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+    - to: highSecurity
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Welding
+        doAfter: 5
+
+  - node: highSecurity
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level4
+      wiresAccessible: false
+    edges:
+    - to: highSecurityUnfinished
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Welding
+        doAfter: 15
+
+    - to: maxSecurity
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - material: MetalRod
+        amount: 4
+        doAfter: 1
+
+  - node: maxSecurity
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level5
+      wiresAccessible: false
+    edges:
+    - to: highSecurity
+      completed:
+      - !type:AttemptElectrocute
+      - !type:GivePrototype
+        prototype: PartRodMetal1
+        amount: 4
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Cutting
+        doAfter: 0.5
+
+    - to: superMaxSecurityUnfinished
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - material: Plasteel
+        amount: 4
+        doAfter: 2
+
+  - node: superMaxSecurityUnfinished
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level6
+      wiresAccessible: false
+    edges:
+    - to: maxSecurity
+      completed:
+      - !type:GivePrototype
+        prototype: SheetPlasteel1
+        amount: 4
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+    - to: superMaxSecurity
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Welding
+        doAfter: 5
+
+  - node: superMaxSecurity
+    actions:
+    - !type:SetWiresPanelSecurity
+      examine: wires-panel-component-on-examine-security-level7
+      wiresAccessible: false
+    edges:
+    - to: superMaxSecurityUnfinished
+      conditions:
+      - !type:WirePanel {}
+      steps:
+      - tool: Welding
+        doAfter: 15
