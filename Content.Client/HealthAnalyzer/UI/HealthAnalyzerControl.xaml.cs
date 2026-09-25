@@ -42,6 +42,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
     private readonly IPrototypeManager _prototypes;
     private readonly IResourceCache _cache;
     private readonly DamageableSystem _damageable;
+    public bool IsHumanoid { get; private set; } // <Onyx-HealthAnalyzer-Interface>
     // <Onyx-HealthAnalyzer-StatusDoll>
     private HealthAnalyzerUiState _state;
     private NetEntity? _displayedTarget;
@@ -76,7 +77,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         if (target == null
             || !_entityManager.HasComponent<DamageableComponent>(target))
         {
-            NoPatientDataText.Visible = true;
+            NoPatientDataPanel.Visible = true; // <Onyx-HealthAnalyzer-Interface-edited>
             // <Onyx-HealthAnalyzer-StatusDoll-edited>
             PatientDataContainer.Visible = false;
             DiagnosticColumns.Visible = false;
@@ -88,11 +89,12 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             _target = null;
             _displayedTarget = null;
             _selectedPart = null;
+            IsHumanoid = false; // <Onyx-HealthAnalyzer-Interface>
             // </Onyx-HealthAnalyzer-StatusDoll-edited>
             return;
         }
 
-        NoPatientDataText.Visible = false;
+        NoPatientDataPanel.Visible = false; // <Onyx-HealthAnalyzer-Interface-edited>
         // <Onyx-HealthAnalyzer-StatusDoll-edited>
         PatientDataContainer.Visible = true;
         DiagnosticColumns.Visible = true;
@@ -104,6 +106,11 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         _displayedTarget = state.TargetEntity;
         _state = state;
         _target = target;
+        // <Onyx-HealthAnalyzer-Interface>
+        IsHumanoid = _entityManager.HasComponent<HumanoidProfileComponent>(target.Value);
+        SpeciesLabel.Visible = IsHumanoid;
+        WoundDiagnosticPanel.Visible = IsHumanoid;
+        // </Onyx-HealthAnalyzer-Interface>
         DrawDiseases(target.Value); // <Onyx-DiseaseHealthAnalyzer-edited>
         if (_selectedPart is { } selected && (state.PartDamage == null || !state.PartDamage.ContainsKey(selected)))
             _selectedPart = null;
@@ -123,7 +130,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
         // <Onyx-HealthAnalyzer-StatusDoll-edited>
         var active = state.ScanMode == true;
-        var showDoll = active && state.PartDamage != null;
+        var showDoll = active && IsHumanoid && state.PartDamage != null; // <Onyx-HealthAnalyzer-Interface-edited>
         SpriteView.SetEntity(target.Value);
         SpriteView.Visible = active && !showDoll;
         StatusDoll.Visible = showDoll;
