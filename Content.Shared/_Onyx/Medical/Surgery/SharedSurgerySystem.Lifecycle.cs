@@ -31,6 +31,7 @@ public abstract partial class SharedSurgerySystem
         SubscribeLocalEvent<SurgeryComponentConditionComponent, SurgeryValidEvent>(OnComponentConditionValid);
         SubscribeLocalEvent<SurgeryComponentConditionComponent, SurgeryCanPerformStepEvent>(OnComponentConditionCanPerform);
         SubscribeLocalEvent<SurgeryOrganConditionComponent, SurgeryValidEvent>(OnOrganConditionValid);
+        SubscribeLocalEvent<SurgeryBloodstreamConditionComponent, SurgeryValidEvent>(OnBloodstreamConditionValid);
         SubscribeLocalEvent<SurgeryOrganHealEffectComponent, SurgeryValidEvent>(OnOrganHealValid);
         SubscribeLocalEvent<SurgeryOrganHealEffectComponent, SurgeryStepEvent>(OnOrganHeal);
         SubscribeLocalEvent<SurgeryOrganHealEffectComponent, SurgeryStepCompleteCheckEvent>(OnOrganHealCheck);
@@ -46,6 +47,8 @@ public abstract partial class SharedSurgerySystem
         SubscribeLocalEvent<SurgeryStepPainInflicterComponent, SurgeryStepEvent>(OnPainInflicterStep);
         SubscribeLocalEvent<SurgeryDamageEffectComponent, SurgeryStepEvent>(OnDamageEffect);
         SubscribeLocalEvent<SurgeryFailureDamageComponent, SurgeryStepFailedEvent>(OnFailureDamage);
+        SubscribeLocalEvent<SurgeryBloodFilterEffectComponent, SurgeryStepEvent>(OnBloodFilter);
+        SubscribeLocalEvent<SurgeryBloodFilterEffectComponent, SurgeryStepCompleteCheckEvent>(OnBloodFilterCheck);
         SubscribeLocalEvent<SurgeryDetachPartEffectComponent, SurgeryStepEvent>(OnDetachPart);
         SubscribeLocalEvent<SurgeryDetachPartEffectComponent, SurgeryStepCompleteCheckEvent>(OnDetachPartCheck);
         SubscribeLocalEvent<SurgeryAttachPartEffectComponent, SurgeryStepEvent>(OnAttachPart);
@@ -67,7 +70,6 @@ public abstract partial class SharedSurgerySystem
         SubscribeLocalEvent<SurgeryInsertCavityItemEffectComponent, SurgeryCanPerformStepEvent>(OnInsertCavityItemCanPerform);
         SubscribeLocalEvent<SurgeryRemoveCavityItemEffectComponent, SurgeryStepEvent>(OnRemoveCavityItem);
         SubscribeLocalEvent<SurgeryRemoveCavityItemEffectComponent, SurgeryStepCompleteCheckEvent>(OnRemoveCavityItemCheck);
-        SubscribeLocalEvent<SurgeryTargetPartContextComponent, SurgeryGetStepSequenceContextEvent>(OnTargetPartGetSequenceContext);
         SubscribeLocalEvent<SurgeryTargetComponent, StandAttemptEvent>(OnTargetStandAttempt);
         SubscribeLocalEvent<SurgeryTargetComponent, AccessibleOverrideEvent>(OnTargetAccessible);
 
@@ -154,10 +156,5 @@ public abstract partial class SharedSurgerySystem
             QueueDel(singleton);
 
         _singletons.Clear();
-    }
-
-    private void OnTargetPartGetSequenceContext(Entity<SurgeryTargetPartContextComponent> ent, ref SurgeryGetStepSequenceContextEvent args)
-    {
-        args.Context = args.Part;
     }
 }
