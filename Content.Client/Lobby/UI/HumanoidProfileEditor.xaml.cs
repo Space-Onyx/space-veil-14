@@ -208,6 +208,7 @@ namespace Content.Client.Lobby.UI
             #endregion Gender
 
             InitializeBarks(); // <Onyx-Barks>
+            InitializeSpeechTextReveal(); // <Onyx-SpeechTextReveal>
 
             InitializeSpeciesSelector(); // <Onyx-SpeciesSelector-edited>
 
@@ -403,6 +404,7 @@ namespace Content.Client.Lobby.UI
             UpdateMarkings();
             UpdateTTSVoicesControls(); // Corvax-TTS
             UpdateBarkVoicesControls(); // <Onyx-Barks>
+            UpdateSpeechTextRevealControls(); // <Onyx-SpeechTextReveal>
 
             RefreshAntags();
             RefreshJobs();
