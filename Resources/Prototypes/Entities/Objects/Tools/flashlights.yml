@@ -68,13 +68,13 @@
   - type: StaticPrice
     price: 40
   - type: StealTarget
-    stealGroup: LAMP
+    stealGroup:
+    - LAMP
   - type: Clothing
     sprite: Objects/Tools/flashlight.rsi
     quickEquip: false
     slots:
       - Belt
-  - type: GunUpgradeFlashlight # <Onyx-PKAAttachments>
 
 - type: entity
   name: seclite

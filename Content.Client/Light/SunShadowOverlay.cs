@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Client.Graphics;
 using Content.Shared.Light.Components;
-using Content.Client.Light.EntitySystems;
+using Content.Client.Light.EntitySystems; // <Onyx-RoofSunlight>
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
@@ -22,7 +22,7 @@ public sealed partial class SunShadowOverlay : Overlay
     [Dependency] private IPrototypeManager _protoManager = default!;
     private readonly EntityLookupSystem _lookup;
     private readonly SharedMapSystem _mapSys;
-    private readonly RoofSystem _roof;
+    private readonly RoofSystem _roof; // <Onyx-RoofSunlight>
     private readonly SharedTransformSystem _xformSys;
 
     private readonly HashSet<Entity<SunShadowCastComponent>> _shadows = new();

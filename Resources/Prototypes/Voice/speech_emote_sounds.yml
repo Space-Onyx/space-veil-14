@@ -339,6 +339,7 @@
     Gulp: { path: /Audio/_Onyx/Voice/gulpexotic.ogg }
     # </Onyx-RacialEmoteSounds>
     Moan: { collection: MoansMale } # <Veil-MoanEmote>
+
   params:
     variation: 0.125
     # TODO: We need vox sounds for the other emotes

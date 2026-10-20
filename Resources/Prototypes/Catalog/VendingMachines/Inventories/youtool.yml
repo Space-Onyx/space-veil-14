@@ -7,7 +7,7 @@
     Wirecutter: 3
     Wrench: 3
     Screwdriver: 3
-    trayScanner: 3
+    TRayScanner: 3
     NetworkConfigurator: 3
     GasAnalyzer: 3
     FlashlightLantern: 5
@@ -26,7 +26,7 @@
     Wirecutter: 32
     Wrench: 26
     Screwdriver: 40
-    trayScanner: 50
+    TRayScanner: 50
     NetworkConfigurator: 31
     GasAnalyzer: 50
     FlashlightLantern: 135

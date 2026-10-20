@@ -3,7 +3,6 @@ using System.Linq;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared.Lathe;
 using Content.Shared.Materials;
-using Content.Shared.Prototypes;
 using Content.Shared.Research.Prototypes;
 using Content.Shared.Whitelist;
 using Robust.Shared.GameObjects;
@@ -14,6 +13,30 @@ namespace Content.IntegrationTests.Tests.Lathe;
 [TestFixture]
 public sealed class LatheTest : GameTest
 {
+    [Test]
+    public async Task AbortLastItemRefundsOriginalMaterialCost()
+    {
+        var server = Pair.Server;
+        var mapData = await Pair.CreateTestMap();
+
+        await server.WaitAssertion(() =>
+        {
+            var uid = server.EntMan.SpawnEntity(null, mapData.GridCoords);
+            var lathe = server.EntMan.AddComponent<LatheComponent>(uid);
+            var storage = server.EntMan.AddComponent<MaterialStorageComponent>(uid);
+            lathe.CurrentRecipe = server.ProtoMan.EnumeratePrototypes<LatheRecipePrototype>().First().ID;
+            lathe.ActiveMaterialCost = new Dictionary<ProtoId<MaterialPrototype>, int> { ["Steel"] = 123 };
+            lathe.MaterialUseMultiplier = 0.5f;
+
+            server.System<Content.Server.Lathe.LatheSystem>().AbortProduction(uid, lathe);
+
+            Assert.That(lathe.Queue, Is.Empty);
+            Assert.That(lathe.CurrentRecipe, Is.Null);
+            Assert.That(lathe.ActiveMaterialCost, Is.Null);
+            Assert.That(storage.Storage["Steel"], Is.EqualTo(123));
+        });
+    }
+
     [Test]
     public async Task TestLatheRecipeIngredientsFitLathe()
     {
@@ -35,13 +58,13 @@ public sealed class LatheTest : GameTest
             var latheProtos = protoMan.EnumeratePrototypes<EntityPrototype>()
                 .Where(p => !p.Abstract)
                 .Where(p => !pair.IsTestPrototype(p))
-                .Where(p => p.HasComponent<LatheComponent>());
+                .Where(p => p.HasComp<LatheComponent>(compFactory));
 
             // Find every EntityPrototype that can be inserted into a MaterialStorage
             var materialEntityProtos = protoMan.EnumeratePrototypes<EntityPrototype>()
                 .Where(p => !p.Abstract)
                 .Where(p => !pair.IsTestPrototype(p))
-                .Where(p => p.HasComponent<PhysicalCompositionComponent>());
+                .Where(p => p.HasComp<PhysicalCompositionComponent>(compFactory));
 
             // Spawn all of the above material EntityPrototypes - we need actual entities to do whitelist checks
             var materialEntities = new List<EntityUid>(materialEntityProtos.Count());

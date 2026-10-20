@@ -1,10 +1,10 @@
 using System.Linq;
-using Content.Server.Medical;
-using Content.Server.Medical.Components;
+using Content.Shared.Medical.HealthAnalyzer;
 using Content.Shared._Onyx.Medical.Surgery;
 using Content.Shared.Buckle.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.DeviceLinking;
+using Content.Shared.DeviceLinking.Components;
 using Content.Shared.Damage.Components;
 using Content.Shared.UserInterface;
 using Robust.Shared.Prototypes;
@@ -23,7 +23,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
         SubscribeLocalEvent<OperatingTableComponent, UnstrappedEvent>(OnUnstrapped);
         SubscribeLocalEvent<BodyScannerComponent, LinkAttemptEvent>(OnLinkAttempt);
         SubscribeLocalEvent<BodyScannerComponent, NewLinkEvent>(OnNewLink);
-        SubscribeLocalEvent<BodyScannerComponent, PortDisconnectedEvent>(OnDisconnected);
+        SubscribeLocalEvent<BodyScannerComponent, SourcePortDisconnectedEvent>(OnDisconnected);
         SubscribeLocalEvent<BodyScannerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<BodyScannerComponent, AfterActivatableUIOpenEvent>(OnUiOpened);
         SubscribeLocalEvent<BodyScannerComponent, ComponentShutdown>(OnScannerShutdown);
@@ -36,7 +36,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
             args.SinkPort != ReceiverPort ||
             scanner.Comp.Table != null ||
             !TryComp(args.Sink, out OperatingTableComponent? table) || table.Scanner != null)
-            args.Cancel();
+            args.Cancelled = true;
     }
 
     private void OnNewLink(Entity<BodyScannerComponent> scanner, ref NewLinkEvent args)
@@ -53,7 +53,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
         SyncPatient(scanner);
     }
 
-    private void OnDisconnected(Entity<BodyScannerComponent> scanner, ref PortDisconnectedEvent args)
+    private void OnDisconnected(Entity<BodyScannerComponent> scanner, ref SourcePortDisconnectedEvent args)
     {
         if (args.Port == BodyScannerComponent.LinkingPort)
             ClearScanner(scanner);
@@ -116,7 +116,7 @@ public sealed partial class BodyScannerSystem : EntitySystem
     private void ClearScanner(Entity<BodyScannerComponent> scanner)
     {
         if (TryComp(scanner, out HealthAnalyzerComponent? analyzer))
-            _healthAnalyzer.ClearAnalyzedEntity((scanner, analyzer));
+            _healthAnalyzer.StopAnalyzingEntity((scanner, analyzer));
 
         if (scanner.Comp.Table is { } tableUid && TryComp(tableUid, out OperatingTableComponent? table) &&
             table.Scanner == scanner.Owner)
@@ -133,20 +133,20 @@ public sealed partial class BodyScannerSystem : EntitySystem
         if (scanner.Comp.Table is not { } table || !TryComp(table, out StrapComponent? strap) ||
             strap.BuckledEntities.Count != 1)
         {
-            _healthAnalyzer.ClearAnalyzedEntity((scanner, analyzer));
+            _healthAnalyzer.StopAnalyzingEntity((scanner, analyzer));
             return;
         }
 
         var patient = strap.BuckledEntities.First();
         if (!HasComp<DamageableComponent>(patient))
         {
-            _healthAnalyzer.ClearAnalyzedEntity((scanner, analyzer));
+            _healthAnalyzer.StopAnalyzingEntity((scanner, analyzer));
             return;
         }
 
         if (analyzer.ScannedEntity != patient)
             _healthAnalyzer.BeginAnalyzingEntity((scanner, analyzer), patient);
         else
-            _healthAnalyzer.UpdateScannedUser(scanner, patient, true);
+            _healthAnalyzer.UpdateUi((scanner, analyzer));
     }
 }

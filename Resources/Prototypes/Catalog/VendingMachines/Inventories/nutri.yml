@@ -6,6 +6,7 @@
     HydroponicsToolClippers: 4
     HydroponicsToolScythe: 4
     HydroponicsToolHatchet: 4
+    PlantAnalyzer: 4 # <Onyx-PlantAnalyzer-edited>
     Dropper: 4
     PlantBag: 3
     PlantBGoneSpray: 20
@@ -20,7 +21,6 @@
     BoxAgrichem: 1
     MortarAndPestle: 1
     HandheldJuicer: 1
-    PlantAnalyzer: 3 # <Onyx-PlantAnalyzer>
     # <Onyx-SeedDna>
     ADTBotanicalSeedDNADisk: 10
     # </Onyx-SeedDna>

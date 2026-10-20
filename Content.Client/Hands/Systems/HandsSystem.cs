@@ -275,7 +275,7 @@ namespace Content.Client.Hands.Systems
             foreach (var layers in ent.Comp.RevealedLayers.Values)
             {
                 foreach (var key in layers)
-                    _sprite.RemoveLayer((ent.Owner, sprite), key, false); // <Onyx-FunctionalHands-edited>
+                    _sprite.RemoveLayer((ent.Owner, sprite), key, false);
                 layers.Clear();
             }
 
@@ -284,7 +284,7 @@ namespace Content.Client.Hands.Systems
                 if (!TryGetHeldItem(ent, handId, out var held))
                     continue;
 
-                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, ent == _playerManager.LocalEntity); // <Onyx-FunctionalHands-edited>
+                UpdateHandVisuals((ent.Owner, ent.Comp, sprite), held.Value, handId, ent == _playerManager.LocalEntity);
             }
         }
 

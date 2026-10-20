@@ -7,7 +7,7 @@
   - type: Sprite
     sprite: _Onyx/Clothing/Neck/Misc/NT_red.rsi
   - type: StealTarget
-    stealGroup: HeadCloak
+    stealGroup: [HeadCloak]
 
 - type: entity
   parent: ClothingNeckBase
@@ -39,7 +39,7 @@
     nameSet: True
     id: Bodycam
   - type: Eye
-  - type: WirelessNetworkConnection
+  - type: WirelessNetwork
     range: 200
   - type: SurveillanceCameraMicrophone
     blacklist:
