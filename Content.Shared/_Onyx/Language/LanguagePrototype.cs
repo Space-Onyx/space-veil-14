@@ -1,3 +1,7 @@
+// Language prototype contract adapted from Goob Station (https://github.com/Goob-Station/Goob-Station), licensed under AGPL-3.0-or-later.
+// Obfuscation and written-language configuration reworked by Space Onyx Contributors, 2026.
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using System.Text;
 using Robust.Shared.Prototypes;
 
@@ -10,9 +14,6 @@ public sealed partial class LanguagePrototype : IPrototype
     public string ID { get; private set; } = default!;
 
     [DataField]
-    public bool IsVisibleLanguage;
-
-    [DataField]
     public bool ShowInLanguageMenu = true;
 
     [DataField]
@@ -20,6 +21,18 @@ public sealed partial class LanguagePrototype : IPrototype
 
     [DataField]
     public bool RequiresSight;
+
+    [DataField]
+    public bool CanTransmit = true;
+
+    [DataField]
+    public bool CanWrite = true;
+
+    [DataField]
+    public int SelectionPriority;
+
+    [DataField]
+    public LanguageWriting Writing = new();
 
     [DataField]
     public LanguageSpeechOverride Speech = new();
@@ -101,6 +114,11 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
 
         var output = new StringBuilder();
         var word = new StringBuilder();
+        var syllables = new StringBuilder();
+        var totalLength = 0;
+        foreach (var replacement in Replacement)
+            totalLength += replacement.Length;
+        var averageLength = Math.Max(1, totalLength / Replacement.Count);
 
         void FlushWord()
         {
@@ -108,11 +126,7 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
                 return;
 
             var seed = StableHash(word) ^ roundId;
-            var syllables = new StringBuilder();
-            var totalLength = 0;
-            foreach (var replacement in Replacement)
-                totalLength += replacement.Length;
-            var averageLength = Math.Max(1, totalLength / Replacement.Count);
+            syllables.Clear();
             var count = Math.Clamp((word.Length + averageLength / 2) / averageLength, MinSyllables, MaxSyllables);
             var previous = -1;
             for (var i = 0; i < count; i++)
@@ -172,6 +186,19 @@ public sealed partial class SyllableObfuscation : ReplacementObfuscation
             hash = unchecked(hash * 31 + char.ToLowerInvariant(value[i]));
         return hash;
     }
+}
+
+[DataDefinition]
+public sealed partial class LanguageWriting
+{
+    [DataField]
+    public LocId? Description;
+
+    [DataField]
+    public string? FontId;
+
+    [DataField]
+    public int? FontSize;
 }
 
 [Virtual]
